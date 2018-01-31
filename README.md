@@ -30,4 +30,10 @@ optional named arguments:
                         (.xlsx) sheet (default='students-clean.xlsx').
 ```
 
+For example:
+
+```
+$ python clean-data.py -m ../data/mentors.xlsx -s ../data/students.xlsx
+```
+
 This script is meant to be used with the separate excel files under the `root/data/` directory.
