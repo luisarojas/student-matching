@@ -36,7 +36,7 @@ def clean_files(input_file, output_file):
     df.columns = df.columns.str.replace('\s', '_')  # in case there are multiple white spaces
 
     # clean up multiple answers for yes/no/not applicable questions
-    for i, header in enumerate(df):
+    for i, header in enumerate(df[:][4:]):
         curr_col = df[header]
 
         for j, elem in enumerate(curr_col):
@@ -49,6 +49,11 @@ def clean_files(input_file, output_file):
 
             else:
                 pass
+
+    # replace all 'Health Science' instances under Faculty for 'Health Sciences'
+    for i, elem in enumerate(df['Faculty']):
+        if elem == 'Health Science':
+            df['Faculty'][i] = 'Health Sciences'
 
     # fill-in missing data for columns 4-12 (Yes, No, Not Applicable)
     for i, header in enumerate(df[:][4:13]):
