@@ -50,6 +50,20 @@ def clean_files(input_file, output_file):
             else:
                 pass
 
+    # fill-in missing data for columns 4-12 (Yes, No, Not Applicable)
+    for i, header in enumerate(df[:][4:13]):
+        curr_col = df[header]
+        for j, elem in enumerate(curr_col):
+            if (pd.isnull(elem)):
+                df[header][j] = 'Not Applicable' # assume Not Applicable if empty
+
+    # fill-in missing data for columns 4-12 (Strongly Agree, Agree, ... etc.)
+    for i, header in enumerate(df[:][13:]):
+        curr_col = df[header]
+        for j, elem in enumerate(curr_col):
+            if (pd.isnull(elem)):
+                df[header][j] = 'Neutral' # assume Neutral if empty
+
     # convert categorical strings to numerical
     for header in df[df.columns[4:]]:
         df[header] = df[header].astype('category').cat.codes
