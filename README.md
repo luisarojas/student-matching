@@ -2,7 +2,9 @@
 
 ## Data Cleaning
 
-To clean the data in question, use the python script: `src/clean-data.py`. It can be used the following way:
+To clean the data in question, use the python script: `src/clean-data.py`.
+
+The `-h` is the help flag; when used, it will print the other available flags and options. Those in square brackets (e.g. `[-f FOO]`) are optional, while the rest are mandatory.
 
 ```
 usage: clean-data.py [-h] -m MENTORINPUT -s STUDENTINPUT [-mo MENTOROUTPUT]
@@ -28,4 +30,4 @@ optional named arguments:
                         (.xlsx) sheet (default='students-clean.xlsx').
 ```
 
-This script is meant to be used with the previously-generated data, created from the original _(provided)_.
+This script is meant to be used with the separate excel files under the `root/data/` directory.
