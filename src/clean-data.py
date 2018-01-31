@@ -1,7 +1,7 @@
 import argparse
 
 # set-up command-line arguments
-parser = argparse.ArgumentParser(description="Clean mentors and students data. Note: In the clean data files, '-1' indicates an empty field in the original excel sheet(s).")
+parser = argparse.ArgumentParser(description="Clean mentors and students data.")
 parser._action_groups.pop()
 
 required_args = parser.add_argument_group('required named arguments')
