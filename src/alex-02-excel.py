@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from operator import itemgetter
 from math import ceil
+from math import floor
+import json
 
 def load_from_excel(filename):
     xl = pd.ExcelFile(filename)
@@ -67,10 +69,46 @@ def match_alg2(mentors_num, mentees_num):
     return matched
 
 
+def build_faculty_dict(matched_i):
+    #----Same output------
+    # {
+    #   "mentors": [
+    #     {
+    #       "mentor": ["name",1,2,3],
+    #       "mentees": [["name",5,4,3,2],["name",54,3,1,1]]
+    #     },
+    #     {
+    #       "mentor": ["name",1,2,3],
+    #       "mentees": [["name",5,4,3,2],["name",54,3,1,1]]
+    #     }
+    #   ]
+    # }
+
+    #This will hold all the mentors for the current faculty
+    faculty_dict = {"mentors": list()}
+    #Iterate through all the mentors
+    for matched_mentor_i, matched_mentees_i in matched_i.items():
+        #Get the actual values of the mentor using the index
+        matched_mentor = mentors[matched_mentor_i]
+        #Get the actual list of mentees using the indices
+        matched_mentees = [mentees[matched_mentee_i] for matched_mentee_i in matched_mentees_i]
+        #Build the dict for the current mentor
+        mentor_dict = {
+            "mentor": matched_mentor,
+            "mentees": matched_mentees
+        }
+        #Add the mentor_dict to the faculty mentors
+        faculty_dict["mentors"].append(mentor_dict)
+
+    return faculty_dict
+
 if __name__ == "__main__":
     #---------CONFIG---------
+    #This dictionary will hold the final matches for each faculty
+    master_match_dict = {}
+    
     mentors_filename = "../data/mentors-clean.xlsx"
-    mentees_filename = "../data/students-clean.xlsx"
+    mentees_filename = "../data/students-clean.xlsx"    
     
     #Load the mentors/mentees spreadsheet
     mentors_df, mentors = load_from_excel(mentors_filename)
@@ -128,20 +166,28 @@ if __name__ == "__main__":
                 candidates.append([(mentor_i, mentee_i), score])
 
         # -----------START MATCHING----------
-        #matched = match_alg1()
-        matched = match_alg2(mentors_num, mentees_num)
+        #matched_i = match_alg1()
+        matched_i = match_alg2(mentors_num, mentees_num)
 
-
-        for matched_mentor_i, matched_mentees_i in matched.items():
-            print(matched_mentor_i, matched_mentees_i)
+        # -----------RESULTS----------
+        #Print the results for the faculty
+        for matched_mentor_i, matched_mentees_i in matched_i.items():
+            print(matched_mentor_i, matched_mentees_i) 
         print("DONE!\n")
-        #input()
         
-    
+        #Convert all the indices to actual values(names)
+        faculty_dict = build_faculty_dict(matched_i)
 
-    
-    # print(mentees[0])
-    # print(mentees[1])
+        #Add the current faculty to the final master match list
+        master_match_dict[faculty] = faculty_dict
+        input()
+
+    #Return the json once the server is properly running
+    master_match_json = json.dumps(master_match_dict)
+        
+    #Output the master match dictionary to an excel file
+    print(master_match_dict.keys())
+
 
 
 
