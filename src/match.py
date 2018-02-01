@@ -144,10 +144,16 @@ def save_to_excel(output_filename, master_match_dict, column_names):
 
     column_names = ["ROLE"] + column_names
 
+    # generate dataframe
     df = pd.DataFrame(all_faculties_groups, columns=column_names)
+    split_df = df.groupby(['FACULTY'])
+
     writer = pd.ExcelWriter(output_filename)
-    df.to_excel(writer, index=False)
+    for group_tuple in split_df:
+        sheet_name = group_tuple[0][:31]
+        group_tuple[1].to_excel(writer, sheet_name,index=False)
     writer.save()
+
     print("\n> Saved to file: " + output_filename)
 
 if __name__ == "__main__":
