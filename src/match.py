@@ -209,10 +209,10 @@ if __name__ == "__main__":
         faculty_candidates = [] # will contain the distance between every single mentor and mentee
         # iterate through all mentors in the faculty
         for mentor_index in faculty_mentor_indices:
-            curr_mentor = mentors[mentor_index][4:] # starting at column 4, since thats where the numeric columns begin
+            curr_mentor = mentors[mentor_index][6:] # starting at column 6, since thats where the numeric columns begin
             # iterate through all mentees in the faculty
             for mentee_index in faculty_mentee_indices:
-                curr_mentee = mentees[mentee_index][4:]
+                curr_mentee = mentees[mentee_index][6:]
                 # calculate the euclidean distance for each mentor vs. each mentee
                 score = euclidean(curr_mentor, curr_mentee)
                 # store the tuple and their score in the 'faculty_candidates' list
