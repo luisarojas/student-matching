@@ -7,7 +7,7 @@ CLEAN_MENTOR_INFILE=./data/mentors-clean.xlsx
 CLEAN_STUDENT_INFILE=./data/students-clean.xlsx
 MATCHED_OUTFILE=./data/matched.xlsx
 
-match:
+match: clean
 	python ./src/match.py -m $(CLEAN_MENTOR_INFILE) -s $(CLEAN_STUDENT_INFILE) -o $(MATCHED_OUTFILE)
 
 clean:
@@ -15,3 +15,6 @@ clean:
 
 server:
 	python ./src/www/server.py
+
+clear:
+	rm $(CLEAN_MENTOR_INFILE) $(CLEAN_STUDENT_INFILE) $(MATCHED_OUTFILE)

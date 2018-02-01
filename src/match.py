@@ -74,7 +74,10 @@ def match(mentors, mentees, candidates):
 
     # check if all mentees have been assigned
     if len(unmatched_mentees) > 0:
-        print("UNMATCHED:", unmatched_mentees)
+        if (debug):
+            print("UNMATCHED:", unmatched_mentees)
+        else:
+            print("(" + str(len(unmatched_mentees)) + " students left umatched)... ", end='')
 
     return matched
 
@@ -226,7 +229,7 @@ if __name__ == "__main__":
         # print the results for the current faculty
         for matched_mentor_index, matched_mentees_index in matched_indices.items():
             if debug: print(matched_mentor_index, matched_mentees_index)
-        print("DONE!")
+        print("FINISHED!")
         if debug: print()
 
         # convert all the indices to values (names)

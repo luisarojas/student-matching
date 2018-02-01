@@ -25,8 +25,6 @@ import re
 
 def clean_files(input_file, output_file):
 
-    print('> Saving to file ' + output_file)
-
     # load spreadsheet
     xl = pd.ExcelFile(input_file)
 
@@ -79,8 +77,11 @@ def clean_files(input_file, output_file):
     df.to_excel(writer, index=False)
     writer.save()
 
-    # print(df['Faculty'][570:800])
+    print('> Saved to file: ' + output_file)
 
 if __name__ == "__main__":
+
+    print("\n----------------------- CLEANING DATA -----------------------")
     clean_files(mentor_input_file, mentor_output_file)
     clean_files(student_input_file, student_output_file)
+    print()
