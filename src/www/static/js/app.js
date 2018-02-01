@@ -1,8 +1,13 @@
 $(document).ready(function() {
     console.log("DOM Ready!")
 
-    test()
+    test();
+    initButtons();
 });
+
+function initButtons(){
+
+}
 
 function test(){
     $.get(

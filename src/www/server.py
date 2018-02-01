@@ -1,7 +1,15 @@
 from flask import Flask
 from flask import render_template, request, json
+from werkzeug import secure_filename
 
+#Global Variables
+UPLOAD_FOLDER="./src/www/uploads/"
+
+#Define the app
 app = Flask(__name__)
+
+#APP configurations
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def queryDB(query):
     # get data from container
@@ -29,6 +37,14 @@ def queryDB(query):
 @app.route("/")
 def printData():
     return render_template('data.html', title="Mentor Mentee Matching")
+
+	
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      f = request.files['file']
+      f.save(secure_filename(f.filename))
+      return 'file uploaded successfully'
 
 # triggered on start up
 @app.route("/test", methods=['GET'])
