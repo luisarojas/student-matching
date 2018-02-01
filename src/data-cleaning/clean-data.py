@@ -25,7 +25,7 @@ import re
 
 def clean_files(input_file, output_file):
 
-    print('Generating file ' + output_file)
+    print('> Saving to file ' + output_file)
 
     # load spreadsheet
     xl = pd.ExcelFile(input_file)
