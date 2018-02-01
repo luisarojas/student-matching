@@ -4,12 +4,13 @@ from operator import itemgetter
 debug=True
 
 def euclidean(mentor, mentee):
-    return np.linalg.norm(mentor-mentee)    
+    return np.linalg.norm(mentor-mentee)
 
 if __name__ == "__main__":
+
     #---------CONFIG---------
     MAX_NUM_MENTEES = 4
-    
+
     #---------MENTEES---------
     p1 = np.array([1,2,3,4])
     p2 = np.array([4,3,2,1])
@@ -20,12 +21,12 @@ if __name__ == "__main__":
     p7 = np.array([1,3,2,4])
     mentees = [p1,p2,p3,p4,p5,p6,p7]
     mentee_checklist = [False]*len(mentees) #Keeps tracks of which mentees have been accounted for
-    
+
     #---------MENTORS---------
     M1 = np.array([1,2,3,4])
     M2 = np.array([4,3,2,1])
     mentors = [M1, M2]
-    mentor_indeces = list(range(0,len(mentors)))  
+    mentor_indeces = list(range(0,len(mentors)))
 
     raw_matches = list()
     for i_mentor, mentor in enumerate(mentors):
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     #Init the matches with only lists
     for i in range(len(mentors)):
         matches[i] = list()
-    
+
     for match in raw_matches:
         curr_mentor_index = match[0]
         curr_mentee_index = match[1]
@@ -68,16 +69,7 @@ if __name__ == "__main__":
     #     if not mentee_checklist[curr_mentee_index]:
     #         matches[curr_mentor_index].append(curr_mentee_index)
     #         mentee_checklist[curr_mentee_index] = True
-    
+
 
     print("------------------FINAL_RESULTS------------------")
     print(matches)
-
-    
-    
-
-
-
-        
-    
-    

@@ -7,7 +7,7 @@ import json
 
 def load_from_excel(filename):
     xl = pd.ExcelFile(filename)
-    df = xl.parse(xl.sheet_names[0])    
+    df = xl.parse(xl.sheet_names[0])
     return df, df.values.tolist()
 
 def euclidean(mentor, mentee):
@@ -32,7 +32,7 @@ def match_alg1():
         if mentee_i in mentee_checklist:
             matched[mentor_i].append(mentee_i)
             mentee_checklist.remove(mentee_i)
-            
+
     return matched
 
 def match_alg2(mentors_num, mentees_num):
@@ -40,7 +40,7 @@ def match_alg2(mentors_num, mentees_num):
     # print("mentors_num=", mentors_num)
     # print("mentees_num=", mentees_num)
     # print("avg_num_mentees=", avg_num_mentees)
-    
+
     #Sort the candidates so that lowest scores are at the front
     candidates_sorted = sorted(candidates, key=itemgetter(1))
 
@@ -53,7 +53,7 @@ def match_alg2(mentors_num, mentees_num):
     #Perform the actual algorithm to match
     for candidate in candidates_sorted:
         mentor_i = candidate[0][0]
-        mentee_i = candidate[0][1]        
+        mentee_i = candidate[0][1]
         score = candidate[1]
         num_mentees_for_curr_mentor = len(matched[mentor_i])
         #Make sure that the mentee has not been matched yet
@@ -65,7 +65,7 @@ def match_alg2(mentors_num, mentees_num):
     #Check to see if there are any unmatched students
     if len(mentee_checklist) > 0:
         print("UNMATCHED:", mentee_checklist)
-            
+
     return matched
 
 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     #---------CONFIG---------
     #If intermediate information is printed (during dev cycle)
     debug = False
-  
+
     #This dictionary will hold the final matches for each faculty
     master_match_dict = {}
 
@@ -138,13 +138,13 @@ if __name__ == "__main__":
 
     #Output filename - all the matched mentors/mentees will be output to this file
     output_filename = "../data/AUTO-MATCHED.xlsx"
-    
+
     #Load the mentors/mentees spreadsheet
     mentors_df, mentors = load_from_excel(mentors_filename)
     mentees_df, mentees = load_from_excel(mentees_filename)
 
     #Group the mentors/mentees based on faculty
-    mentors_faculties = mentors_df.groupby(['Faculty']).groups    
+    mentors_faculties = mentors_df.groupby(['Faculty']).groups
     mentees_faculties = mentees_df.groupby(['Faculty']).groups
 
     #Compare the list of faculties of both mentor and mentee files
@@ -152,7 +152,7 @@ if __name__ == "__main__":
     if list(mentors_faculties.keys()) != list(mentees_faculties.keys()):
         raise ValueError("Faculties Column in %s and %s do not match!" % (mentors_filename, mentees_filename))
     faculties_list = list(mentors_faculties.keys())
-        
+
     #Print Information about the mentors and mentees
     print("---------------------------STATS---------------------------")
     #Mentors
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     for faculty, mentee_indices in mentees_faculties.items():
         print(faculty, ":", len(mentee_indices))
 
-    
+
     print("---------------------------MATCHING---------------------------")
     #Perform matching for each of the faculties separately
     for faculty in faculties_list:
@@ -204,10 +204,10 @@ if __name__ == "__main__":
         # -----------FACULTY RESULTS----------
         #Print the results for the faculty
         for matched_mentor_i, matched_mentees_i in matched_i.items():
-            if debug: print(matched_mentor_i, matched_mentees_i) 
+            if debug: print(matched_mentor_i, matched_mentees_i)
         print("DONE!")
         if debug: print()
-        
+
         #Convert all the indices to actual values(names)
         faculty_dict = build_faculty_dict(matched_i)
 
@@ -215,12 +215,9 @@ if __name__ == "__main__":
         master_match_dict[faculty] = faculty_dict
 
     print("---------------------------OUTPUT---------------------------")
+
     #Return the json once the server is properly running
     master_match_json = json.dumps(master_match_dict)
 
     #Output the master match dictionary to an excel file
     save_to_excel(output_filename, master_match_dict)
-
-
-
-

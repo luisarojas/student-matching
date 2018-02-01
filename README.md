@@ -2,7 +2,7 @@
 
 ## Data Cleaning
 
-To clean the data in question, use the python script: `src/clean-data.py`.
+To clean the data in question, use the python script: `data-cleaning/clean-data.py`.
 
 The `-h` is the help flag; when used, it will print the other available flags and options. Those in square brackets (e.g. `[-f FOO]`) are optional, while the rest are mandatory.
 
