@@ -2,7 +2,7 @@
 
 ## Data Cleaning
 
-To clean the data in question, use the python script: `data-cleaning/clean-data.py`.
+To clean the data in question, use the python script: `root/src/clean-data.py`.
 
 The `-h` is the help flag; when used, it will print the other available flags and options. Those in square brackets (e.g. `[-f FOO]`) are optional, while the rest are mandatory.
 
@@ -33,7 +33,7 @@ optional named arguments:
 For example:
 
 ```
-$ python clean-data.py -m ../data/mentors.xlsx -s ../data/students.xlsx
+$ python clean-data.py -m ../../data/mentors.xlsx -s ../../data/students.xlsx
 ```
 
 This script is meant to be used with the separate excel files under the `root/data/` directory.

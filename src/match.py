@@ -6,11 +6,14 @@ parser = argparse.ArgumentParser(description="Perform mentor-mentee matchmaking 
 parser._action_groups.pop()
 
 required_args = parser.add_argument_group('required named arguments')
+optional_args = parser.add_argument_group('optional named arguments')
 
 # add command-line argument flags and options
 required_args.add_argument('-d', action='store_true', help="Debugging flag.")
 required_args.add_argument('-m', '--mentorinput', help="Provide the path for the INPUT file for all MENTORS (.xlsx) sheet.", required=True)
 required_args.add_argument('-s', '--studentinput', help="Provide the path for the INPUT file for all STUDENTS (.xlsx) sheet.", required=True)
+optional_args.add_argument('-o', '--output', help="Provide the path for the OUTPUT file for all matches (.xlsx) (default='../data/matched.xlsx').", default="../data/matched.xlsx")
+
 args = parser.parse_args()
 
 # ------------------------ IMPLEMENTATION ------------------------
@@ -153,7 +156,7 @@ if __name__ == "__main__":
     mentors_filename = args.mentorinput;
     mentees_filename = args.studentinput;
 
-    output_filename = "../data/AUTO-MATCHED.xlsx" # output filename - all the matched mentors/mentees will be output to this file
+    output_filename = args.output # output filename - all the matched mentors/mentees will be output to this file
 
     # initialize list to hold the final matches for ALL faculties
     master_matches = []
