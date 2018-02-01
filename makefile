@@ -8,7 +8,7 @@ CLEAN_STUDENT_INFILE=./data/students-clean.xlsx
 MATCHED_OUTFILE=./data/matched.xlsx
 
 match: clean
-	python ./src/match.py -m $(CLEAN_MENTOR_INFILE) -s $(CLEAN_STUDENT_INFILE) -o $(MATCHED_OUTFILE)
+	python ./src/match.py -m $(CLEAN_MENTOR_INFILE) -s $(CLEAN_STUDENT_INFILE) -o $(MATCHED_OUTFILE) -d
 
 clean:
 	python ./src/data-cleaning/clean-data.py -m $(ORIG_MENTOR_INFILE) -s $(ORIG_STUDENT_INFILE) -mo $(CLEAN_MENTOR_INFILE) -so $(CLEAN_STUDENT_INFILE)
