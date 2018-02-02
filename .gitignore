@@ -1,6 +1,9 @@
 ./data/*clean*.xlsx
 ./data/*matched*.xlsx
 
+#Ignore all the files uploaded by users
+/uploads 
+
 # Created by https://www.gitignore.io/api/osx,emacs,python
 
 #Ignore locked excel files

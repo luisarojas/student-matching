@@ -1,7 +1,7 @@
+import os
 from flask import Flask
-from flask import render_template, request, json
+from flask import render_template, request, json, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
-from os import path
 
 #Global Variables
 UPLOAD_FOLDER="./src/www/uploads/"
@@ -22,36 +22,31 @@ def printData():
     return render_template('data.html', title="Mentor Mentee Matching")
 
 	
-@app.route('/uploader', methods = ['GET', 'POST'])
+@app.route('/uploader', methods = ['POST'])
 def uploader():
     print("uploader() called")
     print("files:", request.files["file"])
     if request.method == "POST":
         #Ensure that the request has the file part
         if "file" not in request.files:
-            print("ERROR:", "post request missing file part")
-            return redirect(request.url)
+            error = "ERROR:", "post request missing file part"
+            return error
 
         client_file = request.files["file"]
         #Check if request was submitted without a file
         if client_file.filename == "":
-            print("ERROR:", "User did not attach a file")
-            return redirect(request.url)
+            error = "ERROR:", "User did not attach a file"
+            return error
 
         #Actually submitted a file
         if client_file and allowed_file(client_file.filename):
             filename  = secure_filename(client_file.filename)
-            client_file.save(path.join(app.config['UPLOAD_FOLDER'], filename))
+            client_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return "UPLOAD SUCCESS"
+
+
     return "UPLOAD UNSUCCESSFUL"
 
-# def upload_file():
-#    if request.method == 'POST':
-#       f = request.files['file']
-#       f.save(secure_filename(f.filename))
-#       return 'file uploaded successfully'
-
-# triggered on start up
 @app.route("/test", methods=['GET'])
 def test():
     print("test() called")
