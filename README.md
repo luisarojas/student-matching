@@ -44,9 +44,9 @@ This script is meant to be used with the separate excel files under the `root/da
 1:  For each faculty:
 2:      Calculate the similarity between each mentor against each student; then, create a list containing each pair and their corresponding score.
 3:      Sort list of pairs and scores based on the score element, in descending order.
-4:For each tuple in the list of pairs:
-    5:      If the students has not been assigned or the mentor can still take more students:
-                Assign the current mentee to the current mentor.
-            Else:
-                Skip this tuple.
+4:  For each tuple in the list of pairs:
+5:      If the students has not been assigned or the mentor can still take more students:
+            Assign the current mentee to the current mentor.
+        Else:
+            Skip this tuple.
 ```
