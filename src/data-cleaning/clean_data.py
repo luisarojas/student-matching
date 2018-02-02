@@ -1,25 +1,4 @@
 import argparse
-
-# set-up command-line arguments
-parser = argparse.ArgumentParser(description="Clean mentors and students data.")
-parser._action_groups.pop()
-
-required_args = parser.add_argument_group('required named arguments')
-optional_args = parser.add_argument_group('optional named arguments')
-
-# add command-line argument flags and options
-required_args.add_argument('-m', '--mentorinput', help="Provide the path for the INPUT file for all MENTORS (.xlsx) sheet.", required=True)
-required_args.add_argument('-s', '--studentinput', help="Provide the path for the INPUT file for all STUDENTS (.xlsx) sheet.", required=True)
-optional_args.add_argument('-mo', '--mentoroutput', help="Provide the path for the OUTPUT file for all MENTORS (.xlsx) sheet (default='mentors-clean.xlsx').", default="../../data/mentors-clean.xlsx")
-optional_args.add_argument('-so', '--studentoutput', help="Provide the path for the OUTPUT file for all STUDENTS (.xlsx) sheet (default='students-clean.xlsx').", default="../../data/students-clean.xlsx")
-args = parser.parse_args()
-
-# assign arguments to variables
-mentor_input_file = args.mentorinput;
-student_input_file = args.studentinput;
-mentor_output_file = args.mentoroutput;
-student_output_file = args.studentoutput;
-
 import pandas as pd
 import re
 
@@ -80,6 +59,25 @@ def clean_files(input_file, output_file):
     print('> Saved to file: ' + output_file)
 
 if __name__ == "__main__":
+    # set-up command-line arguments
+    parser = argparse.ArgumentParser(description="Clean mentors and students data.")
+    parser._action_groups.pop()
+
+    required_args = parser.add_argument_group('required named arguments')
+    optional_args = parser.add_argument_group('optional named arguments')
+
+    # add command-line argument flags and options
+    required_args.add_argument('-m', '--mentorinput', help="Provide the path for the INPUT file for all MENTORS (.xlsx) sheet.", required=True)
+    required_args.add_argument('-s', '--studentinput', help="Provide the path for the INPUT file for all STUDENTS (.xlsx) sheet.", required=True)
+    optional_args.add_argument('-mo', '--mentoroutput', help="Provide the path for the OUTPUT file for all MENTORS (.xlsx) sheet (default='mentors-clean.xlsx').", default="../../data/mentors-clean.xlsx")
+    optional_args.add_argument('-so', '--studentoutput', help="Provide the path for the OUTPUT file for all STUDENTS (.xlsx) sheet (default='students-clean.xlsx').", default="../../data/students-clean.xlsx")
+    args = parser.parse_args()
+
+    # assign arguments to variables
+    mentor_input_file = args.mentorinput;
+    student_input_file = args.studentinput;
+    mentor_output_file = args.mentoroutput;
+    student_output_file = args.studentoutput;
 
     print("\n----------------------- CLEANING DATA -----------------------")
     clean_files(mentor_input_file, mentor_output_file)

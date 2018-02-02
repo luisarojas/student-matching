@@ -7,10 +7,15 @@ import sys
 #Matching related variables
 sys.path.append("./src/")
 from match import run_match_alg
-MATCH_OUTPUT_FILE = "./data/matched.xlsx"
+
+#Data cleaning
+sys.path.append("./src/data-cleaning")
+from clean_data import clean_files
 
 #Global Variables
 UPLOAD_FOLDER="./src/www/uploads/"
+DOWNLOAD_FOLDER="./src/www/downloads/"
+MATCH_OUTPUT_FILE = "matched.xlsx"
 ALLOWED_EXTENSIONS = set(['txt', 'xlsx'])
 
 #Define the app
@@ -18,6 +23,7 @@ app = Flask(__name__)
 
 #APP configurations
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -58,7 +64,15 @@ def uploader():
         obj_mentor_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentor_filename))
         obj_mentee_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentee_filename))
         print("UPLOAD SUCCESS")
-        json_data = run_match_alg(app.config['UPLOAD_FOLDER'] + mentor_filename, app.config['UPLOAD_FOLDER'] + mentee_filename, MATCH_OUTPUT_FILE, True)
+
+        #Clean the data- save in the downloads folder
+        clean_files(app.config['UPLOAD_FOLDER'] + mentor_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename)
+        clean_files(app.config['UPLOAD_FOLDER'] + mentee_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename)
+        
+        #Run the algorithm
+        json_data = run_match_alg(app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename,\
+                                  app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename, \
+                                  app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, True)
         return json_data
 
 
