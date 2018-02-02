@@ -127,13 +127,13 @@ def save_to_excel(output_filename, master_match_dict, column_names):
     column_names = ["ROLE"] + column_names
 
     # generate dataframe
-    df = pd.DataFrame(all_faculties_groups, columns=column_names)
+    df = (pd.DataFrame(all_faculties_groups, columns=column_names))
     split_df = df.groupby(['FACULTY'])
 
     writer = pd.ExcelWriter(output_filename)
     for group_tuple in split_df:
-        sheet_name = group_tuple[0][:31]
-        group_tuple[1].to_excel(writer, sheet_name,index=False)
+        sheet_name = group_tuple[0][:31] # truncate faculty name to 31 characters max
+        group_tuple[1].iloc[:, :7].to_excel(writer, sheet_name,index=False) # select only the first 7 columns
     writer.save()
 
     print("\n> Saved to file: " + output_filename)
@@ -230,7 +230,7 @@ def run_match_alg(mentors_filename, mentees_filename, output_filename, debug):
     print()
 
     return master_matches_json
-    
+
 
 if __name__ == "__main__":
     # ------------------------ ARGS SET-UP ------------------------
@@ -247,7 +247,7 @@ if __name__ == "__main__":
     required_args.add_argument('-d', action='store_true', help="Debugging flag.")
     required_args.add_argument('-m', '--mentorinput', help="Provide the path for the INPUT file for all MENTORS (.xlsx) sheet.", required=True)
     required_args.add_argument('-s', '--studentinput', help="Provide the path for the INPUT file for all STUDENTS (.xlsx) sheet.", required=True)
-    optional_args.add_argument('-o', '--output', help="Provide the path for the OUTPUT file for all matches (.xlsx) (default='../data/matched.xlsx').", default="../data/matched.xlsx")
+    optional_args.add_argument('-o', '--output', help="Provide the path for the OUTPUT file for all matches (.xlsx) (default='./data/matched.xlsx').", default="./data/matched.xlsx")
 
     args = parser.parse_args()
 
