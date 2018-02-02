@@ -20,8 +20,7 @@ $("form").submit(function(e){
         type: 'POST',
         data: formData,
         success: function (data) {
-            // console.log(data);
-            alert(data);
+            console.log(data);            
         },
         cache: false,
         contentType: false,

@@ -1,21 +1,3 @@
-# ------------------------ ARGS SET-UP ------------------------
-import argparse
-
-# set-up command-line arguments
-parser = argparse.ArgumentParser(description="Perform mentor-mentee matchmaking given an excel sheet for each.")
-parser._action_groups.pop()
-
-required_args = parser.add_argument_group('required named arguments')
-optional_args = parser.add_argument_group('optional named arguments')
-
-# add command-line argument flags and options
-required_args.add_argument('-d', action='store_true', help="Debugging flag.")
-required_args.add_argument('-m', '--mentorinput', help="Provide the path for the INPUT file for all MENTORS (.xlsx) sheet.", required=True)
-required_args.add_argument('-s', '--studentinput', help="Provide the path for the INPUT file for all STUDENTS (.xlsx) sheet.", required=True)
-optional_args.add_argument('-o', '--output', help="Provide the path for the OUTPUT file for all matches (.xlsx) (default='../data/matched.xlsx').", default="../data/matched.xlsx")
-
-args = parser.parse_args()
-
 # ------------------------ IMPLEMENTATION ------------------------
 
 import pandas as pd
@@ -82,7 +64,7 @@ def match(mentors, mentees, candidates):
     return matched
 
 # will take a key and a value (list)
-def matches_to_dict(faculty, matched_indices):
+def matches_to_dict(faculty, matched_indices, mentors, mentees):
 
     #---- Sample output ------
     # {
@@ -156,17 +138,7 @@ def save_to_excel(output_filename, master_match_dict, column_names):
 
     print("\n> Saved to file: " + output_filename)
 
-if __name__ == "__main__":
-
-    # --------- CONFIG ---------
-
-    # assign arguments to variables
-    debug = args.d
-    mentors_filename = args.mentorinput;
-    mentees_filename = args.studentinput;
-
-    output_filename = args.output # output filename - all the matched mentors/mentees will be output to this file
-
+def run_match_alg(mentors_filename, mentees_filename, output_filename, debug):
     # initialize list to hold the final matches for ALL faculties
     master_matches = []
 
@@ -239,7 +211,7 @@ if __name__ == "__main__":
         if debug: print()
 
         # convert all the indices to values (names)
-        faculty_matches = matches_to_dict(faculty, matched_indices)
+        faculty_matches =  matches_to_dict(faculty, matched_indices, mentors, mentees)
 
         # add the current faculty to the master match list
         master_matches.append(faculty_matches)
@@ -256,3 +228,37 @@ if __name__ == "__main__":
     master_matches_json = json.dumps(master_matches)
 
     print()
+
+    return master_matches_json
+    
+
+if __name__ == "__main__":
+    # ------------------------ ARGS SET-UP ------------------------
+    import argparse
+
+    # set-up command-line arguments
+    parser = argparse.ArgumentParser(description="Perform mentor-mentee matchmaking given an excel sheet for each.")
+    parser._action_groups.pop()
+
+    required_args = parser.add_argument_group('required named arguments')
+    optional_args = parser.add_argument_group('optional named arguments')
+
+    # add command-line argument flags and options
+    required_args.add_argument('-d', action='store_true', help="Debugging flag.")
+    required_args.add_argument('-m', '--mentorinput', help="Provide the path for the INPUT file for all MENTORS (.xlsx) sheet.", required=True)
+    required_args.add_argument('-s', '--studentinput', help="Provide the path for the INPUT file for all STUDENTS (.xlsx) sheet.", required=True)
+    optional_args.add_argument('-o', '--output', help="Provide the path for the OUTPUT file for all matches (.xlsx) (default='../data/matched.xlsx').", default="../data/matched.xlsx")
+
+    args = parser.parse_args()
+
+    # --------- CONFIG ---------
+
+    # assign arguments to variables
+    debug = args.d
+    mentors_filename = args.mentorinput;
+    mentees_filename = args.studentinput;
+
+    output_filename = args.output # output filename - all the matched mentors/mentees will be output to this file
+
+    #Run the matching algorithm
+    master_matches_json = run_match_alg(mentors_filename, mentees_filename, output_filename, debug)

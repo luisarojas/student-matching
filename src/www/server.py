@@ -2,6 +2,12 @@ import os
 from flask import Flask
 from flask import render_template, request, json, redirect, url_for, send_from_directory
 from werkzeug import secure_filename
+import sys
+
+#Matching related variables
+sys.path.append("./src/")
+from match import run_match_alg
+MATCH_OUTPUT_FILE = "./data/matched.xlsx"
 
 #Global Variables
 UPLOAD_FOLDER="./src/www/uploads/"
@@ -51,7 +57,9 @@ def uploader():
         
         obj_mentor_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentor_filename))
         obj_mentee_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentee_filename))
-        return "UPLOAD SUCCESS"
+        print("UPLOAD SUCCESS")
+        json_data = run_match_alg(app.config['UPLOAD_FOLDER'] + mentor_filename, app.config['UPLOAD_FOLDER'] + mentee_filename, MATCH_OUTPUT_FILE, True)
+        return json_data
 
 
     return "UPLOAD UNSUCCESSFUL"

@@ -2,7 +2,9 @@
 ./data/*matched*.xlsx
 
 #Ignore all the files uploaded by users
-/uploads 
+src/www/uploads/*xlsx
+data/matched.xlsx
+data/*clean.xlsx
 
 # Created by https://www.gitignore.io/api/osx,emacs,python
 
