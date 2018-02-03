@@ -19,7 +19,7 @@ def euclidean(mentor, mentee):
 
 # take in mentors and mentees indices, as well as a list of their every
 # combination of the two and their corresponding score
-def match(mentors, mentees, candidates):
+def create_groups(mentors, mentees, candidates):
 
     # will hold list of all the mentees that have NOT been matched yet
     unmatched_mentees = mentees # copy
@@ -138,7 +138,10 @@ def save_to_excel(output_filename, master_match_dict, column_names):
 
     print("\n> Saved to file: " + output_filename)
 
-def run_match_alg(mentors_filename, mentees_filename, output_filename, debug):
+# starting point for the matching process
+# called from the server
+def match(mentors_filename, mentees_filename, output_filename, debug):
+
     # initialize list to hold the final matches for ALL faculties
     master_matches = []
 
@@ -201,7 +204,7 @@ def run_match_alg(mentors_filename, mentees_filename, output_filename, debug):
 
         # ----------- RUN MATCHING ALGORITHM ----------
         # store the directory returned, which stores the matched indices under each mentor id
-        matched_indices = match(faculty_mentor_indices, faculty_mentee_indices, faculty_candidates)
+        matched_indices = create_groups(faculty_mentor_indices, faculty_mentee_indices, faculty_candidates)
 
         # ----------- FACULTY RESULTS ----------
         # print the results for the current faculty
@@ -232,7 +235,8 @@ def run_match_alg(mentors_filename, mentees_filename, output_filename, debug):
     return master_matches_json
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # will only be ran when script is executed from command-line
+
     # ------------------------ ARGS SET-UP ------------------------
     import argparse
 
@@ -261,4 +265,4 @@ if __name__ == "__main__":
     output_filename = args.output # output filename - all the matched mentors/mentees will be output to this file
 
     #Run the matching algorithm
-    master_matches_json = run_match_alg(mentors_filename, mentees_filename, output_filename, debug)
+    master_matches_json = match(mentors_filename, mentees_filename, output_filename, debug)

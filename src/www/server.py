@@ -6,7 +6,7 @@ import sys
 
 #Matching related variables
 sys.path.append("./src/")
-from match import run_match_alg
+from match import match
 
 #Data cleaning
 sys.path.append("./src/data-cleaning")
@@ -33,15 +33,15 @@ def allowed_file(filename):
 def printData():
     return render_template('data.html', title="Mentor Mentee Matching")
 
-	
+
 @app.route('/uploader', methods = ['POST'])
 def uploader():
     req_mentor_file = "mentor_file"
     req_mentee_file = "mentee_file"
-    
+
     print("uploader() called")
     print("files:", request.files[req_mentor_file], request.files[req_mentee_file])
-   
+
     #Ensure that the request has the file part
     if req_mentor_file not in request.files or req_mentee_file not in request.files:
         error = "ERROR: post request missing file part"
@@ -49,18 +49,18 @@ def uploader():
 
     obj_mentor_file = request.files[req_mentor_file]
     obj_mentee_file = request.files[req_mentee_file]
-    
+
     #Check if request was submitted without a file
     if obj_mentor_file.filename == "" or obj_mentee_file.filename == "":
         error = "ERROR: User did not attach a file"
-        return error        
+        return error
 
     #Actually submitted a file
     if obj_mentor_file and allowed_file(obj_mentor_file.filename) and\
        obj_mentee_file and allowed_file(obj_mentee_file.filename):
         mentor_filename  = secure_filename(obj_mentor_file.filename)
         mentee_filename  = secure_filename(obj_mentee_file.filename)
-        
+
         obj_mentor_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentor_filename))
         obj_mentee_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentee_filename))
         print("UPLOAD SUCCESS")
@@ -68,11 +68,11 @@ def uploader():
         #Clean the data- save in the downloads folder
         clean_files(app.config['UPLOAD_FOLDER'] + mentor_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename)
         clean_files(app.config['UPLOAD_FOLDER'] + mentee_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename)
-        
+
         #Run the algorithm
-        json_data = run_match_alg(app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename,\
-                                  app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename, \
-                                  app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, True)
+        json_data = match(app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename,\
+                          app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename, \
+                          app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, True)
         return json_data
 
 
