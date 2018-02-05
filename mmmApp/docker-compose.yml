@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+        auth_server:
+                image: mmm_auth_server
+                build:
+                        context: ./auth_Server/
+                        dockerfile: ./auth_Server/Dockerfile
+                environment:
+                        DB_NAME: ${AUTH_DB_NAME}
+                        DB_USER: ${AUTH_DB_USER}
+                        DB_PSWD: ${AUTH_DB_PSWD}
+                        DB_PORT: ${AUTH_DB_PORT}
+                        DB_HOST: auth_db
+        graph_server:
+                image: mmm_graph_server
+                build:
+                        context: ./graph_Server/
+                        dockerfile: ./graph_Server/Dockerfile
+                environment:
+                        DB_NAME: ${GRAPH_DB_NAME}
+                        DB_USER: ${GRAPH_DB_USER}
+                        DB_PSWD: ${GRAPH_DB_PSWD}
+                        DB_HOST: graph_db
+        auth_db:
+                image: mmm_pg_auth_db
+                build:
+                        contex: ./auth_DB/
+                        dockerfile: ./auth_DB/Dockerfile
+                        args:
+                                - POSTGRES_DB: ${AUTH_DB_NAME}
+                volumes:
+                        - /HOME/data/auth_DB/data:/var/lib/postgresql/data
+                environment:
+                        POSTGRES_DB: ${AUTH_DB_NAME}
+        graph_db:
+                image: neo4j
+                volumes:
+                        - /HOME/data/graph_DB/data:/data
+                        - /HOME/data/graph_DB/logs:/logs
+                cap_add:
+                        - SYS_RESOURCE
+                environment:
+                        NEO4J_AUTH: ${GRAPH_DB_USER}/${GRAPH_DB_PSWD}
+                ports:
+                        - "7474:7474"
+                        - "7687:7687"
