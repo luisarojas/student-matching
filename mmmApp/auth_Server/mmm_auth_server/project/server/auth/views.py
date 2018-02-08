@@ -14,7 +14,6 @@ class RegisterAPI(MethodView):
     """
     User Registration Resource
     """
-
     def post(self):
         # get the post data
         post_data = request.get_json()
@@ -63,8 +62,9 @@ class LoginAPI(MethodView):
             user = User.query.filter_by(
                 email=post_data.get('email')
             ).first()
+
             if user and bcrypt.check_password_hash(
-                user.password, post_data.get('password')
+                user.password.strip(), post_data.get('password')
             ):
                 auth_token = user.encode_auth_token(user.id)
                 if auth_token:

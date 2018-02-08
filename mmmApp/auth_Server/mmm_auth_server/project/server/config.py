@@ -8,7 +8,7 @@ database_pswd = os.getenv('DB_PSWD')
 database_port = os.getenv('DB_PORT', 5432)
 database_host = os.getenv('DB_HOST', 'localhost')
 
-postgres_local_base = 'postgresql://' + database_name + ':' + database_pswd + '@'+ database_host + ':' + database_port + '/'
+postgres_local_base = 'postgresql://' + database_user + ':' + database_pswd + '@'+ database_host + ':' + database_port + '/'
 
 class BaseConfig:
     """Base configuration."""
@@ -23,7 +23,6 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name
-
 
 class TestingConfig(BaseConfig):
     """Testing configuration."""
