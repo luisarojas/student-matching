@@ -4,31 +4,35 @@ services:
         auth_server:
                 image: mmm_auth_server
                 build:
-                        context: ./auth_Server/
-                        dockerfile: ./auth_Server/Dockerfile
+                        context: ./auth_Server
+                        dockerfile: Dockerfile
                 environment:
                         DB_NAME: ${AUTH_DB_NAME}
                         DB_USER: ${AUTH_DB_USER}
                         DB_PSWD: ${AUTH_DB_PSWD}
                         DB_PORT: ${AUTH_DB_PORT}
                         DB_HOST: auth_db
+                        PYTHONUNBUFFERED: 0
+                depends_on:
+                        - auth_db
         graph_server:
                 image: mmm_graph_server
                 build:
-                        context: ./graph_Server/
-                        dockerfile: ./graph_Server/Dockerfile
+                        context: ./graph_Server
+                        dockerfile: Dockerfile
                 environment:
-                        DB_NAME: ${GRAPH_DB_NAME}
                         DB_USER: ${GRAPH_DB_USER}
                         DB_PSWD: ${GRAPH_DB_PSWD}
                         DB_HOST: graph_db
+                depends_on:
+                        - graph_db
         auth_db:
                 image: mmm_pg_auth_db
                 build:
-                        contex: ./auth_DB/
-                        dockerfile: ./auth_DB/Dockerfile
+                        context: ./auth_DB
+                        dockerfile: Dockerfile
                         args:
-                                - POSTGRES_DB: ${AUTH_DB_NAME}
+                                POSTGRES_DB: ${AUTH_DB_NAME}
                 volumes:
                         - /HOME/data/auth_DB/data:/var/lib/postgresql/data
                 environment:
