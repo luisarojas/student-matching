@@ -3,6 +3,10 @@ $(document).ready(function() {
 
     //test();
     initButtons();
+    // $.get("/download/matched.xlsx");
+    $.post('/gotodownload').done(function(data){
+        // console.log(data);
+    });
 });
 
 function initButtons(){
@@ -20,7 +24,10 @@ $("form").submit(function(e) {
         type: 'POST',
         data: formData,
         success: function (data) {
-            console.log('RETURNED DATA: \n' + data);
+            console.log(data);
+            
+            //Download the file
+            $.get("/download/matched.xlsx");
         },
         cache: false,
         contentType: false,

@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask import render_template, request, json, redirect, url_for, send_from_directory
+from flask import render_template, request, json, redirect, url_for, send_from_directory, send_file
 from werkzeug import secure_filename
 import sys
 
@@ -77,6 +77,37 @@ def uploader():
         return json_data
 
     return "UPLOAD UNSUCCESSFUL"
+
+@app.route('/download/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    print("/download called")
+    download_path = os.path.join(app.root_path, "downloads/")
+    print(download_path)
+    return send_from_directory(directory=download_path, filename=filename)
+
+@app.route("/gotodownload", methods=['GET','POST'])
+def gotodownload():
+    print("/gotodownload called")
+    return redirect("http://localhost:5000/download/matched.xlsx", code=302)
+
+
+# @app.route("/download", methods=['GET'])
+# def download():
+#     print("/download called")
+#     # download_path = os.path.join(app.root_path, app.config['DOWNLOAD_FOLDER'])
+#     download_path = os.path.join(app.root_path, "src/www/downloads/")
+#     print(os.listdir("./"))
+#     print(download_path)
+#     # return send_from_directory(directory=download_path, filename="matched.xlsx", as_attachment=True)
+#     return send_file('src/www/downloads/matched.xlsx',
+#                      mimetype='text/xlsx',
+#                      attachment_filename='matched.xlsx',
+#                      as_attachment=True)
+
+@app.route("/test", methods=['GET'])
+def test():
+    print("test() called")
+    return "Hello from Server!"
 
 # check if the executed file is the main program
 if __name__ == "__main__":
