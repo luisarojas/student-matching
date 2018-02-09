@@ -7,6 +7,7 @@ MAINTAINER Guilherme <guilherme.damasio@uoit.net>
 ENV DB_PSWD = mmmPassForGraphServer
 ENV DB_USER = mmmServerUser
 ENV DB_HOST = graph_db
+ENV SERVER_PORT = 5002
 
 COPY mmm_graph_server .
 
