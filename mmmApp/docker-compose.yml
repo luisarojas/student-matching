@@ -24,6 +24,10 @@ services:
                         DB_USER: ${GRAPH_DB_USER}
                         DB_PSWD: ${GRAPH_DB_PSWD}
                         DB_HOST: graph_db
+                        AUTH_SERVER_HOST: auth_server
+                        AUTH_SERVER_PORT: ${AUTH_SERVER_PORT}
+                        SERVER_PORT: ${GRAPH_SERVER_PORT}
+                        PYTHONUNBUFFERED: 0
                 depends_on:
                         - graph_db
         auth_db:
