@@ -2,6 +2,29 @@
 
 ## Tree Struct
 
+```
+.
+├── auth_DB
+│   ├── Dockerfile
+│   ├── makefile
+│   └── mmm_schema.sh
+├── auth_Server
+│   ├── Dockerfile
+│   ├── makefile
+│   └── mmm_auth_server
+│       ├── ...
+├── docker-compose.yml
+├── graph_DB
+│   └── makefile
+├── graph_Server
+│   ├── Dockerfile
+│   ├── mmm_graph_server
+│   │   ├── ...
+│   └── questions.xlsx
+├── README.md
+└── web
+```
+
 ## AUTHORIZATION DB (auth_db)
 
 For the authorization db we are using the POSTGRES docker image with small changes.
