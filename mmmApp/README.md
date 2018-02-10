@@ -1,6 +1,6 @@
 # Mentor-Mentee Matching (MMM) app
 
-## Tree Struct
+## Tree Structure
 
 ```
 .
