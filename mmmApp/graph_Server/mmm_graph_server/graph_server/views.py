@@ -1,63 +1,38 @@
-from flask import Flask, request, jsonify
-from flask_restful import Resource, Api
-from json import dumps
-import requests
-from py2neo import Graph
+from flask import request, jsonify
+from flask_restful import Resource
 
+from graph_server import graph, app, api
+
+import requests
 import os
 
-app = Flask(__name__)
-api = Api(app)
-
-#Create auth endpoint
-AUTH_ENDPOINT = ('http://' +
-			  os.getenv('AUTH_SERVER_HOST') +
-			  ':' +
-			  os.getenv('AUTH_SERVER_PORT') +
-			  '/auth/status')
-
-PORT = os.getenv('SERVER_PORT', 5002)
-
-#Connect to the graph
-#graph = Graph("bolt://localhost:7687/db/data")
-graph = Graph(bolt=True,
-              host=os.getenv('DB_HOST', 'localhost'),
-              user=os.getenv('DB_USER', 'neo4j'),
-              password=os.getenv('DB_PSWD'))
-
 def checkToken(token):
-	print("Checking token")
+	"""Check if the token is valid"""
 	s = requests.Session()	
 	s.headers.update({"Content-Type":"application/json"})
-	s.headers.update({"Authorization": "Bearer " + token})
-	response = s.get(AUTH_ENDPOINT)
-	print(list(response))
+	s.headers.update({"Authorization": token})
+	response = s.get(app.config.get('AUTH_DATABASE_URI'))
 	return response
 
 class Students(Resource):
 	def get(self):
 		try:
-			print("Received")
 			token = request.headers['Authorization']			
 			response = checkToken(token).json()
-			print("received:")			
-			print(response)
-			if response['status'] is 'success':
-				result = graph.data("MATCH (student:Person) RETURN student")
+			if response.get('status') == 'success':
+				result = graph.data("MATCH (student:Person) RETURN student")		
 				responseObject = {
 					'status': 'success',
 					'data': result
 				}				
 				res = jsonify(responseObject)
 				res.status_code = 201
+				return res
 			else:
 				responseObject = {
 					'status': response['status'],
 					'message': response['message']
 				}
-				print("Sendind back:")
-				print(responseObject)
-				print(jsonify(responseObject))
 				res = jsonify(responseObject)
 				res.status_code = 401
 				return res
@@ -69,6 +44,7 @@ class Students(Resource):
 			}
 			res = jsonify(responseObject)
 			res.status_code = 500
+			return res
 
 class GetGroup(Resource):
 	def get(self):
@@ -124,10 +100,6 @@ class GetGroup(Resource):
 		#print(tutor)
 		return tutor
 
-api.add_resource(Students, '/students') # Route_1
-api.add_resource(GetGroup, '/groups') # Route_1
-
-#api.add_resource('student.txt','/download')
-if __name__ == '__main__':
-     app.run(host='0.0.0.0', port= int(PORT))
-
+# Setting the routes
+api.add_resource(Students, '/students') 
+api.add_resource(GetGroup, '/groups') 

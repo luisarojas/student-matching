@@ -91,7 +91,10 @@ print("Time to calculate similarity:" + str(time.clock() - cur_time))
 #-------------------------------------------------------------------
 
 #Connect to the graph
-graph = Graph("bolt://localhost:7687/db/data")
+graph = Graph(#bolt = True,
+              host = '172.19.0.3',
+              #bolt_port = 7687,
+              password = 'mmmPassForGraphServer')
 
 def createStudents(students):
     # Open transaction
@@ -160,6 +163,6 @@ print(time.clock() - cur_time)
 
 print("Creating similarity relationship...")
 cur_time = time.clock() 
-createSimilarity(studentsArray)
+#createSimilarity(studentsArray)
 print(time.clock() - cur_time)
 
