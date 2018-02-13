@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-    CREATE ROLE mmmServerUser superuser;
-    CREATE USER mmmServerUser;
-    ALTER USER mmmServerUser with encrypted password 'mmmPassForServer';
-    CREATE DATABASE mmm_jwt_auth;
-    GRANT ALL PRIVILEGES ON DATABASE mmm_jwt_auth TO mmmServerUser;
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --set=newuser="$DB_USER" --set=newuserpswd="'""$DB_PSWD""'" --set=newdbname="$DB_NAME"<<-EOSQL
+    CREATE ROLE :'newuser' superuser;
+    CREATE USER :'newuser';
+    ALTER USER :'newuser' with encrypted password :'newuserpswd';
+    CREATE DATABASE :'newdbname';
+    GRANT ALL PRIVILEGES ON DATABASE :'newdbname' TO :'newuser';
 
-    \connect mmm_jwt_auth;
+    \connect :'newdbname';
 
     CREATE TABLE users(
     	ID 		BIGSERIAL PRIMARY KEY	NOT NULL,
