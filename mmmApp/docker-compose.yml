@@ -38,14 +38,14 @@ services:
                         args:
                                 POSTGRES_DB: ${AUTH_DB_NAME}
                 volumes:
-                        - /HOME/data/auth_DB/data:/var/lib/postgresql/data
+                        - ./data/auth_DB/data:/var/lib/postgresql/data
                 environment:
                         POSTGRES_DB: ${AUTH_DB_NAME}
         graph_db:
                 image: neo4j
                 volumes:
-                        - /HOME/data/graph_DB/data:/data
-                        - /HOME/data/graph_DB/logs:/logs
+                        - ./data/graph_DB/data:/data
+                        - ./data/graph_DB/logs:/logs
                 cap_add:
                         - SYS_RESOURCE
                 environment:
