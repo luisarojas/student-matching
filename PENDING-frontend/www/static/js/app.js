@@ -46,12 +46,12 @@ $('document').ready(function() {
     // NEW MATCH - STEP 1
     // ------------------------------------------
 
-    // $("#content").on('change', '#upload-mentors-btn', function () {
-    //     console.log('submit mentors button clicked');
-    // });
-    //
-    // $("#content").on('click', '#upload-students-btn', function () {
-    //     console.log('submit students button clicked');
-    // });
+    $("#content").on('change', '#mentor-file-input', function () {
+        $("#mentor-filename").html(this.files[0].name)
+    });
+
+    $("#content").on('change', '#student-file-input', function () {
+        $("#student-filename").html(this.files[0].name)
+    });
 
 });
