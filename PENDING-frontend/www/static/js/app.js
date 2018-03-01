@@ -41,4 +41,17 @@ $('document').ready(function() {
             $("#content").html(res)
         });
     });
+
+    // ------------------------------------------
+    // NEW MATCH - STEP 1
+    // ------------------------------------------
+
+    $("#content").on('click', '#upload-mentors-btn', function () {
+
+    });
+
+    $("#content").on('click', '#upload-students-btn', function () {
+        console.log('submit students button clicked');
+    });
+
 });
