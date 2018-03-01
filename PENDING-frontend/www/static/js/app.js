@@ -1,3 +1,6 @@
+var SUCCESS_CODE = 100;
+var FAILURE_CODE = 200;
+
 $('document').ready(function() {
 
     // ------------------------------------------
@@ -12,10 +15,10 @@ $('document').ready(function() {
     // SIDE MENU EVENT LISTENERS
     // ------------------------------------------
 
-    // Set buttons as active upon click
+    // set buttons as active upon click
     $(".btn-sidebar").click(function(){
         $(".btn-sidebar").removeClass("btn-sidebar-active");
-        $(this).addClass("btn-sidebar-active");   
+        $(this).addClass("btn-sidebar-active");
     })
 
     $("#home-btn").click(function() {
@@ -60,4 +63,27 @@ $('document').ready(function() {
         $("#student-filename").html(this.files[0].name)
     });
 
+    $("#content").on('submit', '#file-upload-form', function (e) {
+        e.preventDefault();
+
+        console.log("Submitting ...");
+
+        // TODO: Grab input name fields automatically
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "/upload",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                console.log(data);
+
+                //Download the file
+                // $.get("/download/matched.xlsx");
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
 });

@@ -1,6 +1,13 @@
 from flask import Flask, render_template, request
+import json
 
 app = Flask(__name__)
+
+pythonDictionary = {'name':'Bob', 'age':44, 'isEmployed':True}
+dictionaryToJson = json.dumps(pythonDictionary)
+
+SUCCESS_CODE = {"message": "The process was carried out successfully.", "code": 100}
+FAILURE_CODE = {"message": "The process could not be completed.", "code": 200}
 
 # define basic route
 @app.route("/")
@@ -14,6 +21,19 @@ def home():
 @app.route("/newMatch", methods=['POST'])
 def new_match():
     return render_template('newmatch.html')
+
+@app.route('/upload', methods = ['POST'])
+def uploader():
+
+    # TODO: grab this from the request
+    mentor_input_name = "mentor_file" # html form field "name"
+    student_input_name = "student_file" # html form field "name"
+
+    mentor_file = request.files[student_input_name]
+    student_file = request.files[student_input_name]
+
+    print("files:", mentor_file, student_file)
+    return json.dumps(SUCCESS_CODE)
 
 @app.route("/lastMatch", methods=['POST']) # default is GET
 def last_match():

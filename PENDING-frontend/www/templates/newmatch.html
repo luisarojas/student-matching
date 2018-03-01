@@ -1,9 +1,7 @@
 <p class="page-title"><b>STEP 1:</b> UPLOAD</p>
 <p>Please upload the excel sheets containing the information for mentors and mentees. They must be in two separate files, and should adhere to the format below. Please make sure both files contain the same quesitions in the same order, as this could greatly affect the accuracy of the matches.</p>
 <img src="{{ url_for('static', filename='img/sample-table.png') }}" style="width:850px;">
-<div>
-
-<!-- <form action="" enctype="multipart/form-data"> -->
+<form id="file-upload-form" action="" enctype="multipart/form-data">
 
     <input type="file" name="mentor_file" id="mentor-file-input" class="inputfile" />
     <label style="margin-top:20px; padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="mentor-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload mentor file</label>
@@ -11,20 +9,7 @@
 
     <input type="file" name="student_file" id="student-file-input" class="inputfile" />
     <label style="padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="student-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload student file</label>
-    <p id="student-filename" style="display:inline; margin-left:10px;">No file selected.</p>
+    <p id="student-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
 
-  <!-- <input value="test" style="margin-top:30px; margin-bottom:10px;" type="file" name="mentor_file" required/><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}"></br>
-  <input type="file" name="student_file" required/></br>
-  <button type="submit button" class="btn btn-outline-info btn-lg">next</button> -->
-
-
-<!-- </form> -->
-
-
-
-<!-- <button id="upload-mentors-btn" style="margin-top:30px; margin-bottom:10px;" class="mmm-btn"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}"> UPLOAD MENTORS</button>
-<p style="display:inline; margin-left:10px;">No file selected.</p>
-<br>
-<button id="upload-students-btn" class="mmm-btn"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">UPLOAD STUDENTS</button>
-<p style="display:inline; margin-left:10px;">No file selected.</p> -->
-</div>
+    <input type=image src="{{ url_for('static', filename='img/next-arrow.png') }}" alt="">
+</form>
