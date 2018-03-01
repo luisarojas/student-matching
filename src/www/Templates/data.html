@@ -3,7 +3,7 @@
 
   <head>
     <title>{{title}}</title>
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon" />    
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon" />
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/data.css') }}" rel="stylesheet">
@@ -18,7 +18,7 @@
     <form action = ""
           enctype = "multipart/form-data">
       <input type = "file" name = "mentor_file" required/></br>
-      <input type = "file" name = "mentee_file" required/></br>
+      <input type = "file" name = "student_file" required/></br>
       <button type="submit button" class="btn btn-outline-info btn-lg">MATCH</button>
     </form>
     </center>

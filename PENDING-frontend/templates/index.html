@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mentor-Mentee Matching System</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="wrapper">
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <img id="logo" src="{{ url_for('static', filename='img/logo.png') }}">
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a id="home-btn"><img class="menu-icon" src="{{ url_for('static', filename='img/home-icon.png') }}"> &nbsp;HOME</a>
+                    </li>
+                    <li>
+                        <a id="newmatch-btn"><img class="menu-icon" src="{{ url_for('static', filename='img/newmatch-icon.png') }}"> &nbsp;NEW MATCH</a>
+                    </li>
+                    <li>
+                        <a href="#recentSubmenu" data-toggle="collapse" aria-expanded="false"><img class="menu-icon" src="{{ url_for('static', filename='img/recent-icon.png') }}"> &nbsp;RECENT</a>
+                        <ul class="collapse list-unstyled" id="recentSubmenu">
+                            <li><a id="lastmatch-btn">LAST MATCH</a></li>
+                            <li><a id="mentorlogs-btn">MENTOR LOGS</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a id="feedback-btn"><img class="menu-icon" src="{{ url_for('static', filename='img/feedback-icon.png') }}"> &nbsp;FEEDBACK</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- page content -->
+            <div id="content">
+            </div>
+        </div>
+
+        <footer id="copyright">
+          <p>© 2018 The Fantastic 5</p>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    </body>
+
+</html>

@@ -9,7 +9,7 @@ function initButtons(){
 
 }
 
-$("form").submit(function(e){
+$("form").submit(function(e) {
     console.log("Submitting ...");
     e.preventDefault();
 
@@ -20,7 +20,7 @@ $("form").submit(function(e){
         type: 'POST',
         data: formData,
         success: function (data) {
-            console.log(data);            
+            console.log('RETURNED DATA: \n' + data);
         },
         cache: false,
         contentType: false,

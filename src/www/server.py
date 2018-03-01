@@ -33,11 +33,10 @@ def allowed_file(filename):
 def printData():
     return render_template('data.html', title="Mentor Mentee Matching")
 
-
 @app.route('/uploader', methods = ['POST'])
 def uploader():
-    req_mentor_file = "mentor_file"
-    req_mentee_file = "mentee_file"
+    req_mentor_file = "mentor_file" # html form field "name"
+    req_mentee_file = "student_file" # html form field "name"
 
     print("uploader() called")
     print("files:", request.files[req_mentor_file], request.files[req_mentee_file])
@@ -65,23 +64,19 @@ def uploader():
         obj_mentee_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentee_filename))
         print("UPLOAD SUCCESS")
 
+        print('> Cleaning data...')
         #Clean the data- save in the downloads folder
         clean_files(app.config['UPLOAD_FOLDER'] + mentor_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename)
         clean_files(app.config['UPLOAD_FOLDER'] + mentee_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename)
 
+        print('> Running matching algorithm...')
         #Run the algorithm
         json_data = match(app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename,\
                           app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename, \
                           app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, True)
         return json_data
 
-
     return "UPLOAD UNSUCCESSFUL"
-
-@app.route("/test", methods=['GET'])
-def test():
-    print("test() called")
-    return "Hello from Server!"
 
 # check if the executed file is the main program
 if __name__ == "__main__":
