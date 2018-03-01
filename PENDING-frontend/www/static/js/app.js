@@ -12,6 +12,12 @@ $('document').ready(function() {
     // SIDE MENU EVENT LISTENERS
     // ------------------------------------------
 
+    // Set buttons as active upon click
+    $(".btn-sidebar").click(function(){
+        $(".btn-sidebar").removeClass("btn-sidebar-active");
+        $(this).addClass("btn-sidebar-active");   
+    })
+
     $("#home-btn").click(function() {
         $.post('/home').done(function(res) {
             $("#content").html(res)

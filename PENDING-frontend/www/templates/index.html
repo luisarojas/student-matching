@@ -16,20 +16,20 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    <li>
+                    <li class="btn-sidebar">
                         <a id="home-btn"><img class="menu-icon" src="{{ url_for('static', filename='img/home-icon.png') }}"> &nbsp;HOME</a>
                     </li>
-                    <li>
+                    <li class="btn-sidebar">
                         <a id="newmatch-btn"><img class="menu-icon" src="{{ url_for('static', filename='img/newmatch-icon.png') }}"> &nbsp;NEW MATCH</a>
                     </li>
                     <li>
                         <a href="#recentSubmenu" data-toggle="collapse" aria-expanded="false"><img class="menu-icon" src="{{ url_for('static', filename='img/recent-icon.png') }}"> &nbsp;RECENT</a>
                         <ul class="collapse list-unstyled" id="recentSubmenu">
-                            <li><a id="lastmatch-btn">LAST MATCH</a></li>
-                            <li><a id="mentorlogs-btn">MENTOR LOGS</a></li>
+                            <li class="btn-sidebar"><a id="lastmatch-btn">LAST MATCH</a></li>
+                            <li class="btn-sidebar"><a id="mentorlogs-btn">MENTOR LOGS</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="btn-sidebar">
                         <a id="feedback-btn"><img class="menu-icon" src="{{ url_for('static', filename='img/feedback-icon.png') }}"> &nbsp;FEEDBACK</a>
                     </li>
                 </ul>
