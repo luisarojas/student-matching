@@ -32,7 +32,7 @@ def uploader():
     mentor_file = request.files[student_input_name]
     student_file = request.files[student_input_name]
 
-    print("files:", mentor_file, student_file)
+    # print("files:", mentor_file, student_file)
     return json.dumps(SUCCESS_CODE)
 
 @app.route("/lastMatch", methods=['POST']) # default is GET

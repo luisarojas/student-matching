@@ -68,15 +68,15 @@ $('document').ready(function() {
 
         console.log("Submitting ...");
 
-        // TODO: Grab input name fields automatically
         var formData = new FormData(this);
 
         $.ajax({
             url: "/upload",
             type: 'POST',
             data: formData,
-            success: function (data) {
-                console.log(data);
+            success: function (res) {
+                
+                console.log(JSON.parse(res).message);
 
                 //Download the file
                 // $.get("/download/matched.xlsx");
