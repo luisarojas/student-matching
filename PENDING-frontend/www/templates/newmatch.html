@@ -3,18 +3,22 @@
 <img src="{{ url_for('static', filename='img/sample-table.png') }}" style="width:850px;">
 <div>
 
-<form action="" enctype="multipart/form-data">
+<!-- <form action="" enctype="multipart/form-data"> -->
 
-    <input type="file" name="file" id="file" class="inputfile" />
-    <label for="file">Upload mentor file</label>
+    <input type="file" name="mentor_file" id="mentor-file-input" class="inputfile" />
+    <label style="margin-top:20px; padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="mentor-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload mentor file</label>
+    <p id="mentor-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
 
-    <!-- <input type="file" name="student_file" class="mmm-btn" data-multiple-caption="{count} files selected" required />
-    <label for="file-1" class="mmm-btn">UPLOAD MENTOR FILE</label> -->
+    <input type="file" name="student_file" id="student-file-input" class="inputfile" />
+    <label style="padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="student-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload student file</label>
+    <p id="student-filename" style="display:inline; margin-left:10px;">No file selected.</p>
 
   <!-- <input value="test" style="margin-top:30px; margin-bottom:10px;" type="file" name="mentor_file" required/><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}"></br>
   <input type="file" name="student_file" required/></br>
   <button type="submit button" class="btn btn-outline-info btn-lg">next</button> -->
-</form>
+
+
+<!-- </form> -->
 
 
 

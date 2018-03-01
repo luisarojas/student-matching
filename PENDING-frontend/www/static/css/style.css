@@ -5,7 +5,7 @@ body {
     background: #fff;
 }
 
-p {
+p, label {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
@@ -28,7 +28,8 @@ a, a:hover, a:focus {
 }
 
 .mmm-btn {
-    height: 35px;
+    cursor: pointer;
+    max-height: 40px;
     margin: 10px 0 0 0;
     font-size: 0.8em;
     background: rgb(100,216,226);
@@ -111,6 +112,7 @@ footer p {
 }
 
 #sidebar ul li a {
+    cursor: pointer;
     text-align: center;
     padding: 20px;
     font-size: 1.1em;
