@@ -1,113 +1,86 @@
-import os
-from flask import Flask
-from flask import render_template, request, json, redirect, url_for, send_from_directory, send_file
+from flask import Flask, render_template, request
 from werkzeug import secure_filename
-import sys
+import json, os, sys
 
-#Matching related variables
-sys.path.append("./src/")
-from match import match
+app = Flask(__name__)
 
-#Data cleaning
-sys.path.append("./src/data-cleaning")
-from clean_data import clean_files
+# TODO: This will be uncommented when we start developing "Step 2"
+# matching and data cleaning-related variables
+# sys.path.append("./src/scripts")
+# from match import match
+# from clean_data import clean_files
 
-#Global Variables
+# global variables
+SUCCESS_CODE = 1
+FAILURE_CODE = -1
+ALLOWED_FILE_EXTENSIONS = set(['xlsx'])
 UPLOAD_FOLDER="./src/www/uploads/"
 DOWNLOAD_FOLDER="./src/www/downloads/"
 MATCH_OUTPUT_FILE = "matched.xlsx"
-ALLOWED_EXTENSIONS = set(['txt', 'xlsx'])
 
-#Define the app
-app = Flask(__name__)
-
-#APP configurations
+# app configurations
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+def is_extension_allowed(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_FILE_EXTENSIONS
 
 # define basic route
 @app.route("/")
-def printData():
-    return render_template('data.html', title="Mentor Mentee Matching")
+def main():
+    return render_template('index.html')
 
-@app.route('/uploader', methods = ['POST'])
+@app.route("/home", methods=['POST'])
+def home():
+    return render_template('home.html')
+
+@app.route("/newMatch", methods=['POST'])
+def new_match():
+    return render_template('newmatch-step1.html')
+
+@app.route('/upload', methods = ['POST'])
 def uploader():
-    req_mentor_file = "mentor_file" # html form field "name"
-    req_mentee_file = "student_file" # html form field "name"
 
-    print("uploader() called")
-    print("files:", request.files[req_mentor_file], request.files[req_mentee_file])
+    # TODO: grab this from the request
+    mentor_input_name = "mentor_file" # html form field "name"
+    student_input_name = "student_file" # html form field "name"
 
-    #Ensure that the request has the file part
-    if req_mentor_file not in request.files or req_mentee_file not in request.files:
-        error = "ERROR: post request missing file part"
-        return error
+    mentor_file = request.files[mentor_input_name]
+    student_file = request.files[student_input_name]
 
-    obj_mentor_file = request.files[req_mentor_file]
-    obj_mentee_file = request.files[req_mentee_file]
+    # error if the request was submitted without a file
+    if not mentor_file or not student_file or mentor_file == "" or student_file == "":
+        FAILURE_DATA = {"message": "Please attach mentor and student files.", "code": FAILURE_CODE}
+        return json.dumps(FAILURE_DATA)
 
-    #Check if request was submitted without a file
-    if obj_mentor_file.filename == "" or obj_mentee_file.filename == "":
-        error = "ERROR: User did not attach a file"
-        return error
+    # if the extensions submitted are not allowed
+    if not is_extension_allowed(mentor_file.filename) or not is_extension_allowed(student_file.filename):
+        FAILURE_DATA = {"message": "Please only submit Excel (.xlsx) files.", "code": FAILURE_CODE}
+        return json.dumps(FAILURE_DATA)
 
-    #Actually submitted a file
-    if obj_mentor_file and allowed_file(obj_mentor_file.filename) and\
-       obj_mentee_file and allowed_file(obj_mentee_file.filename):
-        mentor_filename  = secure_filename(obj_mentor_file.filename)
-        mentee_filename  = secure_filename(obj_mentee_file.filename)
+    # secure filename
+    mentor_filename = secure_filename(mentor_file.filename)
+    student_filename = secure_filename(student_file.filename)
 
-        obj_mentor_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentor_filename))
-        obj_mentee_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentee_filename))
-        print("UPLOAD SUCCESS")
+    # save files to server
+    mentor_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentor_filename))
+    student_file.save(os.path.join(app.config['UPLOAD_FOLDER'], student_filename))
 
-        print('> Cleaning data...')
-        #Clean the data- save in the downloads folder
-        clean_files(app.config['UPLOAD_FOLDER'] + mentor_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename)
-        clean_files(app.config['UPLOAD_FOLDER'] + mentee_filename, app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename)
+    # success!
+    SUCCESS_DATA = {"message": "The files were uploaded successfully.", "code": SUCCESS_CODE, "html": render_template("newmatch-step2.html")}
+    return json.dumps(SUCCESS_DATA)
 
-        print('> Running matching algorithm...')
-        #Run the algorithm
-        json_data = match(app.config['DOWNLOAD_FOLDER'] + "clean_" + mentor_filename,\
-                          app.config['DOWNLOAD_FOLDER'] + "clean_" + mentee_filename, \
-                          app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, True)
-        return json_data
+@app.route("/lastMatch", methods=['POST']) # default is GET
+def last_match():
+    return render_template('lastmatch.html')
 
-    return "UPLOAD UNSUCCESSFUL"
+@app.route("/mentorLogs", methods=['POST']) # default is GET
+def mentor_logs():
+    return render_template('mentorLogs.html')
 
-@app.route('/download/<path:filename>', methods=['GET', 'POST'])
-def download(filename):
-    print("/download called")
-    download_path = os.path.join(app.root_path, "downloads/")
-    print(download_path)
-    return send_from_directory(directory=download_path, filename=filename)
-
-@app.route("/gotodownload", methods=['GET','POST'])
-def gotodownload():
-    print("/gotodownload called")
-    return redirect("http://localhost:5000/download/matched.xlsx", code=302)
-
-
-# @app.route("/download", methods=['GET'])
-# def download():
-#     print("/download called")
-#     # download_path = os.path.join(app.root_path, app.config['DOWNLOAD_FOLDER'])
-#     download_path = os.path.join(app.root_path, "src/www/downloads/")
-#     print(os.listdir("./"))
-#     print(download_path)
-#     # return send_from_directory(directory=download_path, filename="matched.xlsx", as_attachment=True)
-#     return send_file('src/www/downloads/matched.xlsx',
-#                      mimetype='text/xlsx',
-#                      attachment_filename='matched.xlsx',
-#                      as_attachment=True)
-
-@app.route("/test", methods=['GET'])
-def test():
-    print("test() called")
-    return "Hello from Server!"
+@app.route("/feedback", methods=['POST']) # default is GET
+def feedback():
+    return render_template('feedback.html')
 
 # check if the executed file is the main program
 if __name__ == "__main__":
