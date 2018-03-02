@@ -13,7 +13,7 @@ match: clean
 clean:
 	python ./src/data-cleaning/clean_data.py -m $(ORIG_MENTOR_INFILE) -s $(ORIG_STUDENT_INFILE) -mo $(CLEAN_MENTOR_INFILE) -so $(CLEAN_STUDENT_INFILE)
 
-server:
+serve:
 	python ./src/www/server.py
 
 clear:

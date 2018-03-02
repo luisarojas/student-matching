@@ -58,6 +58,9 @@ def uploader():
         FAILURE_DATA = {"message": "Please only submit Excel (.xlsx) files.", "code": FAILURE_CODE}
         return json.dumps(FAILURE_DATA)
 
+    # TODO: Make sure both files follow the same structure, in terms of columns
+    # TODO: Make sure the mentor and student files were not uploaded in reverse
+
     # secure filename
     mentor_filename = secure_filename(mentor_file.filename)
     student_filename = secure_filename(student_file.filename)
