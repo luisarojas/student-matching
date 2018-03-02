@@ -1,5 +1,5 @@
-var SUCCESS_CODE = 100;
-var FAILURE_CODE = 200;
+var SUCCESS_CODE = 1;
+var FAILURE_CODE = -1;
 
 $('document').ready(function() {
 
@@ -66,7 +66,7 @@ $('document').ready(function() {
     $("#content").on('submit', '#file-upload-form', function (e) {
         e.preventDefault();
 
-        console.log("Submitting ...");
+        console.log("Submitting form...");
 
         var formData = new FormData(this);
 
@@ -75,8 +75,17 @@ $('document').ready(function() {
             type: 'POST',
             data: formData,
             success: function (res) {
-                
-                console.log(JSON.parse(res).message);
+
+
+                res_data = JSON.parse(res)
+
+                if (res_data.code == SUCCESS_CODE) {
+                    // Load step 2
+                    $("#content").html(res_data.html)
+                } else {
+                    // Display error message.
+                    $("#step1-errmsg").html(res_data.message)
+                }
 
                 //Download the file
                 // $.get("/download/matched.xlsx");

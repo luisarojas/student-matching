@@ -1,7 +1,7 @@
 <p class="page-title"><b>STEP 1:</b> UPLOAD</p>
 <p>Please upload the excel sheets containing the information for mentors and mentees. They must be in two separate files, and should adhere to the format below. Please make sure both files contain the same quesitions in the same order, as this could greatly affect the accuracy of the matches.</p>
-<img src="{{ url_for('static', filename='img/sample-table.png') }}" style="width:850px;">
-<form id="file-upload-form" action="" enctype="multipart/form-data">
+<img src="{{ url_for('static', filename='img/sample-table.png') }}" style="width:100%; margin-top:15px;">
+<form id="file-upload-form" action="" enctype="multipart/form-data" style="width:100%;">
 
     <input type="file" name="mentor_file" id="mentor-file-input" class="inputfile" />
     <label style="margin-top:20px; padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="mentor-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload <b>mentor</b> file</label>
@@ -11,5 +11,11 @@
     <label style="padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="student-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload <b>student</b> file</label>
     <p id="student-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
 
-    <input type=image src="{{ url_for('static', filename='img/next-arrow.png') }}" alt="">
+    <br><br>
+    <p id="step1-errmsg" style="color:red; font-size:0.9em; height: 20px;"></p><br>
+
+    <div style="vertical-align: middle; text-align: right;">
+        <!-- <p style="display:inline; line-height:20px;">NEXT</p> -->
+        <input id="to-step2-btn" type=image src="{{ url_for('static', filename='img/next-arrow.png') }}" alt="" style="height:30px;">
+    </div>
 </form>

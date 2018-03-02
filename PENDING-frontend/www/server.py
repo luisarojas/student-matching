@@ -1,13 +1,31 @@
 from flask import Flask, render_template, request
-import json
+from werkzeug import secure_filename
+import json, os, sys
 
 app = Flask(__name__)
 
-pythonDictionary = {'name':'Bob', 'age':44, 'isEmployed':True}
-dictionaryToJson = json.dumps(pythonDictionary)
+# TODO: This will be uncommented when we start developing "Step 2"
+# matching and data cleaning-related variables
+# sys.path.append("./PENDING-frontend/scripts")
+# from match import match
+# from clean_data import clean_files
 
-SUCCESS_CODE = {"message": "The process was carried out successfully.", "code": 100}
-FAILURE_CODE = {"message": "The process could not be completed.", "code": 200}
+# global variables
+SUCCESS_CODE = 1
+FAILURE_CODE = -1
+ALLOWED_FILE_EXTENSIONS = set(['xlsx'])
+UPLOAD_FOLDER="./PENDING-frontend/www/uploads/"
+DOWNLOAD_FOLDER="./PENDING-frontend/www/downloads/"
+MATCH_OUTPUT_FILE = "matched.xlsx"
+
+# app configurations
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
+
+def is_extension_allowed(filename):
+    print("filename: " + filename)
+    print("Allowed?: " + str("." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_FILE_EXTENSIONS))
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_FILE_EXTENSIONS
 
 # define basic route
 @app.route("/")
@@ -20,7 +38,7 @@ def home():
 
 @app.route("/newMatch", methods=['POST'])
 def new_match():
-    return render_template('newmatch.html')
+    return render_template('newmatch-step1.html')
 
 @app.route('/upload', methods = ['POST'])
 def uploader():
@@ -32,8 +50,27 @@ def uploader():
     mentor_file = request.files[student_input_name]
     student_file = request.files[student_input_name]
 
-    # print("files:", mentor_file, student_file)
-    return json.dumps(SUCCESS_CODE)
+    # error if the request was submitted without a file
+    if not mentor_file or not student_file or mentor_file == "" or student_file == "":
+        FAILURE_DATA = {"message": "Please attach mentor and student files.", "code": FAILURE_CODE}
+        return json.dumps(FAILURE_DATA)
+
+    # if the extensions submitted are not allowed
+    if not is_extension_allowed(mentor_file.filename) or not is_extension_allowed(student_file.filename):
+        FAILURE_DATA = {"message": "Please only submit Excel (.xlsx) files.", "code": FAILURE_CODE}
+        return json.dumps(FAILURE_DATA)
+
+    # secure filename
+    mentor_filename = secure_filename(mentor_file.filename)
+    student_filename = secure_filename(student_file.filename)
+
+    # save files to server # TODO: Fix this error :( (FileNotFoundError: [Errno 2] No such file or directory: './PENDING-frontend/www/uploads/mentors.xlsx')
+    # mentor_file.save(os.path.join(app.config['UPLOAD_FOLDER'], mentor_filename))
+    # student_file.save(os.path.join(app.config['UPLOAD_FOLDER'], student_filename))
+
+    # success!
+    SUCCESS_DATA = {"message": "The files were uploaded successfully.", "code": SUCCESS_CODE, "html": render_template("newmatch-step2.html")}
+    return json.dumps(SUCCESS_DATA)
 
 @app.route("/lastMatch", methods=['POST']) # default is GET
 def last_match():
