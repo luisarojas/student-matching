@@ -60,6 +60,8 @@ $('document').ready(function() {
     });
 
     $("#content").on('change', '#student-file-input', function () {
+        
+        // TODO: Fix bug where an error is outputed if the upload is clicked again after the initial submission
         $("#student-filename").html(this.files[0].name)
     });
 
@@ -75,7 +77,6 @@ $('document').ready(function() {
             type: 'POST',
             data: formData,
             success: function (res) {
-
 
                 res_data = JSON.parse(res)
 
