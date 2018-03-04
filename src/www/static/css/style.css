@@ -33,12 +33,20 @@ a, a:hover, a:focus {
     cursor: pointer;
     max-height: 40px;
     margin: 10px 0 0 0;
-    font-size: 0.8em;
     background: rgb(100,216,226);
-    color: white;
-    padding: 5px 35px 5px 30px;
     border: none;
+    vertical-align: middle;
+}
+
+.mmm-btn p {
+    font-size: 0.8em;
+    color: white;
     text-transform: uppercase;
+    display: inline;
+}
+
+.mmm-btn div {
+    padding: 5px 25px 5px 20px;
 }
 
 .menu-icon {
@@ -127,7 +135,7 @@ footer p {
 
 /* down/up arrow for "recent" tab */
 a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content: '\e259';
+    content:'\e259';
     display: block;
     position: absolute;
     right: 20px;
@@ -150,6 +158,7 @@ ul ul a {
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
+    overflow:auto;
     width: calc(100% - 300px);
     padding: 65px;
     height: calc(100% - 40px);

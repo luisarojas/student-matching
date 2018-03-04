@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from werkzeug import secure_filename
+from pandas import ExcelFile
 import json, os, sys
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -29,17 +31,15 @@ def is_extension_allowed(filename):
 
 def validate_upload_files(mentorfile, studentfile):
 
-    import pandas as pd
-    # from pandas import ExcelWriter
-    from pandas import ExcelFile
-
     mentorsdf = pd.read_excel(mentorfile)
     studentsdf = pd.read_excel(studentfile)
+
+    print(len(mentorsdf.index), len(studentsdf.index))
 
     if (mentorsdf.columns.tolist() != studentsdf.columns.tolist()):
         return {"message": "The columns in the files submitted do not match.", "code": FAILURE_CODE}
 
-    if (len(mentorsdf.index) > len(studentsdf.index)):
+    if (len(mentorsdf.index) >= len(studentsdf.index)):
         return {"message": "Please make sure you have uploaded the files in the right order.", "code": FAILURE_CODE}
 
     return {"message": "The files were successfully validated.", "code": SUCCESS_CODE}
@@ -53,9 +53,35 @@ def main():
 def home():
     return render_template('home.html')
 
-@app.route("/newMatch", methods=['POST'])
-def new_match():
+@app.route("/newMatchStep1", methods=['POST'])
+def new_match_s1():
     return render_template('newmatch-step1.html')
+
+@app.route('/newMatchStep2', methods = ['POST', 'GET'])
+def new_match_s2():
+
+    default_value = 3
+
+    htmltable = "<table id=\"questions-table\" class=\"table table-bordered table-sm\"><thead class=\"thead-light\"><tr><th>QUESTION</th><th>WEIGHT</th></tr></thead><tbody>"
+    question_headers = pd.read_excel(app.config['UPLOAD_FOLDER'] + MENTOR_FILENAME).columns.tolist()
+
+    for header in question_headers:
+        htmltable += "<tr><td>" + header + "</td><td><input style=\"width:100%\" type=\"number\" min=\"0\" max=\"5\" step=\"1\" value=\"" + str(default_value) + "\"></td></tr>"
+    htmltable += "</tbody></table>"
+
+    return json.dumps({"message": "Grabbed the header information successfully.", "code": SUCCESS_CODE, "html": render_template('newmatch-step2.html'), "htmltable": htmltable})
+
+@app.route("/lastMatch", methods=['POST']) # default is GET
+def last_match():
+    return render_template('lastmatch.html')
+
+@app.route("/mentorLogs", methods=['POST']) # default is GET
+def mentor_logs():
+    return render_template('mentorLogs.html')
+
+@app.route("/feedback", methods=['POST']) # default is GET
+def feedback():
+    return render_template('feedback.html')
 
 @app.route('/upload', methods = ['POST'])
 def uploader():
@@ -89,26 +115,13 @@ def uploader():
     # make sure both files follow the same structure, in terms of columns
     # make sure the mentor and student files were not uploaded in reverse
     result = validate_upload_files(app.config['UPLOAD_FOLDER'] + MENTOR_FILENAME, app.config['UPLOAD_FOLDER'] + STUDENT_FILENAME)
-    print(result)
     if result['code'] == FAILURE_CODE:
         FAILURE_DATA = {"message": result['message'], "code": FAILURE_CODE}
         return json.dumps(FAILURE_DATA)
 
     # success!
-    SUCCESS_DATA = {"message": "The files were uploaded successfully.", "code": SUCCESS_CODE, "html": render_template("newmatch-step2.html")}
+    SUCCESS_DATA = {"message": "The files were uploaded successfully.", "code": SUCCESS_CODE}
     return json.dumps(SUCCESS_DATA)
-
-@app.route("/lastMatch", methods=['POST']) # default is GET
-def last_match():
-    return render_template('lastmatch.html')
-
-@app.route("/mentorLogs", methods=['POST']) # default is GET
-def mentor_logs():
-    return render_template('mentorLogs.html')
-
-@app.route("/feedback", methods=['POST']) # default is GET
-def feedback():
-    return render_template('feedback.html')
 
 # check if the executed file is the main program
 if __name__ == "__main__":

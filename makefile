@@ -14,7 +14,7 @@ clean:
 	python ./src/data-cleaning/clean_data.py -m $(ORIG_MENTOR_INFILE) -s $(ORIG_STUDENT_INFILE) -mo $(CLEAN_MENTOR_INFILE) -so $(CLEAN_STUDENT_INFILE)
 
 serve:
-	python ./src/www/server.py
+	@python ./src/www/server.py
 
 clear:
 	rm $(CLEAN_MENTOR_INFILE) $(CLEAN_STUDENT_INFILE) $(MATCHED_OUTFILE)

@@ -1,1 +1,42 @@
 <p class="page-title"><b>STEP 2:</b> MATCH</p>
+<p>Default settings have been set for the questions identified. If you wish, they can be changed to any number between 0 and 5, where 1 indicates low relevance and 5 indicates high relevance. <i>Questions weighted with 0 will not be taken into account</i>.<br><br>Once you are done, click the 'MATCH' button to begin the matching process.<br><br></p>
+<input id="" type="checkbox"><p style="display:inline;"> &nbsp;Merge with most recent matches stored.</p><br>
+<div id="step2-left-wrapper" style="display: inline-block; vertical-align: top; width: 55%;">
+    <div id="questions-table-wrapper">
+    </div>
+    <button class="mmm-btn"><div><p>MATCH</p></div></button>
+</div>
+<div style="height: 100%; display: inline-block; vertical-align: top; width: 44%;">
+
+    <div>
+        <div style="display: inline-block; vertical-align: top; width: 10%; text-align:right;">
+            <img src="{{ url_for('static', filename='./step2-loading.gif') }}" class="btn-icon">
+        </div>
+        <div style="display: inline-block; vertical-align: top; width: 84%;">
+            <p id="step2-matching-msg" style="display: inline;"> &nbsp;Matching 1,248 students...</p>
+            <p id="step2-matching-msg">
+                <p style="display: inline; color: green;"> &nbsp;<b>Successfully</b></p><p style="display:inline;"> generated 54 groups.</p>
+            </p>
+        </div>
+    </div>
+
+    <!-- buttons -->
+    <div style="margin-top: 10px;">
+        <center>
+            <button class="mmm-btn"><div>
+                <img src="{{ url_for('static', filename='./email-icon.png') }}" class="btn-icon">
+                <p>EMAIL MENTORS</p>
+            </div></button>
+
+            <button class="mmm-btn"><div>
+                <img src="{{ url_for('static', filename='./edit-icon.png') }}" class="btn-icon">
+                <p>EDIT MATCHES</p>
+            </div></button>
+
+            <button class="mmm-btn"><div>
+                <img src="{{ url_for('static', filename='./download-icon.png') }}" class="btn-icon">
+                <p>DOWNLOAD MATCHES</p>
+            </div></button>
+        </center>
+    </div>
+</div>

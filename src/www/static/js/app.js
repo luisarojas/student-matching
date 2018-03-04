@@ -28,7 +28,7 @@ $('document').ready(function() {
     });
 
     $("#newmatch-btn").click(function() {
-        $.post('/newMatch').done(function(res) {
+        $.post('/newMatchStep1').done(function(res) {
             $("#content").html(res)
         });
     });
@@ -60,7 +60,7 @@ $('document').ready(function() {
     });
 
     $("#content").on('change', '#student-file-input', function () {
-        
+
         // TODO: Fix bug where an error is outputed if the upload is clicked again after the initial submission
         $("#student-filename").html(this.files[0].name)
     });
@@ -78,19 +78,24 @@ $('document').ready(function() {
             data: formData,
             success: function (res) {
 
-                res_data = JSON.parse(res)
+                resData = JSON.parse(res)
 
-                if (res_data.code == SUCCESS_CODE) {
-                    // Load step 2
-                    console.log(res_data.message)
-                    $("#content").html(res_data.html)
+                if (resData.code == SUCCESS_CODE) {
+
+                    console.log(resData.message)
+
+                    // load step 2
+                    $.post('/newMatchStep2').done(function(innerRes) {
+
+                        innerResData = JSON.parse(innerRes)
+                        $("#content").html(innerResData.html)
+                        $("#questions-table-wrapper").append(innerResData.htmltable)
+                    });
+
                 } else {
-                    // Display error message.
-                    $("#step1-errmsg").html(res_data.message)
+                    // display error message.
+                    $("#step1-errmsg").html(resData.message)
                 }
-
-                //Download the file
-                // $.get("/download/matched.xlsx");
             },
             cache: false,
             contentType: false,

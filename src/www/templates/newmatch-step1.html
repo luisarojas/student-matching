@@ -3,13 +3,28 @@
 <img src="{{ url_for('static', filename='img/sample-table.png') }}" style="width:100%; margin-top:15px;">
 <form id="file-upload-form" action="" enctype="multipart/form-data" style="width:100%;">
 
-    <input type="file" name="mentor_file" id="mentor-file-input" class="inputfile" />
-    <label style="margin-top:20px; padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="mentor-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload <b>mentor</b> file</label>
-    <p id="mentor-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
+    <!-- buttons -->
+    <div style="margin-top:20px;">
+        <!-- first button -->
+        <div style="vertical-align:middle;">
+            <input type="file" name="mentor_file" id="mentor-file-input" class="inputfile" />
+            <label style="padding: 0; margin: 0;"class="mmm-btn" for="mentor-file-input"><div>
+                <img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">
+                <p>Upload <b>mentor</b> file</p>
+            </div></label>
+            <p id="mentor-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
+        </div>
 
-    <input type="file" name="student_file" id="student-file-input" class="inputfile" />
-    <label style="padding-top:10px; padding-bottom:10px;" class="mmm-btn" for="student-file-input"><img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">&nbsp; Upload <b>student</b> file</label>
-    <p id="student-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
+        <!-- second button -->
+        <div style="vertical-align:middle; margin-top:15px;">
+            <input type="file" name="student_file" id="student-file-input" class="inputfile" />
+            <label style="padding: 0; margin: 0;"class="mmm-btn" for="student-file-input"><div>
+                <img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">
+                <p>Upload <b>student</b> file</p>
+            </div></label>
+            <p id="student-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
+        </div>
+    </div>
 
     <br><br>
     <p id="step1-errmsg" style="color:red; font-size:0.9em; height: 20px;"></p><br>
