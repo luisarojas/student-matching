@@ -38,7 +38,6 @@ def validate_upload_files(mentorfile, studentfile):
     mentors_file_headers = mentorsdf.columns.tolist()
     students_file_headers = studentsdf.columns.tolist()
 
-    print(mentors_file_headers, students_file_headers)
     if ([h.strip().lower() for h in mentors_file_headers] != [h.strip().lower() for h in students_file_headers]):
         return {"message": "The columns in the files submitted do not match.", "code": FAILURE_CODE}
 
@@ -132,8 +131,8 @@ def uploader():
 
 @app.route('/match', methods = ['POST'])
 def match():
-    # import time
-    # time.sleep(5)
+
+    req_data_questions = request.get_json()['questions']
 
     # clean data
     print("\nCleaning data...")

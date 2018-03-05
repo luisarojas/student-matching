@@ -119,6 +119,7 @@ $('document').ready(function() {
     // NEW MATCH - STEP 2
     // ------------------------------------------
 
+    // "match" button is clicked
     $("#content").on('click', '#match-btn', function () {
 
         // disable matching button
@@ -129,24 +130,36 @@ $('document').ready(function() {
         $("#step2-right-wrapper").css("display", "inline-block");
         $("#match-loading-msg n").html(numStudentsToMatch)
 
-        $.post("/match", function(res) {
+        // store table information in a json object
+        var questionWeights = {'questions': []};
+        $("#questions-table tbody tr").each(function() {
+            var questionHeader = $(this).find("td").html();
+            var questionWeight = $(this).find("input").val();
+            questionWeights.questions.push({'header': questionHeader, 'weight': questionWeight});
+        });
 
-            resData = JSON.parse(res)
+        $.ajax({
+            type: 'POST',
+            url: "/match",
+            data: JSON.stringify(questionWeights),
+            contentType: 'application/json; charset=utf-8',
+            success: function (res) {
+                resData = JSON.parse(res)
 
-            // update ui upon match completion
-            $("#match-success-msg").css("display", "block");
-            $("#match-success-msg n").html(resData.numGroups);
-            $("#step2-buttons").css("display", "block");
-            $("#loading-icon").toggle()
-            $("#checkmark-icon").toggle()
+                // update ui upon match completion
+                $("#match-success-msg").css("display", "block");
+                $("#match-success-msg n").html(resData.numGroups);
+                $("#step2-buttons").css("display", "block");
+                $("#loading-icon").toggle()
+                $("#checkmark-icon").toggle()
 
-            // buttons temporarily disabled - functionality not available yet
-            $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled");
-            $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
+                // buttons temporarily disabled - functionality not available yet
+                $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled");
+                $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
 
-            // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
-            // $("#match-btn").removeAttr('disabled').css("background", "rgb(100,216,226)").css("cursor", "pointer");
-
+                // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
+                // $("#match-btn").removeAttr('disabled').css("background", "rgb(100,216,226)").css("cursor", "pointer");
+            }
         });
     });
 

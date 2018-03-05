@@ -37,10 +37,17 @@
                 <p>EDIT MATCHES</p>
             </div></button>
 
-            <button id="step2-download-btn" class="mmm-btn"><a href="/download"><div>
-                <img src="{{ url_for('static', filename='./img/download-icon.png') }}" class="btn-icon">
-                <p>DOWNLOAD MATCHES</p>
-            </a> </div></button>
+            <button id="step2-download-btn" class="mmm-btn">
+                <a href="/download" style="display: block;">
+                    <div>
+
+                        <img src="{{ url_for('static', filename='./img/download-icon.png') }}" class="btn-icon">
+                        <p>DOWNLOAD MATCHES</p>
+
+                    </div>
+                </a>
+
+            </button>
         </center>
     </div>
 </div>
