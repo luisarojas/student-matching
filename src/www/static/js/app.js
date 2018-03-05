@@ -147,8 +147,6 @@ $('document').ready(function() {
 
     $("#content").on('click', '#step2-download-btn', function() {
         console.log('Download clicked!')
-        $.post("/download", function() {
-
-        });
+        $.get("/download")
     });
 });

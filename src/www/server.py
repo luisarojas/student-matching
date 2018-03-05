@@ -143,19 +143,14 @@ def match():
     SUCCESS_DATA = {"message": "Successfully created " + str(total_num_groups) + " groups.", "code": SUCCESS_CODE, "numGroups": total_num_groups}
     return json.dumps(SUCCESS_DATA)
 
-@app.route('/download', methods = ['POST'])
+@app.route('/download', methods = ['GET'])
 def download_match():
 
-    from flask import send_file
+    from flask import send_from_directory
+    # SUCCESS_DATA = {"message": "Successfully downloaded file.", "code": SUCCESS_CODE)
 
-    return send_file(app.config['DOWNLOAD_FOLDER'], MATCH_OUTPUT_FILE,
-                     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                     as_attachment=True)
-
-    SUCCESS_DATA = {"message": "Successfully downloaded file.", "code": SUCCESS_CODE, "file": send_from_directory(directory=app.config['DOWNLOAD_FOLDER'], filename=MATCH_OUTPUT_FILE)}
-
-    # return json.dumps(SUCCESS_DATA)
-    # return send_from_directory(directory=app.config['DOWNLOAD_FOLDER'], filename=MATCH_OUTPUT_FILE)
+    return send_from_directory(app.config['DOWNLOAD_FOLDER'], MATCH_OUTPUT_FILE, as_attachment=True)
+    # return json.dumps({"message": "from download"})
 
 # check if the executed file is the main program
 if __name__ == "__main__":
