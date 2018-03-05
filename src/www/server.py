@@ -6,11 +6,10 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# TODO: This will be uncommented when we start developing "Step 2"
 # matching and data cleaning-related variables
-# sys.path.append("./src/scripts")
-# from match import match
-# from clean_data import clean_files
+sys.path.append("./src/scripts/")
+from match import match_all
+from clean_data import clean_files
 
 # global variables
 MENTOR_FILENAME = ""
@@ -42,7 +41,7 @@ def validate_upload_files(mentorfile, studentfile):
     if (len(mentorsdf.index) >= len(studentsdf.index)):
         return {"message": "Please make sure you have uploaded the files in the right order.", "code": FAILURE_CODE}
 
-    return {"message": "The files were successfully validated.", "code": SUCCESS_CODE}
+    return {"message": "The files were successfully validated.", "code": SUCCESS_CODE, "num_students": len(mentorsdf.index)+len(studentsdf.index)}
 
 # define basic route
 @app.route("/")
@@ -120,8 +119,43 @@ def uploader():
         return json.dumps(FAILURE_DATA)
 
     # success!
-    SUCCESS_DATA = {"message": "The files were uploaded successfully.", "code": SUCCESS_CODE}
+    SUCCESS_DATA = {"message": "The files were uploaded successfully.", "code": SUCCESS_CODE, "numStudents": result['num_students']}
     return json.dumps(SUCCESS_DATA)
+
+@app.route('/match', methods = ['POST'])
+def match():
+    # import time
+    # time.sleep(5)
+
+    # clean data
+    print("\nCleaning data...")
+    clean_files(app.config['UPLOAD_FOLDER'] + MENTOR_FILENAME, app.config['UPLOAD_FOLDER'] + "clean_" + MENTOR_FILENAME)
+    clean_files(app.config['UPLOAD_FOLDER'] + STUDENT_FILENAME, app.config['UPLOAD_FOLDER'] + "clean_" + STUDENT_FILENAME)
+
+    # run matching algorithm
+    print("\nMatching...")
+    match_data, total_num_groups = match_all(app.config['UPLOAD_FOLDER'] + "clean_" + MENTOR_FILENAME,\
+                                    app.config['UPLOAD_FOLDER'] + "clean_" + STUDENT_FILENAME, \
+                                    app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, False)
+
+    # TODO: store in database
+
+    SUCCESS_DATA = {"message": "Successfully created " + str(total_num_groups) + " groups.", "code": SUCCESS_CODE, "numGroups": total_num_groups}
+    return json.dumps(SUCCESS_DATA)
+
+@app.route('/download', methods = ['POST'])
+def download_match():
+
+    from flask import send_file
+
+    return send_file(app.config['DOWNLOAD_FOLDER'], MATCH_OUTPUT_FILE,
+                     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                     as_attachment=True)
+
+    SUCCESS_DATA = {"message": "Successfully downloaded file.", "code": SUCCESS_CODE, "file": send_from_directory(directory=app.config['DOWNLOAD_FOLDER'], filename=MATCH_OUTPUT_FILE)}
+
+    # return json.dumps(SUCCESS_DATA)
+    # return send_from_directory(directory=app.config['DOWNLOAD_FOLDER'], filename=MATCH_OUTPUT_FILE)
 
 # check if the executed file is the main program
 if __name__ == "__main__":

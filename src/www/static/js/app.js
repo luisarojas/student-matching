@@ -1,6 +1,8 @@
 var SUCCESS_CODE = 1;
 var FAILURE_CODE = -1;
 
+var numStudentsToMatch = 0
+
 $('document').ready(function() {
 
     // ------------------------------------------
@@ -83,12 +85,22 @@ $('document').ready(function() {
                 if (resData.code == SUCCESS_CODE) {
 
                     console.log(resData.message)
+                    numStudentsToMatch = resData.numStudents
 
                     // load step 2
                     $.post('/newMatchStep2').done(function(innerRes) {
 
                         innerResData = JSON.parse(innerRes)
+
+                        // load main content for step 2
                         $("#content").html(innerResData.html)
+
+                        // hide some contents
+                        $("#step2-right-wrapper").css("display", "none");
+                        $("#step2-buttons").css("display", "none");
+                        $("#match-success-msg").css("display", "none");
+
+                        // load questions' table
                         $("#questions-table-wrapper").append(innerResData.htmltable)
                     });
 
@@ -100,6 +112,43 @@ $('document').ready(function() {
             cache: false,
             contentType: false,
             processData: false
+        });
+    });
+
+    // ------------------------------------------
+    // NEW MATCH - STEP 2
+    // ------------------------------------------
+
+    $("#content").on('click', '#match-btn', function () {
+
+        // disable matching button
+        $("#match-btn").attr('disabled','disabled').css("background", "rgb(226, 226, 226)").css("cursor", "default");
+
+        // display loading message
+        $("#step2-right-wrapper").css("display", "inline-block");
+        $("#match-loading-msg n").html(numStudentsToMatch)
+
+        $.post("/match", function(res) {
+
+            resData = JSON.parse(res)
+
+            // update ui upon match completion
+            $("#match-success-msg").css("display", "block");
+            $("#match-success-msg n").html(resData.numGroups);
+            $("#step2-buttons").css("display", "block");
+            $("#loading-icon").toggle()
+            $("#checkmark-icon").toggle()
+
+            // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
+            // $("#match-btn").removeAttr('disabled').css("background", "rgb(100,216,226)").css("cursor", "pointer");
+
+        });
+    });
+
+    $("#content").on('click', '#step2-download-btn', function() {
+        console.log('Download clicked!')
+        $.post("/download", function() {
+
         });
     });
 });

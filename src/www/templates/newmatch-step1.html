@@ -10,7 +10,7 @@
             <input type="file" name="mentor_file" id="mentor-file-input" class="inputfile" />
             <label style="padding: 0; margin: 0;"class="mmm-btn" for="mentor-file-input"><div>
                 <img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">
-                <p>Upload <b>mentor</b> file</p>
+                <p>Upload <b><u>mentor</u></b> file</p>
             </div></label>
             <p id="mentor-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
         </div>
@@ -20,7 +20,7 @@
             <input type="file" name="student_file" id="student-file-input" class="inputfile" />
             <label style="padding: 0; margin: 0;"class="mmm-btn" for="student-file-input"><div>
                 <img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">
-                <p>Upload <b>student</b> file</p>
+                <p>Upload <b><u>student</u></b> file</p>
             </div></label>
             <p id="student-filename" style="display:inline; margin-left:10px;">No file selected.</p><br>
         </div>
@@ -30,7 +30,6 @@
     <p id="step1-errmsg" style="color:red; font-size:0.9em; height: 20px;"></p><br>
 
     <div style="vertical-align: middle; text-align: right;">
-        <!-- <p style="display:inline; line-height:20px;">NEXT</p> -->
         <input id="to-step2-btn" type=image src="{{ url_for('static', filename='img/next-arrow.png') }}" alt="" style="height:30px;">
     </div>
 </form>

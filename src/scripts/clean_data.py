@@ -61,7 +61,7 @@ def clean_files(input_file, output_file):
     print('> Saved to file: ' + output_file)
 
 if __name__ == "__main__":
-    
+
     # set-up command-line arguments
     parser = argparse.ArgumentParser(description="Clean mentors and students data.")
     parser._action_groups.pop()

@@ -1,5 +1,3 @@
-# ------------------------ IMPLEMENTATION ------------------------
-
 import pandas as pd
 import numpy as np
 from operator import itemgetter
@@ -140,7 +138,9 @@ def save_to_excel(output_filename, master_match_dict, column_names):
 
 # starting point for the matching process
 # called from the server
-def match(mentors_filename, mentees_filename, output_filename, debug):
+def match_all(mentors_filename, mentees_filename, output_filename, debug):
+
+    total_num_groups = 0
 
     # initialize list to hold the final matches for ALL faculties
     master_matches = []
@@ -205,6 +205,7 @@ def match(mentors_filename, mentees_filename, output_filename, debug):
         # ----------- RUN MATCHING ALGORITHM ----------
         # store the directory returned, which stores the matched indices under each mentor id
         matched_indices = create_groups(faculty_mentor_indices, faculty_mentee_indices, faculty_candidates)
+        total_num_groups += len(matched_indices)
 
         # ----------- FACULTY RESULTS ----------
         # print the results for the current faculty
@@ -232,7 +233,7 @@ def match(mentors_filename, mentees_filename, output_filename, debug):
 
     print()
 
-    return master_matches_json
+    return (master_matches_json, total_num_groups)
 
 
 if __name__ == "__main__": # will only be ran when script is executed from command-line
@@ -265,4 +266,4 @@ if __name__ == "__main__": # will only be ran when script is executed from comma
     output_filename = args.output # output filename - all the matched mentors/mentees will be output to this file
 
     #Run the matching algorithm
-    master_matches_json = match(mentors_filename, mentees_filename, output_filename, debug)
+    master_matches_json, n = match_all(mentors_filename, mentees_filename, output_filename, debug)
