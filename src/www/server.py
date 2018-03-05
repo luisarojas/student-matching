@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from werkzeug import secure_filename
 from pandas import ExcelFile
 import json, os, sys
@@ -145,12 +145,7 @@ def match():
 
 @app.route('/download', methods = ['GET'])
 def download_match():
-
-    from flask import send_from_directory, send_file
-    # SUCCESS_DATA = {"message": "Successfully downloaded file.", "code": SUCCESS_CODE)
-
     return send_file("downloads/" + MATCH_OUTPUT_FILE, as_attachment=True)
-    # return json.dumps({"message": "from download"})
 
 # check if the executed file is the main program
 if __name__ == "__main__":

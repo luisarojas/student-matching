@@ -141,16 +141,16 @@ footer p {
 
 /* down/up arrow for "recent" tab */
 a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content:'\e259';
+    content:'<';
     display: block;
     position: absolute;
     right: 20px;
-    font-family: 'Glyphicons Halflings';
-    font-size: 0.6em;
+    /* font-family: 'Glyphicons Halflings'; */
+    font-size: 1.2em;
 }
 
 a[aria-expanded="true"]::before {
-    content: '\e260';
+    content: '>';
 }
 
 /* submenu contents */
