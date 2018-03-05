@@ -30,13 +30,21 @@ def is_extension_allowed(filename):
 
 def validate_upload_files(mentorfile, studentfile):
 
+    required_fields = ["Student ID", "First Name", "Last Name", "E-mail", "Faculty", "Program"]
+
     mentorsdf = pd.read_excel(mentorfile)
     studentsdf = pd.read_excel(studentfile)
 
-    print(len(mentorsdf.index), len(studentsdf.index))
+    mentors_file_headers = mentorsdf.columns.tolist()
+    students_file_headers = studentsdf.columns.tolist()
 
-    if (mentorsdf.columns.tolist() != studentsdf.columns.tolist()):
+    print(mentors_file_headers, students_file_headers)
+    if ([h.strip().lower() for h in mentors_file_headers] != [h.strip().lower() for h in students_file_headers]):
         return {"message": "The columns in the files submitted do not match.", "code": FAILURE_CODE}
+
+    first_n_columns = mentors_file_headers[:len(required_fields)]
+    if ([h.strip().lower() for h in first_n_columns] != [h.strip().lower() for h in required_fields]):
+        return {"message": "The first " + str(len(required_fields)) + " columns of some file(s) do not match the required format.", "code": FAILURE_CODE}
 
     if (len(mentorsdf.index) >= len(studentsdf.index)):
         return {"message": "Please make sure you have uploaded the files in the right order.", "code": FAILURE_CODE}
