@@ -122,7 +122,8 @@ $('document').ready(function() {
     $("#content").on('click', '#match-btn', function () {
 
         // disable matching button
-        $("#match-btn").attr('disabled','disabled').css("background", "rgb(226, 226, 226)").css("cursor", "default");
+        // $("#match-btn").attr('disabled','disabled').css("background", "rgb(226, 226, 226)").css("cursor", "default");
+        $("#match-btn").attr('disabled','disabled').addClass("mmm-btn-disabled");
 
         // display loading message
         $("#step2-right-wrapper").css("display", "inline-block");
@@ -139,6 +140,10 @@ $('document').ready(function() {
             $("#loading-icon").toggle()
             $("#checkmark-icon").toggle()
 
+            // buttons temporarily disabled - functionality not available yet
+            $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled");
+            $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
+
             // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
             // $("#match-btn").removeAttr('disabled').css("background", "rgb(100,216,226)").css("cursor", "pointer");
 
@@ -146,11 +151,6 @@ $('document').ready(function() {
     });
 
     $("#content").on('click', '#step2-download-btn', function() {
-
-        console.log('Download clicked!')
-
-        $.get("/download", function () {
-            // callback
-        })
+        $.get("/download");
     });
 });

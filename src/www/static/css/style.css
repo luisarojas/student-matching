@@ -44,6 +44,11 @@ a, a:hover, a:focus {
     vertical-align: middle;
 }
 
+.mmm-btn-disabled {
+    cursor: default !important;
+    background: rgb(226,226,226) !important;
+}
+
 .mmm-btn p {
     font-size: 0.8em;
     color: white;
