@@ -146,7 +146,11 @@ $('document').ready(function() {
     });
 
     $("#content").on('click', '#step2-download-btn', function() {
+
         console.log('Download clicked!')
-        $.get("/download")
+
+        $.get("/download", function () {
+
+        })
     });
 });

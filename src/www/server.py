@@ -146,10 +146,10 @@ def match():
 @app.route('/download', methods = ['GET'])
 def download_match():
 
-    from flask import send_from_directory
+    from flask import send_from_directory, send_file
     # SUCCESS_DATA = {"message": "Successfully downloaded file.", "code": SUCCESS_CODE)
 
-    return send_from_directory(app.config['DOWNLOAD_FOLDER'], MATCH_OUTPUT_FILE, as_attachment=True)
+    return send_file("downloads/" + MATCH_OUTPUT_FILE, as_attachment=True)
     # return json.dumps({"message": "from download"})
 
 # check if the executed file is the main program
