@@ -76,7 +76,7 @@ footer p {
 }
 
 .page-title {
-    font-size: 2.5em;
+    font-size: 2em;
     text-transform: uppercase;
 }
 
@@ -130,7 +130,7 @@ footer p {
     cursor: pointer;
     text-align: center;
     padding: 20px;
-    font-size: 1.1em;
+    font-size: 0.9em;
     display: block;
     text-transform: uppercase;
 }
@@ -148,13 +148,14 @@ a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
     font-family: 'Glyphicons Halflings';
     font-size: 0.6em;
 }
+
 a[aria-expanded="true"]::before {
     content: '\e260';
 }
 
 /* submenu contents */
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 0.8em !important;
     padding-left: 30px !important;
     background: rgba(225, 225, 225, 0);
 }

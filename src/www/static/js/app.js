@@ -150,7 +150,7 @@ $('document').ready(function() {
         console.log('Download clicked!')
 
         $.get("/download", function () {
-
+            // callback
         })
     });
 });
