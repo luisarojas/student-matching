@@ -58,13 +58,20 @@ $('document').ready(function() {
     // ------------------------------------------
 
     $("#content").on('change', '#mentor-file-input', function () {
-        $("#mentor-filename").html(this.files[0].name)
+        if (typeof this.files[0] == "undefined") {
+            $("#mentor-filename").html("No file selected.").css("color", "red").css("font-family", "'Poppins', sans-serif")
+        } else {
+            $("#mentor-filename").html(this.files[0].name).css("color", "black").css("font-family", "'Inconsolata', monospace")
+        }
     });
 
     $("#content").on('change', '#student-file-input', function () {
 
-        // TODO: Fix bug where an error is outputed if the upload is clicked again after the initial submission
-        $("#student-filename").html(this.files[0].name)
+        if (typeof this.files[0] == "undefined") {
+            $("#student-filename").html("No file selected.").css("color", "red").css("font-family", "'Poppins', sans-serif")
+        } else {
+            $("#student-filename").html(this.files[0].name).css("color", "black").css("font-family", "'Inconsolata', monospace")
+        }
     });
 
     $("#content").on('submit', '#file-upload-form', function (e) {
