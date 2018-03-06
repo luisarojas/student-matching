@@ -16,12 +16,11 @@ def euclidean(mentor, mentee, weights):
 
     # if no weights are given, assign a weight of 1 to all questions
     if (len(weights) < len(mentor)):
-        weights = [1*len(mentor)]
+        weights = [1] * len(mentor)
 
     subtr = (np.array(mentor)-np.array(mentee))**2
     multipl = np.array([float(a)*float(b) for a, b in zip(np.array(weights), subtr)])
     return np.sqrt(sum(multipl))
-    # return np.linalg.norm((np.array(weights))*(np.array(mentor)-np.array(mentee)))
 
 # take in mentors and mentees indices, as well as a list of their every
 # combination of the two and their corresponding score
@@ -206,7 +205,7 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
             for mentee_index in faculty_mentee_indices:
                 curr_mentee = mentees[mentee_index][6:]
                 # calculate the euclidean distance for each mentor vs. each mentee
-                score = euclidean(curr_mentor, curr_mentee, list(question_weights.values())[6:])
+                score = euclidean(curr_mentor, curr_mentee, list(question_weights.values()))
                 # store the tuple and their score in the 'faculty_candidates' list
                 faculty_candidates.append([(mentor_index, mentee_index), score])
 

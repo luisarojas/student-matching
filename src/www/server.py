@@ -71,7 +71,7 @@ def new_match_s2():
     htmltable = "<table id=\"questions-table\" class=\"table table-bordered table-sm\"><thead class=\"thead-light\"><tr><th>QUESTION</th><th>WEIGHT</th></tr></thead><tbody>"
     question_headers = pd.read_excel(app.config['UPLOAD_FOLDER'] + MENTOR_FILENAME).columns.tolist()
 
-    for header in question_headers:
+    for header in question_headers[6:]:
         htmltable += "<tr><td>" + header + "</td><td><input style=\"width:100%\" type=\"number\" min=\"0\" max=\"5\" step=\"1\" value=\"" + str(default_value) + "\"></td></tr>"
     htmltable += "</tbody></table>"
 
