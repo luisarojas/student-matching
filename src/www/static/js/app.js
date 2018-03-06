@@ -129,9 +129,10 @@ $('document').ready(function() {
     // "match" button is clicked
     $("#content").on('click', '#match-btn', function () {
 
+        $('html, body').animate({scrollTop: $("#step2-title").offset().top}, 0);
+
         // disable matching button
-        // $("#match-btn").attr('disabled','disabled').css("background", "rgb(226, 226, 226)").css("cursor", "default");
-        $("#match-btn").attr('disabled','disabled').addClass("mmm-btn-disabled");
+        $("#match-btn").attr('disabled','disabled').addClass("mmm-btn-disabled")
 
         // display loading message
         $("#step2-right-wrapper").css("display", "inline-block");
@@ -163,6 +164,8 @@ $('document').ready(function() {
                 // buttons temporarily disabled - functionality not available yet
                 $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled");
                 $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
+
+                $("#match-btn a").removeAttr("href")
 
                 // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
                 // $("#match-btn").removeAttr('disabled').css("background", "rgb(100,216,226)").css("cursor", "pointer");
