@@ -3,7 +3,7 @@ import numpy as np
 from operator import itemgetter
 from math import ceil
 from math import floor
-import json
+import json, sys
 
 # load data from an excel spreadsheet
 def load_data(filename):
@@ -12,8 +12,16 @@ def load_data(filename):
     return df
 
 # calculate euclidean distance between a mentor and a mentee
-def euclidean(mentor, mentee):
-    return np.linalg.norm(np.array(mentor)-np.array(mentee))
+def euclidean(mentor, mentee, weights):
+
+    # if no weights are given, assign a weight of 1 to all questions
+    if (len(weights) < len(mentor)):
+        weights = [1*len(mentor)]
+
+    subtr = (np.array(mentor)-np.array(mentee))**2
+    multipl = np.array([float(a)*float(b) for a, b in zip(np.array(weights), subtr)])
+    return np.sqrt(sum(multipl))
+    # return np.linalg.norm((np.array(weights))*(np.array(mentor)-np.array(mentee)))
 
 # take in mentors and mentees indices, as well as a list of their every
 # combination of the two and their corresponding score
@@ -138,7 +146,7 @@ def save_to_excel(output_filename, master_match_dict, column_names):
 
 # starting point for the matching process
 # called from the server
-def match_all(mentors_filename, mentees_filename, output_filename, debug):
+def match_all(mentors_filename, mentees_filename, output_filename, question_weights, debug):
 
     total_num_groups = 0
 
@@ -198,7 +206,7 @@ def match_all(mentors_filename, mentees_filename, output_filename, debug):
             for mentee_index in faculty_mentee_indices:
                 curr_mentee = mentees[mentee_index][6:]
                 # calculate the euclidean distance for each mentor vs. each mentee
-                score = euclidean(curr_mentor, curr_mentee)
+                score = euclidean(curr_mentor, curr_mentee, list(question_weights.values())[6:])
                 # store the tuple and their score in the 'faculty_candidates' list
                 faculty_candidates.append([(mentor_index, mentee_index), score])
 
@@ -266,4 +274,4 @@ if __name__ == "__main__": # will only be ran when script is executed from comma
     output_filename = args.output # output filename - all the matched mentors/mentees will be output to this file
 
     #Run the matching algorithm
-    master_matches_json, n = match_all(mentors_filename, mentees_filename, output_filename, debug)
+    master_matches_json, n = match_all(mentors_filename, mentees_filename, output_filename, dict(),debug)

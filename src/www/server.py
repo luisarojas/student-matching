@@ -132,7 +132,13 @@ def uploader():
 @app.route('/match', methods = ['POST'])
 def match():
 
+    # receive array of json objects
     req_data_questions = request.get_json()['questions']
+
+    # convert to dictionary
+    questions_weights = dict()
+    for row in req_data_questions:
+        questions_weights[row['header']] = row['weight']
 
     # clean data
     print("\nCleaning data...")
@@ -143,7 +149,7 @@ def match():
     print("\nMatching...")
     match_data, total_num_groups = match_all(app.config['UPLOAD_FOLDER'] + "clean_" + MENTOR_FILENAME,\
                                     app.config['UPLOAD_FOLDER'] + "clean_" + STUDENT_FILENAME, \
-                                    app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, False)
+                                    app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, questions_weights, False)
 
     # TODO: store in database
 
