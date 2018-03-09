@@ -181,10 +181,16 @@ def match():
 def download_match():
     return send_file("downloads/" + MATCH_OUTPUT_FILE, as_attachment=True)
 
-@app.route('/test')
-def test():
-    print("/test called")
+@app.route('/test_neo4j')
+def test_neo4j():
+    print("/test_neo4j called")
     driver = GraphDatabase.driver("bolt://neo4j:7687", auth=basic_auth("neo4j","secret"))
+    return "OK"
+
+@app.route('/test_match')
+def test_json():
+    print("/test_match called")
+
     return "OK"
 
 # check if the executed file is the main program
