@@ -162,4 +162,5 @@ def download_match():
 
 # check if the executed file is the main program
 if __name__ == "__main__":
-    app.run(port=5000) # run the app
+    # app.run(port=5000) # run the app
+    app.run(host="0.0.0.0", debug=True)
