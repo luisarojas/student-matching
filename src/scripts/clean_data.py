@@ -2,7 +2,7 @@ import argparse
 import pandas as pd
 import re
 
-ans_types = {"Yes": 1, "Not Applicable": 0, "No": -1, "Strongly Agree": 2, "Slightly Agree": 1, "Agree": 1, "Neutral": 0, "Slightly Disagree": -1, "Disagree": -1, "Strongly Disagree": -2}
+ans_types = {"Yes": 1, "Not Applicable": 0, "No": -1, "Strongly Agree": 2, "Agree": 1, "Neutral": 0, "Disagree": -1, "Strongly Disagree": -2}
 
 # starting point for the matching process
 # called from the server
@@ -34,7 +34,8 @@ def clean_files(input_file, output_file):
                 pass
 
     # replace all 'Health Science' instances under Faculty for 'Health Sciences'
-    df['Faculty'].replace('Health Science', 'Health Sciences', inplace=True)
+    # not necessary anymore, since files with different faculty names will not be accepted upon upload
+    # df['Faculty'].replace('Health Science', 'Health Sciences', inplace=True)
 
     # fill-in missing data for columns 6-15 (Yes, No, Not Applicable)
     for i, header in enumerate(df[:][6:15]):

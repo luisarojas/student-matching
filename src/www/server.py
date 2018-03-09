@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, send_file
 from werkzeug import secure_filename
 from pandas import ExcelFile
-import json, os, sys
+import json, os, sys, math
 import pandas as pd
+import numpy as np
 
 app = Flask(__name__)
 
@@ -34,12 +35,29 @@ def is_extension_allowed(filename):
 def validate_upload_files(mentorfile, studentfile):
 
     required_fields = ["Student ID", "First Name", "Last Name", "E-mail", "Faculty", "Program"]
+    accepted_ans_types = ["No", "Yes", "Not Applicable", "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"]
 
     mentorsdf = pd.read_excel(mentorfile)
     studentsdf = pd.read_excel(studentfile)
 
+    all_mentor_answers = pd.unique(mentorsdf.iloc[:,6:].values.ravel('K'))
+    all_mentor_answers = [x for x in all_mentor_answers if not pd.isnull(x)]
+
+    all_student_answers = pd.unique(studentsdf.iloc[:,6:].values.ravel('K'))
+    all_student_answers = [x for x in all_student_answers if not pd.isnull(x)]
+
     mentors_file_headers = mentorsdf.columns.tolist()
     students_file_headers = studentsdf.columns.tolist()
+
+    # ignore null values - they would be filled in when cleaning the data
+    if (set(all_mentor_answers) != set(accepted_ans_types)):
+        return {"message": "Your mentor file contains answer types that are not supported.", "code": FAILURE_CODE}
+
+    if (set(all_student_answers) != set(accepted_ans_types)):
+        return {"message": "Your student file contains answer types that are not supported.", "code": FAILURE_CODE}
+
+    if (set(mentorsdf['Faculty'].unique()) != set(studentsdf['Faculty'].unique())):
+        return {"message": "The Faculties listed are not the same in both files.", "code": FAILURE_CODE}
 
     if ([h.strip().lower() for h in mentors_file_headers] != [h.strip().lower() for h in students_file_headers]):
         return {"message": "The columns in the files submitted do not match.", "code": FAILURE_CODE}
@@ -173,4 +191,3 @@ def test():
 if __name__ == "__main__":
     # app.run(port=5000) # run the app
     app.run(host="0.0.0.0", debug=True)
-

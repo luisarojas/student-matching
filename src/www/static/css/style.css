@@ -1,6 +1,15 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
+code {
+    font-family: 'Inconsolata', monospace;
+    background: #f4f4f4;
+    color: black;
+    padding: 4px;
+    font-size: 1.0em;
+    border-radius: 3px;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #fff;
