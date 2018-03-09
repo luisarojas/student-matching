@@ -58,25 +58,39 @@ def create_groups(mentors, mentees, candidates):
     for mentor in mentors:
         matched[mentor] = []
 
+
     # perform matching algorithm
-    for candidate in candidates_sorted:
+    # set variables for mentor round-robin iteration
+    target_mentor = 0
+    target_lenght = len(mentors)
+    while len(unmatched_mentees) > 0:
+        for candidate in list(candidates_sorted):
+            curr_mentor = candidate[0][0]
+            curr_mentee = candidate[0][1]
 
-        curr_mentor = candidate[0][0] # mentor is the first element in the tuple
-        curr_mentee = candidate[0][1] # mentee/student is the first element in the tuple
+            # skip current match if not the current target mentor
+            if curr_mentor is not mentors[target_mentor]:
+                continue
 
-        # check the number of mentees the current mentor already has assigned to them
-        num_mentees_for_curr_mentor = len(matched[curr_mentor])
+            # skip current match if mentee is already matched
+            if curr_mentee not in unmatched_mentees:
+                continue
 
-        # make sure that the mentor has not exceeded their limit and that the mentee has not been matched yet
-        if num_mentees_for_curr_mentor < MAX_NUM_MENTEES and curr_mentee in unmatched_mentees:
+            # check the number of mentees the current mentor already has assigned to them
+            num_mentees_for_curr_mentor = len(matched[curr_mentor])
 
-            # look-ahead next pair
-            # TODO
+            # make sure that the mentor has not exceeded their limit and that the mentee has not been matched yet
+            if num_mentees_for_curr_mentor < MAX_NUM_MENTEES and curr_mentee in unmatched_mentees:
+                # add the current mentee to the current mentor's list in the 'matched' dictionary
+                matched[curr_mentor].append(curr_mentee)
+                # remove said mentee from the 'checklist' list
+                unmatched_mentees.remove(curr_mentee)
 
-            # add the current mentee to the current mentor's list in the 'matched' dictionary
-            matched[curr_mentor].append(curr_mentee)
-            # remove said mentee from the 'checklist' list
-            unmatched_mentees.remove(curr_mentee)
+                # after matching, break to look for the next target mentor
+                break
+        # goes to next mentor, wraps to first one if it goes out of bound
+        target_mentor += 1;
+        target_mentor = target_mentor % target_lenght
 
     # check if all mentees have been assigned
     if len(unmatched_mentees) > 0:
@@ -236,7 +250,7 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
         # ----------- FACULTY RESULTS ----------
         # print the results for the current faculty
         for matched_mentor_index, matched_mentees_index in matched_indices.items():
-            if debug: print(matched_mentor_index, matched_mentees_index, len(matched_mentees_index))
+            if debug: print(matched_mentor_index, "len: " + str(len(matched_mentees_index)), matched_mentees_index)
         print("FINISHED!")
         if debug: print()
 
