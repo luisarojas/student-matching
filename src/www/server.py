@@ -166,7 +166,7 @@ def download_match():
 @app.route('/test')
 def test():
     print("/test called")
-    driver = GraphDatabase.driver("bolt://localhost:7687", auth=basic_auth("neo4j","secret"))
+    driver = GraphDatabase.driver("bolt://neo4j:7687", auth=basic_auth("neo4j","secret"))
     return "OK"
 
 # check if the executed file is the main program

@@ -3,4 +3,4 @@ numpy
 flask
 xlrd
 openpyxl
-neo4j-driver==v1.1.0
+neo4j-driver==1.5.3
