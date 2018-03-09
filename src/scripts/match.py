@@ -268,12 +268,99 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
     # output the master match dictionary to an excel file
     save_to_excel(output_filename, master_matches, headers)
 
+    #TEMP
+    master_matches = temp_convert_json(master_matches)
+
     # return the json once the server is properly running
     master_matches_json = json.dumps(master_matches)
+    # master_matches_json = json.dumps(master_matches, indent=2, sort_keys=True)
 
     print()
 
     return (master_matches_json, total_num_groups)
+
+def temp_convert_json(master_matches):
+# FORMAT:
+# {
+#     "Faculty": [
+#         {
+#             "name": "faculty-name",
+#             "group": [
+#                 {
+#                     "mentor_id": "some-int",
+#                     "students":[
+#                         {
+#                             "student": {
+#                                 "is_mentor": "bool",
+#                                 "id": "id",
+#                                 "name": "name",
+#                                 "surname": "surname",
+#                                 "email": "email",
+#                                 "program": "program",
+#                                 "answers": [
+#                                     {
+#                                         "question_name": "name",
+#                                         "student_answer": "some-int"
+#                                     },
+#                                     {
+#                                         "question_name": "name",
+#                                         "student_answer": "some-int"
+#                                     }
+#                                 ]
+#                             }
+#                         }
+#                     ]
+#                 }   
+#             ]            
+#         }
+#     ]
+    
+# }
+    temp_questions = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "q13", "q14", "q15", "q16", "q17", "q18", "q19", "q20", "q21", "q22", "q23", "q24", "q25", "q26"]
+
+    new_faculty_dict = {"Faculty":list()}
+    for faculty_dict in master_matches:        
+        old_faculty_name = list(faculty_dict.keys())[0]
+        old_faculty_groups = faculty_dict[old_faculty_name]
+        #print(old_faculty_name)
+        new_group_dict = {""}
+        new_group_dict = {"name":old_faculty_name ,"group":list()}
+        for old_group in old_faculty_groups:            
+            old_mentor = old_group["mentor"]
+            old_mentees = old_group["mentees"]
+            old_mentees.insert(0, old_mentor)
+            old_students = old_mentees
+            new_students_dict = {"mentor_id":old_mentor[1] ,"students": list()}
+            for old_student in old_students:
+                # Create the new student
+                new_student = {}
+                new_student["is_mentor"] = 'MENTOR' == old_student[0]
+                new_student["id"] = old_student[1]
+                new_student["name"] = old_student[2]
+                new_student["surname"] = old_student[3]
+                new_student["email"] = old_student[4]
+                new_student["program"] = old_student[6]
+                old_student_answers = old_student[7:]
+                new_student_answers = list()
+                for i,question_name in enumerate(temp_questions):
+                    curr_answer = {}
+                    curr_answer["question_name"] = question_name
+                    curr_answer["student_answer"] = old_student_answers[i]
+                    new_student_answers.append(
+                        {
+                            "question_name":question_name,
+                            "student_answer": old_student_answers[i]
+                        }
+                    )
+                new_student["answers"] = new_student_answers
+                new_students_dict["students"].append({"student":new_student})
+                #print(new_students_dict)
+            new_group_dict["group"].append(new_students_dict)
+        new_faculty_dict["Faculty"].append(new_group_dict)
+        #print(new_group_dict)
+        #input()            
+    return new_faculty_dict
+
 
 
 if __name__ == "__main__": # will only be ran when script is executed from command-line
