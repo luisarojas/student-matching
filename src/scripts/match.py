@@ -11,6 +11,10 @@ def load_data(filename):
     df = xl.parse(xl.sheet_names[0])
     return df
 
+def sigmoid(x):
+    const = 2
+    return 1 / (1 + np.exp(-1*const*x))
+
 # calculate euclidean distance between a mentor and a mentee
 def euclidean(mentor, mentee, weights):
 
@@ -18,7 +22,9 @@ def euclidean(mentor, mentee, weights):
     if (len(weights) < len(mentor)):
         weights = [1] * len(mentor)
 
-    subtr = (np.array(mentor)-np.array(mentee))**2
+    weights = np.reciprocal([float(w) for w in weights])
+    
+    subtr = (np.array(sigmoid(mentor))-np.array(sigmoid(mentee)))**2
     multipl = np.array([float(a)*float(b) for a, b in zip(np.array(weights), subtr)])
     return np.sqrt(sum(multipl))
 
