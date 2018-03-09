@@ -3,6 +3,7 @@
 
 #Ignore all the files uploaded by users
 src/www/uploads/*xlsx
+src/www/downloads/*xlsx
 data/matched.xlsx
 data/*clean.xlsx
 
@@ -117,7 +118,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-downloads/
 eggs/
 .eggs/
 lib/
