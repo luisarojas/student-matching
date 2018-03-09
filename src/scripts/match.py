@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
 from operator import itemgetter
-from math import ceil
-from math import floor
+from math import ceil, floor, exp
 import json, sys
 
 # load data from an excel spreadsheet
@@ -12,8 +11,15 @@ def load_data(filename):
     return df
 
 def sigmoid(x):
-    const = 2
-    return 1 / (1 + np.exp(-1*const*x))
+
+    # for each number in x, replace that number with its sigmoid
+    if isinstance(x, (list, np.ndarray)):
+        # sig_x = []
+        for i, n in enumerate(x):
+            x[i] = (1 / (1 + exp(-n)))
+        return x
+    else:
+        return 1 / (1 + exp(-x))
 
 # calculate euclidean distance between a mentor and a mentee
 def euclidean(mentor, mentee, weights):
@@ -22,15 +28,18 @@ def euclidean(mentor, mentee, weights):
     if (len(weights) < len(mentor)):
         weights = [1] * len(mentor)
 
-    weights = np.reciprocal([float(w) for w in weights])
-    
+    # weights = np.reciprocal([float(w) for w in weights])
+
     subtr = (np.array(sigmoid(mentor))-np.array(sigmoid(mentee)))**2
     multipl = np.array([float(a)*float(b) for a, b in zip(np.array(weights), subtr)])
-    return np.sqrt(sum(multipl))
+    d = np.sqrt(sum(multipl))
+    return d
 
 # take in mentors and mentees indices, as well as a list of their every
 # combination of the two and their corresponding score
 def create_groups(mentors, mentees, candidates):
+
+    # print(candidates)
 
     # will hold list of all the mentees that have NOT been matched yet
     unmatched_mentees = mentees # copy
@@ -41,7 +50,7 @@ def create_groups(mentors, mentees, candidates):
     # sort the by similarity candidates so that lowest scores are at the front
     candidates_sorted = sorted(candidates, key=itemgetter(1))
 
-    # dictionary holding all the matched mentors with mentees
+    # initialize dictionary holding all the matched mentors with mentees
     # populate its keys with mentors. the values will be a list of mentees (see next step)
     matched = dict.fromkeys(mentors)
 
@@ -52,14 +61,18 @@ def create_groups(mentors, mentees, candidates):
     # perform matching algorithm
     for candidate in candidates_sorted:
 
-        curr_mentor = candidate[0][0]
-        curr_mentee = candidate[0][1]
+        curr_mentor = candidate[0][0] # mentor is the first element in the tuple
+        curr_mentee = candidate[0][1] # mentee/student is the first element in the tuple
 
         # check the number of mentees the current mentor already has assigned to them
         num_mentees_for_curr_mentor = len(matched[curr_mentor])
 
         # make sure that the mentor has not exceeded their limit and that the mentee has not been matched yet
         if num_mentees_for_curr_mentor < MAX_NUM_MENTEES and curr_mentee in unmatched_mentees:
+
+            # look-ahead next pair
+            # TODO
+
             # add the current mentee to the current mentor's list in the 'matched' dictionary
             matched[curr_mentor].append(curr_mentee)
             # remove said mentee from the 'checklist' list
@@ -223,7 +236,7 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
         # ----------- FACULTY RESULTS ----------
         # print the results for the current faculty
         for matched_mentor_index, matched_mentees_index in matched_indices.items():
-            if debug: print(matched_mentor_index, matched_mentees_index)
+            if debug: print(matched_mentor_index, matched_mentees_index, len(matched_mentees_index))
         print("FINISHED!")
         if debug: print()
 
