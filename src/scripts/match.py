@@ -3,6 +3,7 @@ import numpy as np
 from operator import itemgetter
 from math import ceil, floor, exp
 import json, sys
+import xlsxwriter
 
 # load data from an excel spreadsheet
 def load_data(filename):
@@ -145,6 +146,8 @@ def save_to_excel(output_filename, master_match_dict, column_names):
 
     all_faculties_groups = []
 
+    split_faculties_list = []
+
     # iterate through each faculty and their groups
     for i, faculty_dict in enumerate(master_match_dict):
         curr_faculty_groups = []
@@ -160,19 +163,46 @@ def save_to_excel(output_filename, master_match_dict, column_names):
                 curr_faculty_groups += [group['mentor']] + group['mentees']
 
         all_faculties_groups += curr_faculty_groups
+        split_faculties_list.append(curr_faculty_groups)
         # faculty_name = list(faculty_dict.keys())[0] # current faculty name
 
     column_names = ["ROLE"] + column_names
 
-    # generate dataframe
-    df = (pd.DataFrame(all_faculties_groups, columns=column_names))
-    split_df = df.groupby(['FACULTY'])
+    workbook = xlsxwriter.Workbook(output_filename)
 
-    writer = pd.ExcelWriter(output_filename)
-    for group_tuple in split_df:
-        sheet_name = group_tuple[0][:31] # truncate faculty name to 31 characters max
-        group_tuple[1].iloc[:, :7].to_excel(writer, sheet_name,index=False) # select only the first 7 columns
-    writer.save()
+    # Set formating for mentor rows
+    highlight_format = workbook.add_format()
+    highlight_format.set_pattern(1)
+    highlight_format.set_bg_color('yellow')
+    highlight_format.set_top(2)
+
+    # Set formating for label rows
+    label_format = workbook.add_format()
+    label_format.set_bold()
+    label_format.set_top(2)
+    label_format.set_bottom(2)
+
+    # Create a worksheet for each faculty.
+    sheet_idx = 0
+    for faculty in split_faculties_list:
+        # Trim faculty name for excel maximum value.
+        sheet = workbook.add_worksheet(faculty[0][5][:31])
+        sheet_idx += 1
+        # Write the column label names
+        sheet.write_row(0, 0, column_names[0:7], label_format)
+        row_idx = 1
+        # For every student in the faculty, write the student data.
+        for row_data in faculty:
+            # Mentor rows are highlighted.
+            if row_data[0] == "MENTOR":
+                sheet.write_row(row_idx, 0, row_data[0:7], highlight_format)
+            else:
+                sheet.write_row(row_idx, 0, row_data[0:7])
+
+            row_idx += 1
+
+    # Save excel file.
+    workbook.close()
 
     print("\n> Saved to file: " + output_filename)
 
