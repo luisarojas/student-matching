@@ -5,7 +5,16 @@ services:
     ports:
      - "5000:5000"
     networks:
-      - net-fe
-
+      net-fe:
+  neo4j:
+    image: "neo4j:latest"
+    ports:
+     - "7474:7474"
+     - "7687:7687"
+    networks:
+      net-fe:
+    environment:
+     - NEO4J_AUTH=neo4j/secret
+    
 networks:
   net-fe:

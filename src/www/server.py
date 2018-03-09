@@ -11,6 +11,9 @@ sys.path.append("./src/scripts/")
 from match import match_all
 from clean_data import clean_files
 
+#Neo4j
+from neo4j.v1 import GraphDatabase, basic_auth
+
 # global variables
 MENTOR_FILENAME = ""
 STUDENT_FILENAME = ""
@@ -160,7 +163,14 @@ def match():
 def download_match():
     return send_file("downloads/" + MATCH_OUTPUT_FILE, as_attachment=True)
 
+@app.route('/test')
+def test():
+    print("/test called")
+    driver = GraphDatabase.driver("bolt://localhost:7687", auth=basic_auth("neo4j","secret"))
+    return "OK"
+
 # check if the executed file is the main program
 if __name__ == "__main__":
     # app.run(port=5000) # run the app
     app.run(host="0.0.0.0", debug=True)
+

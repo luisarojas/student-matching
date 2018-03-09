@@ -1,4 +1,4 @@
-.PHONY: match clean server
+.PHONY: match clean server docker
 
 ORIG_MENTOR_INFILE=./data/mentors.xlsx
 ORIG_STUDENT_INFILE=./data/students.xlsx
@@ -9,7 +9,11 @@ MATCHED_OUTFILE=./data/matched.xlsx
 
 NEO4J_CONT_NAME=my-neo4j
 
-all: neo4j serve
+all: docker
+
+
+docker:
+	docker-compose up --build -d
 
 neo4j:
 	docker run -d --rm --env=NEO4J_AUTH=neo4j/foobar --publish=7474:7474 --publish=7687:7687 --volume=$(PWD)/src/www/dbdata:/data --name $(NEO4J_CONT_NAME) neo4j
