@@ -184,7 +184,7 @@ def download_match():
 @app.route('/test_neo4j')
 def test_neo4j():
     print("/test_neo4j called")
-    driver = GraphDatabase.driver("bolt://neo4j:7687", auth=basic_auth("neo4j","secret"))
+    driver = GraphDatabase.driver("bolt://neo4j:7687", auth=basic_auth(os.environ['NEO4J_USER'],os.environ['NEO4J_PSWD']))
     return "OK"
 
 @app.route('/test_match')
