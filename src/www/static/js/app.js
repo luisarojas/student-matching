@@ -108,7 +108,22 @@ $('document').ready(function() {
                         $("#match-success-msg").css("display", "none");
 
                         // load questions' table
-                        $("#questions-table-wrapper").append(innerResData.htmltable)
+                        $("#questions-table-wrapper").append(innerResData.htmltable);
+
+                        var rangeValues = {
+                            "0": "Not used",
+                            "1": "Low",
+                            "2": "Medium",
+                            "3": "High"
+                        };
+
+
+                        $("#questions-table").find("tr").each(function() {
+                            $(this).find("label").text(rangeValues[$(this).find("input[type=range]").val()]);
+                            $(this).find("input[type=range]").on('input change', function() {
+                                $(this).parent().find("label").text(rangeValues[$(this).val()]);
+                            });
+                        });
                     });
 
                 } else {

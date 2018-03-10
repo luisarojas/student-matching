@@ -87,13 +87,13 @@ def new_match_s1():
 @app.route('/newMatchStep2', methods = ['POST', 'GET'])
 def new_match_s2():
 
-    default_value = 3
+    default_value = 2
 
-    htmltable = "<table id=\"questions-table\" class=\"table table-bordered table-sm\"><thead class=\"thead-light\"><tr><th>QUESTION</th><th>WEIGHT</th></tr></thead><tbody>"
+    htmltable = "<table id=\"questions-table\" class=\"table table-bordered table-sm\"><thead class=\"thead-light\"><tr><th>QUESTION</th><th class=\"full-width\">WEIGHT</th></tr></thead><tbody>"
     question_headers = pd.read_excel(app.config['UPLOAD_FOLDER'] + MENTOR_FILENAME).columns.tolist()
 
     for header in question_headers[6:]:
-        htmltable += "<tr><td>" + header + "</td><td><input style=\"width:100%\" type=\"number\" min=\"0\" max=\"5\" step=\"1\" value=\"" + str(default_value) + "\"></td></tr>"
+        htmltable += "<tr><td>" + header + "</td><td><input style=\"width:50px\" type=\"range\" min=\"0\" max=\"3\" step=\"1\" value=\"" + str(default_value) + "\"><label style=\"margin-left: 10px\">?</label></td></tr>"
     htmltable += "</tbody></table>"
 
     return json.dumps({"message": "Grabbed the header information successfully.", "code": SUCCESS_CODE, "html": render_template('newmatch-step2.html'), "htmltable": htmltable})
