@@ -14,7 +14,7 @@ services:
     networks:
       net-fe:
     environment:
-     - NEO4J_AUTH=neo4j/secret
+      NEO4J_AUTH: ${NEO4J_USER}/${NEO4J_PSWD}
     
 networks:
   net-fe:

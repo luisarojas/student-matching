@@ -4,3 +4,4 @@ flask
 xlrd
 openpyxl
 neo4j-driver==1.5.3
+xlsxwriter
