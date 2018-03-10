@@ -2,6 +2,8 @@ var SUCCESS_CODE = 1;
 var FAILURE_CODE = -1;
 
 var numStudentsToMatch = 0
+// var rangeRelevancyValues = {"Not Used":0, "Low":1, "Medium":2, "High":3}
+var rangeRelevancyValues = {"0": "Not Used", "1": "Low", "2": "Medium", "3": "High"}
 
 $('document').ready(function() {
 
@@ -110,20 +112,27 @@ $('document').ready(function() {
                         // load questions' table
                         $("#questions-table-wrapper").append(innerResData.htmltable);
 
-                        var rangeValues = {
-                            "0": "Not used",
-                            "1": "Low",
-                            "2": "Medium",
-                            "3": "High"
-                        };
+                        $("#questions-table tr").each(function () {
 
+                                var currVal = $(this).find("input[type=range]").val()
+                                $(this).find("label").text(rangeRelevancyValues[currVal])
 
-                        $("#questions-table").find("tr").each(function() {
-                            $(this).find("label").text(rangeValues[$(this).find("input[type=range]").val()]);
-                            $(this).find("input[type=range]").on('input change', function() {
-                                $(this).parent().find("label").text(rangeValues[$(this).val()]);
-                            });
-                        });
+                                $(this).find("input[type=range]").on('input change', function () {
+
+                                    var selectedVal = this.value
+                                    $(this).parent().find("label").text(rangeRelevancyValues[selectedVal])
+
+                                    if (selectedVal == 0) {
+                                        $(this).parent().find("label").css("color","lightgrey");
+                                    } else if (selectedVal == 1) {
+                                        $(this).parent().find("label").css("color","forestgreen");
+                                    } else if (selectedVal == 2) {
+                                        $(this).parent().find("label").css("color","goldenrod");
+                                    } else if (selectedVal == 3) {
+                                        $(this).parent().find("label").css("color","red");
+                                    }
+                                })
+                        })
                     });
 
                 } else {
@@ -156,8 +165,8 @@ $('document').ready(function() {
         // store table information in a json object
         var questionWeights = {'questions': []};
         $("#questions-table tbody tr").each(function() {
-            var questionHeader = $(this).find("td").html();
-            var questionWeight = $(this).find("input").val();
+            var questionHeader = $(this).find("td.qheader").html();
+            var questionWeight = $(this).find("input[type=range]").val()
             questionWeights.questions.push({'header': questionHeader, 'weight': questionWeight});
         });
 
