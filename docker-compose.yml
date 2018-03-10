@@ -6,6 +6,9 @@ services:
      - "5000:5000"
     networks:
       net-fe:
+    environment:
+      NEO4J_USER: ${NEO4J_USER}
+      NEO4J_PSWD: ${NEO4J_PSWD}      
   neo4j:
     image: "neo4j:latest"
     ports:
