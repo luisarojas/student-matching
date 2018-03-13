@@ -4,17 +4,17 @@
 
 <!-- table -->
 <div id="step2-left-wrapper" style="display: inline-block; vertical-align: top; width: 55%;">
-    <div id="questions-table-wrapper">
+    <div id="questions-table-wrapper" style="overflow-y: scroll; overflow-x: auto; max-height: 450px;">
     </div>
     <button id="match-btn" class="mmm-btn">
-        <a href="#step2-title" style="display: block;">
+        <a style="display: block;">
             <div><p>MATCH</p></div>
         </a>
     </button>
 </div>
 
 <!-- loading text and buttons -->
-<div id="step2-right-wrapper" style="height:100%; display:inline-block; vertical-align:top; width: 44%;">
+<div id="step2-right-wrapper" style="max-height:450px; display:inline-block; vertical-align:top; width: 44%;">
     <div>
         <div style="display: inline-block; vertical-align: top; width: 10%; text-align:right;">
             <img id="loading-icon" src="{{ url_for('static', filename='img/step2-loading.gif') }}" class="btn-icon">
