@@ -6,6 +6,7 @@ src/www/uploads/*xlsx
 src/www/downloads/*xlsx
 data/matched.xlsx
 data/*clean.xlsx
+graph.db/
 
 # Created by https://www.gitignore.io/api/osx,emacs,python
 

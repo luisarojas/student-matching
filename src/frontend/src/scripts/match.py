@@ -309,15 +309,14 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
     save_to_excel(output_filename, master_matches, headers)
 
     # TEMP
-    master_matches = temp_convert_json(master_matches)
+    master_matches = json.dumps(temp_convert_json(master_matches))
 
     # return the json once the server is properly running
-    master_matches_json = json.dumps(master_matches)
     # master_matches_json = json.dumps(master_matches, indent=2, sort_keys=True)
 
     print()
 
-    return (master_matches_json, total_num_groups)
+    return (master_matches, total_num_groups)
 
 def temp_convert_json(master_matches):
 

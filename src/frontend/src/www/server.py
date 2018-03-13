@@ -4,6 +4,7 @@ from pandas import ExcelFile
 import json, os, sys, math
 import pandas as pd
 import numpy as np
+import requests
 
 app = Flask(__name__)
 
@@ -171,6 +172,16 @@ def match():
     match_data, total_num_groups = match_all(app.config['UPLOAD_FOLDER'] + "clean_" + MENTOR_FILENAME,\
                                     app.config['UPLOAD_FOLDER'] + "clean_" + STUDENT_FILENAME, \
                                     app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, questions_weights, False)
+
+    try:
+        #Send put request to neo4j database
+        url = 'http://graph_server:5002/groupInsertion'
+        # Create your header as required
+        headers = {"content-type": "application/json"} #, "Authorization": "<auth-key>" }
+        r = requests.put(url, data=match_data, headers=headers)
+    except Exception as e:
+        print(e)
+        return json.dumps({"meessage": "FAIL", "e": e})
 
     # TODO: store in database
 
