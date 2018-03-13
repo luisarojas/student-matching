@@ -13,12 +13,13 @@ def load_data(filename):
 
 def sigmoid(x):
 
-    # for each number in x, replace that number with its sigmoid
+    # if its a list: for each number in x, replace that number with its sigmoid
     if isinstance(x, (list, np.ndarray)):
         # sig_x = []
         for i, n in enumerate(x):
             x[i] = (1 / (1 + exp(-n)))
         return x
+    # if its a scalar
     else:
         return 1 / (1 + exp(-x))
 
@@ -298,7 +299,7 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
     # output the master match dictionary to an excel file
     save_to_excel(output_filename, master_matches, headers)
 
-    #TEMP
+    # TEMP
     master_matches = temp_convert_json(master_matches)
 
     # return the json once the server is properly running
@@ -310,52 +311,50 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
     return (master_matches_json, total_num_groups)
 
 def temp_convert_json(master_matches):
-# FORMAT:
-# {
-#     "Faculty": [
-#         {
-#             "name": "faculty-name",
-#             "group": [
-#                 {
-#                     "mentor_id": "some-int",
-#                     "students":[
-#                         {
-#                             "student": {
-#                                 "is_mentor": "bool",
-#                                 "id": "id",
-#                                 "name": "name",
-#                                 "surname": "surname",
-#                                 "email": "email",
-#                                 "program": "program",
-#                                 "answers": [
-#                                     {
-#                                         "question_name": "name",
-#                                         "student_answer": "some-int"
-#                                     },
-#                                     {
-#                                         "question_name": "name",
-#                                         "student_answer": "some-int"
-#                                     }
-#                                 ]
-#                             }
-#                         }
-#                     ]
-#                 }   
-#             ]            
-#         }
-#     ]
-    
-# }
+
+    # {
+    #     "faculty": [
+    #         {
+    #             "name": "<faculty_name>",
+    #             "group": [
+    #                 {
+    #                     "mentor_id": "<mentor_index>",
+    #                     "students":[
+    #                         {
+    #                             "is_mentor": "<bool>",
+    #                             "id": "<mentee_id>",
+    #                             "name": "<first_name>",
+    #                             "surname": "<last_name>",
+    #                             "email": "<e-mail>",
+    #                             "program": "<program>",
+    #                             "answers": [
+    #                                 {
+    #                                     "question_name": "<question_header>",
+    #                                     "student_answer": "<mentee_answer_int>"
+    #                                 },
+    #                                 {
+    #                                     "question_name": "<question_header>",
+    #                                     "student_answer": "<mentee_answer_int>"
+    #                                 }
+    #                             ]
+    #                         }
+    #                     ]
+    #                 }
+    #             ]
+    #         }
+    #     ]
+    # }
+
     temp_questions = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "q13", "q14", "q15", "q16", "q17", "q18", "q19", "q20", "q21", "q22", "q23", "q24", "q25", "q26"]
 
     new_faculty_dict = {"Faculty":list()}
-    for faculty_dict in master_matches:        
+    for faculty_dict in master_matches:
         old_faculty_name = list(faculty_dict.keys())[0]
         old_faculty_groups = faculty_dict[old_faculty_name]
         #print(old_faculty_name)
         new_group_dict = {""}
         new_group_dict = {"name":old_faculty_name ,"group":list()}
-        for old_group in old_faculty_groups:            
+        for old_group in old_faculty_groups:
             old_mentor = old_group["mentor"]
             old_mentees = old_group["mentees"]
             old_mentees.insert(0, old_mentor)
@@ -388,7 +387,7 @@ def temp_convert_json(master_matches):
             new_group_dict["group"].append(new_students_dict)
         new_faculty_dict["Faculty"].append(new_group_dict)
         #print(new_group_dict)
-        #input()            
+        #input()
     return new_faculty_dict
 
 

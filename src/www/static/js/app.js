@@ -2,7 +2,6 @@ var SUCCESS_CODE = 1;
 var FAILURE_CODE = -1;
 
 var numStudentsToMatch = 0
-// var rangeRelevancyValues = {"Not Used":0, "Low":1, "Medium":2, "High":3}
 var rangeRelevancyValues = {"0": "Not Used", "1": "Low", "2": "Medium", "3": "High"}
 
 $('document').ready(function() {
@@ -41,9 +40,13 @@ $('document').ready(function() {
         $.post('/lastMatch').done(function(res) {
 
             $("#content").html(res)
-                var imgElem = "<img src=\"assets/three-dot-menu.png\" style=\"height: 28px; width:auto; padding-top:8px;\">"
-                var elem = "<div style=\"margin: 10px 5px 10px 10px;\" class=\"float-right\">" + imgElem + "</div>"
-                // TODO: add three dot menu
+
+            var imgElem = "<img src=\"assets/three-dot-menu.png\" style=\"height: 28px; width:auto; padding-top:8px;\">"
+            var elem = "<div style=\"margin: 10px 5px 10px 10px;\" class=\"float-right\">" + imgElem + "</div>"
+            // TODO: add three dot menu
+
+
+            // console.log($("#content.bootstrap-table").html())
         });
     });
 

@@ -77,6 +77,14 @@ button.btn.btn-secondary.dropdown-toggle {
     font-weight: lighter !important;
 }
 
+.bootstrap-table {
+    height: 100%;
+}
+
+.bootstrap-table .fixed-table-container {
+    height: calc(100% - 75px);
+}
+
 .bootstrap-table div .th-inner {
     text-align: center !important;
     font-weight: 500 !important;
