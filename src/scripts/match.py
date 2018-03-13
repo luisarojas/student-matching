@@ -299,7 +299,9 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
     save_to_excel(output_filename, master_matches, headers)
 
     #TEMP
-    master_matches = temp_convert_json(master_matches)
+    master_matches = json.dumps(temp_convert_json(master_matches))
+    #Put request to server
+    
 
     # return the json once the server is properly running
     master_matches_json = json.dumps(master_matches)
@@ -388,7 +390,7 @@ def temp_convert_json(master_matches):
             new_group_dict["group"].append(new_students_dict)
         new_faculty_dict["Faculty"].append(new_group_dict)
         #print(new_group_dict)
-        #input()            
+        #input()
     return new_faculty_dict
 
 
