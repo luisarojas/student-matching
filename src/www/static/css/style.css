@@ -72,6 +72,17 @@ button.btn.btn-secondary.dropdown-toggle {
     margin-top: 0 !important;
 }
 
+.dropdown-item {
+    font-size: 0.7em !important;
+    font-weight: lighter !important;
+}
+
+.bootstrap-table div .th-inner {
+    text-align: center !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+}
+
 .btn-icon {
     height: 20px;
 }
@@ -111,14 +122,14 @@ button a {
 }
 
 footer {
-  background: rgb(226, 226, 226);
-  position: fixed;
-  height: 40px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.7em;
-  bottom: 0;
-  vertical-align: middle;
+    background: rgb(226, 226, 226);
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.7em;
+    bottom: 0;
+    vertical-align: middle;
 }
 
 footer p {

@@ -40,11 +40,10 @@ $('document').ready(function() {
     $("#lastmatch-btn").click(function() {
         $.post('/lastMatch').done(function(res) {
 
-            $("#content").html(res, function() {
+            $("#content").html(res)
                 var imgElem = "<img src=\"assets/three-dot-menu.png\" style=\"height: 28px; width:auto; padding-top:8px;\">"
                 var elem = "<div style=\"margin: 10px 5px 10px 10px;\" class=\"float-right\">" + imgElem + "</div>"
-                $("body .fixed-table-toolbar").html("test")
-            })
+                // TODO: add three dot menu
         });
     });
 
