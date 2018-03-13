@@ -1,0 +1,36 @@
+<p class="page-title"><b>STEP 1:</b> UPLOAD</p>
+<p>Please upload the excel sheets containing the information for mentors and mentees. They must be in two separate files, and should adhere to the format below. Please make sure both files contain the same quesitions in the same order, as this could greatly affect the accuracy of the matches.</p>
+<p>Supported question answers: <code>Yes</code>, <code>Not Applicable</code>, <code>No</code>, <code>Strongly Agree</code>, <code>Agree</code>, <code>Neutral</code>, <code>Disagree</code>, <code>Strongly Disagree</code>.</p>
+<img src="{{ url_for('static', filename='img/sample-table.png') }}" style="width:100%; margin-top:15px;">
+<form id="file-upload-form" action="" enctype="multipart/form-data" style="width:100%;">
+
+    <!-- buttons -->
+    <div style="margin-top:20px;">
+        <!-- first button -->
+        <div style="vertical-align:middle;">
+            <input type="file" name="mentor_file" id="mentor-file-input" class="inputfile" />
+            <label style="padding: 0; margin: 0;"class="mmm-btn" for="mentor-file-input"><div>
+                <img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">
+                <p>Upload <b><u>mentor</u></b> file</p>
+            </div></label>
+            <p id="mentor-filename" style="color: red; display:inline; margin-left:10px;">No file selected.</p><br>
+        </div>
+
+        <!-- second button -->
+        <div style="vertical-align:middle; margin-top:15px;">
+            <input type="file" name="student_file" id="student-file-input" class="inputfile" />
+            <label style="padding: 0; margin: 0;"class="mmm-btn" for="student-file-input"><div>
+                <img class="btn-icon" src="{{ url_for('static', filename='img/upload-icon.png') }}">
+                <p>Upload <b><u>student</u></b> file</p>
+            </div></label>
+            <p id="student-filename" style="color: red; display:inline; margin-left:10px;">No file selected.</p><br>
+        </div>
+    </div>
+
+    <br><br>
+    <p id="step1-errmsg" style="color:red; font-size:0.9em; height: 20px;"></p><br>
+
+    <div style="vertical-align: middle; text-align: right;">
+        <input id="to-step2-btn" type=image src="{{ url_for('static', filename='img/next-arrow.png') }}" alt="" style="height:30px;">
+    </div>
+</form>

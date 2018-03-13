@@ -1,0 +1,276 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+code {
+    font-family: 'Inconsolata', monospace;
+    background: #f4f4f4;
+    color: black !important;
+    padding: 4px;
+    font-size: 1.0em;
+    border-radius: 3px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+}
+
+p, label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: black;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+table th, table td {
+    font-family: 'Poppins', sans-serif;
+    font-size:0.9em;
+    font-weight: 300;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+/* th.full-width {
+    width: 130px;
+} */
+
+/* ---------------------------------------------------
+    ADDED BY LUISA
+----------------------------------------------------- */
+
+/* last match table */
+i.fa.fa-th-list {
+    background: url('../img/modules-black.png') no-repeat top left;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background-size: 15px 15px;
+    position: relative;
+    top:1px;
+}
+
+/* last match table */
+button.btn.btn-secondary.dropdown-toggle {
+    background-color:white;
+    color:black;
+    border-color: lightgrey;
+}
+
+#table-wrapper, #table-wrapper .search input, button.btn.btn-secondary.dropdown-toggle, div.keep-open.btn-group, ul.pagination li a, .pagination-detail {
+    font-size: 0.8em !important;
+    line-height: 0.8em !important;
+}
+
+#table-wrapper .fixed-table-toolbar .float-right, #table-wrapper .fixed-table-toolbar .float-left, .pagination-detail {
+    margin-top: 0 !important;
+}
+
+.dropdown-item {
+    font-size: 0.7em !important;
+    font-weight: lighter !important;
+}
+
+.bootstrap-table {
+    height: 100%;
+}
+
+.bootstrap-table .fixed-table-container {
+    height: calc(100% - 75px);
+}
+
+.bootstrap-table div .th-inner {
+    text-align: center !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+}
+
+.btn-icon {
+    height: 20px;
+}
+
+.mmm-btn {
+    cursor: pointer;
+    max-height: 40px;
+    margin: 10px 0 0 0;
+    background: rgb(100,216,226);
+    border: none;
+    vertical-align: middle;
+}
+
+.mmm-btn-disabled {
+    cursor: default !important;
+    background: rgb(226,226,226) !important;
+}
+
+.mmm-btn p {
+    font-size: 0.8em;
+    color: white;
+    text-transform: uppercase;
+    display: inline;
+}
+
+.mmm-btn div {
+    padding: 5px 25px 5px 20px;
+}
+
+.menu-icon {
+    height: 15px;
+}
+
+button a {
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    background: rgb(226, 226, 226);
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.7em;
+    bottom: 0;
+    vertical-align: middle;
+}
+
+footer p {
+    color: #999;
+    line-height: 40px;
+}
+
+.page-title {
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR
+----------------------------------------------------- */
+
+.sidebar-header #logo {
+    width: 100%;
+}
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0);
+    color: black;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    width: 250px;
+    padding: 20px;
+    background: rgba(225, 225, 225, 0);
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    cursor: pointer;
+    text-align: center;
+    padding: 20px 20px 20px 10px;
+    font-size: 0.9em;
+    display: block;
+    text-transform: uppercase;
+}
+#sidebar ul li a:hover {
+    /* color: #7386D5; */
+    background: rgba(100, 216, 226, 0.25);
+}
+
+/* down/up arrow for "recent" tab */
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content:'<';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-size: 1.2em;
+}
+
+a[aria-expanded="true"]::before {
+    content: '>';
+}
+
+/* submenu contents */
+ul ul a {
+    font-size: 0.8em !important;
+    padding-left: 30px !important;
+    background: rgba(225, 225, 225, 0);
+}
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    overflow:auto;
+    width: calc(100% - 300px);
+    padding: 40px 40px 40px 15px;
+    height: calc(100% - 40px);
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* #content.active {
+    width: 100%;
+} */
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+/* @media (max-width: 768px) {
+
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    #content {
+        width: 100%;
+    }
+
+    #content.active {
+        width: calc(100% - 250px);
+    }
+
+    #sidebarCollapse span {
+        display: none;
+    }
+} */
+
+.btn-sidebar-active {
+    background-color: rgba(100,216,226, 0.7);
+}
