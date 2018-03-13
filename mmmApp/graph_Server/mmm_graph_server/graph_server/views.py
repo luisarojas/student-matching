@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask_restful import Resource
 
 from graph_server import graph, app, api
-from graph_server.graph_db import create_students, create_questions
+from graph_server.graph_db import create_data, create_questions
 
 import requests
 
@@ -105,47 +105,86 @@ class GetGroup(Resource):
         # print(tutor)
         return tutor
 
+
+class GroupInsertion(Resource):
+    @staticmethod
+    def put():
+        try:
+            print(request.get_json())
+            create_data(request.get_json())
+            response_object = {
+                'status': 'success'
+            }
+            res = jsonify(response_object)
+            res.status_code = 201
+            return res
+        except Exception as e:
+            print(e)
+            response_object = {
+                'status': 'fail',
+                'message': 'Try again'
+            }
+            res = jsonify(response_object)
+            res.status_code = 500
+            return res
+
+
 class Test(Resource):
     student1 = {}
     student1['id'] = 100555555
     student1['name'] = "test"
     student1['surname'] = "new"
+    student1['email'] = "test@test.com"
+    student1['program'] = "Student Program"
     student1['is_mentor'] = True
 
     student2 = {}
-    student2['id'] = 100555555
-    student2['name'] = "test"
-    student2['surname'] = "new"
-    student2['is_mentor'] = True
+    student2['id'] = 100666666
+    student2['name'] = "USER"
+    student2['surname'] = "LN"
+    student2['email'] = "user.ln@test.com"
+    student2['program'] = "Student Program II"
+    student2['is_mentor'] = False
 
     answer1 = {}
-    answer1['name'] = "new question"
-    answer1['answer'] = 4
+    answer1['question_name'] = "new question"
+    answer1['student_answer'] = 4
     answer2 = {}
-    answer2['name'] = "new123123 question"
-    answer2['answer'] = 3
+    answer2['question_name'] = "new123123 question"
+    answer2['student_answer'] = 3
 
     #answers = list()
     #answers.append(answer1)
     #answers.append(answer2)
 
-    student1['answered'] = [answer1, answer2]
-    student2['answered'] = [answer1, answer2]
+    student1['answers'] = [answer1, answer2]
+    student2['answers'] = [answer1, answer2]
 
-    questions = {}
-    questions['answers'] = [answer1, answer2]
+    #questions = {}
+    #questions['answers'] = [answer1, answer2]
     #questions.append(answer1)
     #questions.append(answer2)
 
-    students = {}
-    students['students'] = [student1, student2]
+    #students = {}
+    #students['students'] = [student1, student2]
     #students.append(student2)
 
-    create_questions(questions)
-    create_students(students)
+    group = {}
+    group['mentor_id'] = 100555555
+    group['students'] = [student1, student2]
+
+    faculty = {}
+    faculty['name'] = "Computer Science"
+    faculty['group'] = group
+
+    faculties = {}
+    faculties['Faculty'] = [faculty]
+    #create_questions(questions)
+    #create_data(faculties)
 
 
 # Setting the routes
 api.add_resource(Students, '/students')
 api.add_resource(GetGroup, '/groups')
+api.add_resource(GroupInsertion, '/groupInsertion')
 api.add_resource(Test, '/test')

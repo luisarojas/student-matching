@@ -12,7 +12,7 @@ api = Api(app)
 # Configure the app settings
 app_settings = os.getenv(
         'APP_SETTINGS',
-        'graph_server.config.TestConfig'
+        'graph_server.config.BaseConfig'
 )
 app.config.from_object(app_settings)
 

@@ -1,5 +1,6 @@
 from graph_server import graph
-
+import json
+import os, sys
 
 class Student(object):
     student_id = 0
@@ -28,45 +29,59 @@ def load_data(data_dict):
         print(faculty)
 
 
-def create_students(students):
+def create_data(faculty):
     '''
     :param students: student dictionary in the following format
-            "students":[{
-                         "id": 100xxxxxx,
-                         "name": "student_name",
-                         "surname": "student_surname",
-                         "faculty": "student_faculty",
-                         "is_mentor: False/True
-                         "answered": [{
-                                      "question":{
-                                                  "question_name": question,
-                                                  "question_answer": answer (0...4)
-                                                  }
-                                      },
-                                      {
-                                      "question":{
-                                                  "name": question,
-                                                  "answer": answer (0...4)
-                                                 }
-                                      },
-                                      ...
-                                     }]
+        "group": {
+            "mentor-id": <int>,
+            "student":[{ "student":
+                            {
+                             "is_mentor: False/True
+                             "id": 100xxxxxx,
+                             "name": <student_name>,
+                             "surname": <student_surname>,
+                             "email": <email>
+                             "program": <program>,
+                             "answers": [{
+                                           "name": question,
+                                           "answer": answer (0...4)
+                                          },
+                                          {
+                                           "name": question,
+                                           "answer": answer (0...4)
+                                          },
+                                      ...]
+                            }
                         }
-                        ...
-            }]
+                     ...]
+            }
 
     :return:
     '''
 
+    #faculty = json.load(open(os.path.dirname(os.path.abspath(sys.argv[0])) + 'all_output.json'))
+
     stmt = """
 WITH {json} as data
-UNWIND data.students as s
-MERGE (p:Person {student_id:s.id}) ON CREATE
-  SET p.student_id = s.id, p.name = s.name, p.surname = s.surname, p.faculty = s.faculty, p.is_mentor = s.is_mentor
+UNWIND data.Faculty as f
+FOREACH (g IN f.group |
+  FOREACH (s IN g.students |
+    MERGE (p:Person {student_id:s.student.id}) 
+      ON CREATE SET p.student_id = s.student.id, p.name = s.student.name, p.surname = s.student.surname, p.email = s.student.email, p.program = s.student.program, p.faculty = f.name, p.is_mentor = s.student.is_mentor
+      ON MATCH SET  p.name = s.student.name, p.surname = s.student.surname, p.email = s.student.email, p.program = s.student.program, p.faculty = f.name, p.is_mentor = s.student.is_mentor
+     
+    MERGE (mentor:Person {student_id:g.mentor_id})
+      ON CREATE SET mentor.student_id = g.mentor_id
+         
+    MERGE (p)-[:PART_OF_GROUP]-(mentor)
 
-FOREACH (a IN s.answered |
-  MERGE (p)-[:ANSWERED {answer:a.answer}]-(q:Question {question_name: a.name})
+    FOREACH (a IN s.student.answers |
+      MERGE (q:Question {question_name: a.question_name})
+        ON CREATE SET q.question_name = a.question_name
+      MERGE (p)-[:ANSWERED {answer:a.student_answer}]-(q)
+    )
   )
+)
 """
     # Open transaction
     tx = graph.begin()
@@ -74,7 +89,7 @@ FOREACH (a IN s.answered |
     #for student in students:
         #tx.run(stmt, {"NAME": student.name, "SURNAME": student.surname, "isTutor": student.isTutor})
     # Commit transaction
-    tx.run(stmt, json=students)
+    tx.run(stmt, json=faculty)
     tx.commit()
 
 
@@ -109,6 +124,11 @@ MERGE (q:Question {name:question.name}) ON CREATE
     tx.commit()
 
 
+def create_groups(groups):
+    """
+    :param groups:
+    :return:
+    """
 '''
 def create_students_question_relationship(students, questions):
     stmt = "MATCH (p:Person {name:{PNAME}, surname:{PSURNAME}}), (q:Question {name:{QNAME}}) CREATE (p)-[:ANSWERED {answer:{ANSWER}}]->(q)"
