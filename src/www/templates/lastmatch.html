@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-table.css') }}">
+
 <p class="page-title">LAST MATCH</p>
 
 <div style="height: calc(100% - 92px);">
@@ -8,15 +9,10 @@
         <table style="padding:0; margin:0;" id="table"
                 data-toolbar="#toolbar"
                 data-toggle="table"
-                data-height="600"
+                data-height="590"
                 data-url="{{ url_for('static', filename='json/test-data.json') }}"
                 data-sort-name="id"
                 data-sort-order="asc"
-                data-pagination="true"
-                data-pagination-first-text="First"
-                data-pagination-pre-text="Previous"
-                data-pagination-next-text="Next"
-                data-pagination-last-text="Last"
                 data-search="true"
                 data-show-columns="true"
                 data-minimum-count-columns="2"
@@ -40,7 +36,9 @@
     <div style="border: 1px solid lightgrey; height:100%; display:inline-block; vertical-align:top; width: 20%;">
 
         <!-- graph -->
-        <div style="height: 25%; width: 100%; border: 1px solid red;"></div>
+        <div style="height: 25%; width: 100%; border: 1px solid red;">
+            <canvas id="myChart" style="width:100%; height:100%; border: 1px solid blue;"></canvas>
+        </div>
 
         <!-- current group list -->
         <div style="height: 75%; width: 100%; border: 1px solid red;"></div>
@@ -62,3 +60,5 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>

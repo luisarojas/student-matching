@@ -82,7 +82,7 @@ button.btn.btn-secondary.dropdown-toggle {
 }
 
 .bootstrap-table .fixed-table-container {
-    height: calc(100% - 75px);
+    height: calc(100% - 80px !important);
 }
 
 .bootstrap-table div .th-inner {
