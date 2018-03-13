@@ -1,4 +1,4 @@
-.PHONY: match clean server docker
+.PHONY: match clean serve
 
 # -------------------------------------------------
 # variable definition
@@ -11,26 +11,11 @@ CLEAN_MENTOR_INFILE=./data/mentors-clean.xlsx
 CLEAN_STUDENT_INFILE=./data/students-clean.xlsx
 MATCHED_OUTFILE=./data/matched.xlsx
 
-NEO4J_CONT_NAME=my-neo4j
-
-all: up # default target
-
-# -------------------------------------------------
-# start and stop docker compose
-# -------------------------------------------------
-
-up:
-	docker-compose up --build -d
-
-down:
-	docker-compose down
+all: serve # default target
 
 # -------------------------------------------------
 # single services, typically used for testing
 # -------------------------------------------------
-
-neo4j: # run docker container for neo4j database
-	docker run -d --rm --env=NEO4J_AUTH=neo4j/secret --publish=7474:7474 --publish=7687:7687 --volume=$(PWD)/src/www/dbdata:/data --name $(NEO4J_CONT_NAME) neo4j
 
 serve:
 	python ./src/www/server.py

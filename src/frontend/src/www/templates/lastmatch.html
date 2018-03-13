@@ -2,63 +2,61 @@
 
 <p class="page-title">LAST MATCH</p>
 
-<div style="height: calc(100% - 92px);">
-    <!-- left -->
-    <div id="table-wrapper" style="border: 1px solid red; display: inline-block; vertical-align: top; width: 79%; height: 100%;">
+<div class="grid-container" id="table-wrapper">
+    <div class="left-panel">
+      <table style="padding:0; margin:0;" id="table"
+              data-toolbar="#toolbar"
+              data-toggle="table"
+              data-height="580"
+              data-url="{{ url_for('static', filename='json/test-data.json') }}"
+              data-sort-name="id"
+              data-sort-order="asc"
+              data-search="true"
+              data-show-columns="true"
+              data-minimum-count-columns="2"
+              data-id-field="id"
+              data-pagination-loop="false"
+              data-maintain-selected="true">
+          <thead>
+          <tr>
+              <th data-field="role" data-checkbox="true"></th>
+              <th data-field="id" data-sortable="true">Student ID</th>
+              <th data-field="fname" data-sortable="true">First Name</th>
+              <th data-field="lname" data-sortable="true">Last Name</th>
+              <th data-field="faculty" data-sortable="true">Faculty</th>
+              <th data-field="program" data-sortable="true">Program</th>
+          </tr>
+          </thead>
+      </table>
+  </div>
 
-        <table style="padding:0; margin:0;" id="table"
-                data-toolbar="#toolbar"
-                data-toggle="table"
-                data-height="590"
-                data-url="{{ url_for('static', filename='json/test-data.json') }}"
-                data-sort-name="id"
-                data-sort-order="asc"
-                data-search="true"
-                data-show-columns="true"
-                data-minimum-count-columns="2"
-                data-id-field="id"
-                data-pagination-loop="false"
-                data-maintain-selected="true">
-            <thead>
-            <tr>
-                <th data-field="role" data-checkbox="true"></th>
-                <th data-field="id" data-sortable="true">Student ID</th>
-                <th data-field="fname" data-sortable="true">First Name</th>
-                <th data-field="lname" data-sortable="true">Last Name</th>
-                <th data-field="faculty" data-sortable="true">Faculty</th>
-                <th data-field="program" data-sortable="true">Program</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
+  <div class="right-panel">
 
-    <!-- right -->
-    <div style="border: 1px solid lightgrey; height:100%; display:inline-block; vertical-align:top; width: 20%;">
+      <!-- graph -->
+      <div style="position: relative; height: 25%; max-width: 250px;">
+          <canvas id="engagement-chart"></canvas>
+      </div>
 
-        <!-- graph -->
-        <div style="height: 25%; width: 100%; border: 1px solid red;">
-            <canvas id="myChart" style="width:100%; height:100%; border: 1px solid blue;"></canvas>
-        </div>
+      <!-- current group list -->
+      <div></div>
+  </div>
 
-        <!-- current group list -->
-        <div style="height: 75%; width: 100%; border: 1px solid red;"></div>
+  <div class="bottom-panel">
+      <div>
 
-    </div>
-</div>
+          <div style="border: 1px solid red; float:left;">
+          </div>
 
-<div style="border: 1px solid red; height: 39px; text-align:right; display: inline-block; width:calc(100% - 6px);">
+          <button class="mmm-btn" style="margin: 0; float: right;">
+              <a style="display:block;">
+                  <div><p>DOWNLOAD</p></div>
+              </a>
+          </button>
+      </div>
 
-    <div style="border: 1px solid red; width: 79%; display: inline-block; float:left; height: 10px; margin-top:28px;">
+  </div>
 
-    </div>
-
-    <button class="mmm-btn" style="margin: 0; float: right;">
-        <a style="display:block;">
-            <div><p>DOWNLOAD</p></div>
-        </a>
-    </button>
 </div>
 
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->

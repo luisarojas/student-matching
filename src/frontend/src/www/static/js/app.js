@@ -43,42 +43,83 @@ $('document').ready(function() {
         })
         .done(function() {
 
-            console.log("test2")
+            console.log("test3")
+            // $("#content").find("#engagement-chart").css("height", "calc(100% + 23%)")
 
-            // not working :(
+            // TODO: adjust table size
             // $("#content .bootstrap-table .fixed-table-container").css("padding-bottom", "0 !imporant")
             //                                                     .css("height", "calc(100% - 80px) !important")
 
+            // TODO: add three dot menu
             // var imgElem = "<img src=\"assets/three-dot-menu.png\" style=\"height: 28px; width:auto; padding-top:8px;\">"
             // var elem = "<div style=\"margin: 10px 5px 10px 10px;\" class=\"float-right\">" + imgElem + "</div>"
-            // TODO: add three dot menu
             // $("#content .fixed-table-toolbar").prepend(elem)
 
-            // var labels = ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
-            // new Chart($("#myChart"), {
-            //     type: 'line',
-            //     data: {
-            //             labels: labels,
-            //             datasets: [{
-            //                             data: getRandomArr(labels.length, 0, 5),
-            //                             label: "Group",
-            //                             borderColor: "#3e95cd",
-            //                             fill: false
-            //                         }, {
-            //                             data: getRandomArr(labels.length, 0, 5),
-            //                             label: "Faculty",
-            //                             borderColor: "#8e5ea2",
-            //                             fill: false
-            //                         }
-            //                     ]
-            //         },
-            //             options: {
-            //                 title: {
-            //                     display: true,
-            //                     text: "Mentor-Mentee Engagement"
-            //                 }
-            //             }
-            // });
+            // TODO: create line graph for tracked engagement
+            var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
+            var ctx = $("#content").find("#engagement-chart")
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        data: getRandomArr(months.length, 0, 6),
+                        label: "Group",
+                        borderColor: "#3e95cd",
+                        fill: false,
+                        borderWidth: 2,
+                        pointBorderWidth: 2,
+                        pointRadius: 2
+                    }, {
+                        data: getRandomArr(months.length, 0, 6),
+                        label: "Faculty",
+                        borderColor: "#c45850",
+                        fill: false,
+                        borderWidth: 2,
+                        pointBorderWidth: 2,
+                        pointRadius: 2
+                    }]
+                },
+                options: {
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 0,
+                            top: -9,
+                            bottom: -5
+                        }
+                    },
+                    title: {
+                        display: false,
+                        text: 'Mentor & Mentee Engagement'
+                    },
+                    scales: {
+                        yAxes: [{
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Engagement'
+                            }
+                        }],
+                        xAxes: [{
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Month',
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                    legend: {
+                        display: true,
+                        labels: {
+                            boxWidth: 15
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
         });
     });
 
@@ -245,11 +286,11 @@ $('document').ready(function() {
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
  */
-// function getRandomArr(n, min, max) {
-//     var a = []
-//     for (var i = 0; i < n, i++) {
-//         var randomNum = Math.random() * (max - min) + min;
-//         a.push(randomNum)
-//     }
-//     return a;
-// }
+function getRandomArr(n, min, max) {
+    var a = []
+    for (var i = 0; i < n; i++) {
+        var randomNum = Math.random() * (max - min) + min;
+        a.push(randomNum)
+    }
+    return a;
+}

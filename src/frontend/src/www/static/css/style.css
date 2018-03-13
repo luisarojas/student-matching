@@ -77,14 +77,6 @@ button.btn.btn-secondary.dropdown-toggle {
     font-weight: lighter !important;
 }
 
-.bootstrap-table {
-    height: 100%;
-}
-
-.bootstrap-table .fixed-table-container {
-    height: calc(100% - 80px !important);
-}
-
 .bootstrap-table div .th-inner {
     text-align: center !important;
     font-weight: 500 !important;
@@ -274,3 +266,20 @@ ul ul a {
 .btn-sidebar-active {
     background-color: rgba(100,216,226, 0.7);
 }
+
+/* ---------------------------------------------------
+    GRID TESTING
+----------------------------------------------------- */
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'left left left left right'
+    'left left left left right'
+    'bottom bottom bottom bottom bottom';
+    grid-gap: 15px;
+}
+
+.left-panel { grid-area: left; }
+.right-panel { grid-area: right; border: 1px solid lightgrey; padding: 15px;}
+.bottom-panel { grid-area: bottom; }
