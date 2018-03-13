@@ -45,6 +45,33 @@ a, a:hover, a:focus {
     ADDED BY LUISA
 ----------------------------------------------------- */
 
+/* last match table */
+i.fa.fa-th-list {
+    background: url('../img/modules-black.png') no-repeat top left;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background-size: 15px 15px;
+    position: relative;
+    top:1px;
+}
+
+/* last match table */
+button.btn.btn-secondary.dropdown-toggle {
+    background-color:white;
+    color:black;
+    border-color: lightgrey;
+}
+
+#table-wrapper, #table-wrapper .search input, button.btn.btn-secondary.dropdown-toggle, div.keep-open.btn-group, ul.pagination li a, .pagination-detail {
+    font-size: 0.8em !important;
+    line-height: 0.8em !important;
+}
+
+#table-wrapper .fixed-table-toolbar .float-right, #table-wrapper .fixed-table-toolbar .float-left, .pagination-detail {
+    margin-top: 0 !important;
+}
+
 .btn-icon {
     height: 20px;
 }

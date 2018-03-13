@@ -1,0 +1,128 @@
+[
+    {
+        "id": 0,
+        "fname": "Item 0",
+        "lname": "$0",
+        "faculty": 3
+    },
+    {
+        "id": 1,
+        "fname": "Item 1",
+        "lname": "$1",
+        "faculty": 4
+    },
+    {
+        "id": 2,
+        "fname": "Item 2",
+        "lname": "$2",
+        "faculty": 8
+    },
+    {
+        "id": 3,
+        "ffname": "Item 3",
+        "lname": "$3",
+        "faculty": 2
+    },
+    {
+        "id": 4,
+        "fname": "Item 4",
+        "lname": "$4",
+        "faculty": 90
+    },
+    {
+        "id": 5,
+        "fname": "Item 5",
+        "lname": "$5",
+        "faculty": 2
+    },
+    {
+        "id": 6,
+        "fname": "Item 6",
+        "lname": "$6",
+        "faculty": 3
+    },
+    {
+        "id": 7,
+        "fname": "Item 7",
+        "lname": "$7",
+        "faculty": 7
+    },
+    {
+        "id": 8,
+        "fname": "Item 8",
+        "lname": "$8",
+        "faculty": 39
+    },
+    {
+        "id": 9,
+        "fname": "Item 9",
+        "lname": "$9",
+        "faculty": 78
+    },
+    {
+        "id": 10,
+        "fname": "Item 10",
+        "lname": "$10",
+        "faculty": 30
+    },
+    {
+        "id": 11,
+        "fname": "Item 11",
+        "lname": "$11",
+        "faculty": 32
+    },
+    {
+        "id": 12,
+        "fname": "Item 12",
+        "lname": "$12",
+        "faculty": 12
+    },
+    {
+        "id": 13,
+        "fname": "Item 13",
+        "lname": "$13",
+        "faculty": 76
+    },
+    {
+        "id": 14,
+        "fname": "Item 14",
+        "lname": "$14",
+        "faculty": 10
+    },
+    {
+        "id": 15,
+        "fname": "Item 15",
+        "lname": "$15",
+        "faculty": 9
+    },
+    {
+        "id": 16,
+        "fname": "Item 16",
+        "lname": "$16",
+        "faculty": 8
+    },
+    {
+        "id": 17,
+        "fname": "Item 17",
+        "lname": "$17",
+        "faculty": 1
+    },
+    {
+        "id": 18,
+        "fname": "Item 18",
+        "lname": "$18",
+        "faculty": 99
+    },
+    {
+        "id": 19,
+        "fname": "Item 19",
+        "lname": "$19",
+        "faculty": 100
+    },
+    {
+        "id": 20,
+        "fname": "Item 20",
+        "lname": "$20",
+        "faculty": 109
+    }
+]

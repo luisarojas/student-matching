@@ -1,9 +1,59 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-table.css') }}">
 <p class="page-title">LAST MATCH</p>
 
-<!-- left -->
-<div style="border: 2px solid red; display: inline-block; vertical-align: top; width: 60%; height: 100%;">
+<div style="height: calc(100% - 100px);">
+    <!-- left -->
+    <div id="table-wrapper" style="border: 1px solid red; display: inline-block; vertical-align: top; width: 79%; height: 100%;">
+
+        <table style="padding:0; margin:0;" id="table"
+                data-toolbar="#toolbar"
+                data-toggle="table"
+                data-height="590"
+                data-url="{{ url_for('static', filename='json/test-data.json') }}"
+                data-sort-name="id"
+                data-sort-order="asc"
+                data-pagination="true"
+                data-pagination-first-text="First"
+                data-pagination-pre-text="Previous"
+                data-pagination-next-text="Next"
+                data-pagination-last-text="Last"
+                data-search="true"
+                data-show-columns="true"
+                data-minimum-count-columns="2"
+                data-id-field="id"
+                data-pagination-loop="false"
+                data-maintain-selected="true">
+            <thead>
+            <tr>
+                <th data-field="role" data-checkbox="true"></th>
+                <th data-field="id" data-sortable="true"><center><b>STUDENT ID</b></center></th>
+                <th data-field="fname" data-sortable="true"><center><b>FIRST NAME</b></center></th>
+                <th data-field="lname" data-sortable="true"><center><b>LAST NAME</b></center></th>
+                <th data-field="faculty" data-sortable="true"><center><b>FACULTY</b></center></th>
+                <th data-field="program" data-sortable="true"><center><b>PROGRAM</b></center></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+    <!-- right -->
+    <div style="border: 1px solid red; height:100%; display:inline-block; vertical-align:top; width: 20%;">
+
+        <!-- graph -->
+        <div style="height: 25%; width: 100%; border: 1px solid red;"></div>
+
+        <!-- current group list -->
+        <div style="height: 75%; width: 100%; border: 1px solid red;"></div>
+
+    </div>
 </div>
 
-<!-- right -->
-<div style="border: 2px solid red; height:100%; display:inline-block; vertical-align:top; width: 39%;">
+<div style="border: 1px solid red; height: 39px; margin: 8px 5px 0 0; text-align:right;">
+    <button class="mmm-btn" style="margin: 0;">
+        <a style="display:block;">
+            <div><p>DOWNLOAD</p></div>
+        </a>
+    </button>
 </div>
+
+<script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
