@@ -183,6 +183,9 @@ def save_to_excel(output_filename, master_match_dict, column_names):
     label_format.set_top(2)
     label_format.set_bottom(2)
 
+    jsondata = []
+    student_idx = 0
+
     # Create a worksheet for each faculty.
     sheet_idx = 0
     for faculty in split_faculties_list:
@@ -197,13 +200,19 @@ def save_to_excel(output_filename, master_match_dict, column_names):
             # Mentor rows are highlighted.
             if row_data[0] == "MENTOR":
                 sheet.write_row(row_idx, 0, row_data[0:7], highlight_format)
+                jsondata.append({'id': student_idx, 'fname': row_data[2], 'lname': row_data[3], 'faculty': row_data[5], 'program': row_data[6], 'mentor': True})
             else:
                 sheet.write_row(row_idx, 0, row_data[0:7])
-
+                jsondata.append({'id': student_idx, 'fname': row_data[2], 'lname': row_data[3], 'faculty': row_data[5], 'program': row_data[6], 'mentor': False})
             row_idx += 1
+            student_idx += 1
 
     # Save excel file.
     workbook.close()
+
+    # Generate temporary json file.
+    with open('./src/www/static/json/test-data.json', 'w') as outfile:
+        json.dump(jsondata, outfile)
 
     print("\n> Saved to file: " + output_filename)
 
