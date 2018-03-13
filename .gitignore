@@ -206,5 +206,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# IntellijIDEA stuffs
+.idea/
+*.iml
 
 # End of https://www.gitignore.io/api/osx,emacs,python
