@@ -38,7 +38,7 @@ $('document').ready(function() {
 
     $("#lastmatch-btn").click(function() {
         $.post('/lastMatch', function(res) {
-            console.log("test1")
+
             $("#content").html(res)
         })
         .done(function() {
@@ -46,18 +46,10 @@ $('document').ready(function() {
             var templateString = "<div class=\"tooltip\" role=\"tooltip\"><div class=\"arrow\"></div><div style=\"font-size:0.8em\" class=\"tooltip-inner\"></div></div>"
             $('[data-toggle="tooltip"]').tooltip({placement: "bottom", template: templateString})
 
-            // $("#content").find("#engagement-chart").css("height", "calc(100% + 23%)")
+            var imgElem = "<img class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px;\">"
+            $("#content").find("div#table-wrapper").find("div.left-panel").prepend(imgElem)
 
-            // TODO: adjust table size
-            // $("#content .bootstrap-table .fixed-table-container").css("padding-bottom", "0 !imporant")
-            //                                                     .css("height", "calc(100% - 80px) !important")
-
-            // TODO: add three dot menu
-            // var imgElem = "<img src=\"assets/three-dot-menu.png\" style=\"height: 28px; width:auto; padding-top:8px;\">"
-            // var elem = "<div style=\"margin: 10px 5px 10px 10px;\" class=\"float-right\">" + imgElem + "</div>"
-            // $("#content .fixed-table-toolbar").prepend(elem)
-
-            // TODO: create line graph for tracked engagement
+            // create line graph for tracked engagement
             var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
             var ctx = $("#content").find("#engagement-chart")
             var myChart = new Chart(ctx, {
