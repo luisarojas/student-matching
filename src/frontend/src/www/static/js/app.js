@@ -43,7 +43,9 @@ $('document').ready(function() {
         })
         .done(function() {
 
-            console.log("test3")
+            var templateString = "<div class=\"tooltip\" role=\"tooltip\"><div class=\"arrow\"></div><div style=\"font-size:0.8em\" class=\"tooltip-inner\"></div></div>"
+            $('[data-toggle="tooltip"]').tooltip({placement: "bottom", template: templateString})
+
             // $("#content").find("#engagement-chart").css("height", "calc(100% + 23%)")
 
             // TODO: adjust table size

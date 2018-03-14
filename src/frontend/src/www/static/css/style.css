@@ -276,10 +276,19 @@ ul ul a {
     grid-template-areas:
     'left left left left right'
     'left left left left right'
-    'bottom bottom bottom bottom bottom';
+    'bottom-left bottom-left bottom-left bottom-left bottom-right';
     grid-gap: 15px;
 }
 
 .left-panel { grid-area: left; }
 .right-panel { grid-area: right; border: 1px solid lightgrey; padding: 15px;}
-.bottom-panel { grid-area: bottom; }
+.bottom-left-panel { grid-area: bottom-left; }
+.bottom-right-panel { grid-area: bottom-right; }
+
+.fbit { background-color: darkblue !important;}
+.education { background-color: grey !important;}
+.engineering { background-color: purple !important; margin: 0 1px 0 1px;}
+.nuclear { background-color: saddlebrown !important; margin: 0 1px 0 1px;}
+.healthsci { background-color: red !important; margin: 0 1px 0 1px;}
+.science { background-color: green !important; margin: 0 1px 0 1px;}
+.sosci { background-color: orange !important; margin: 0 1px 0 1px;}
