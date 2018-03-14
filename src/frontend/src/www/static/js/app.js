@@ -10,7 +10,8 @@ $('document').ready(function() {
     // INITIAL POST FOR HOMEPAGE
     // ------------------------------------------
 
-    $.post('/home').done(function(res) {
+    // $.post('/home').done(function(res) {
+    $.post('/newMatchStep1').done(function(res) {
         $("#content").html(res)
     });
 
@@ -43,9 +44,18 @@ $('document').ready(function() {
         })
         .done(function() {
 
+            // get all checked rows
+            $("#test-btn").click(function () {
+                console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
+                $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
+            })
+
+
+            // add functionality to Faculty participation distribution bar
             var templateString = "<div class=\"tooltip\" role=\"tooltip\"><div class=\"arrow\"></div><div style=\"font-size:0.8em\" class=\"tooltip-inner\"></div></div>"
             $('[data-toggle="tooltip"]').tooltip({placement: "bottom", template: templateString})
 
+            // add three-dot menu to table
             var imgElem = "<img class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px;\">"
             $("#content").find("div#table-wrapper").find("div.left-panel").prepend(imgElem)
 
@@ -287,4 +297,13 @@ function getRandomArr(n, min, max) {
         a.push(randomNum)
     }
     return a;
+}
+
+function rowStyle(row, index) {
+    if (row.is_mentor == true) {
+        return {
+            css: {"background-color": "#F0F0F0"}
+        };
+    }
+    return {};
 }

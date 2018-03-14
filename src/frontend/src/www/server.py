@@ -13,7 +13,7 @@ sys.path.append("./src/scripts/")
 from match import match_all
 from clean_data import clean_files
 
-#Neo4j
+# neo4j
 from neo4j.v1 import GraphDatabase, basic_auth
 
 # global variables
@@ -174,14 +174,14 @@ def match():
                                     app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, questions_weights, False)
 
     try:
-        #Send put request to neo4j database
+        # send put request to neo4j database
         url = 'http://graph_server:5002/groupInsertion'
-        # Create your header as required
+        # create your header as required
         headers = {"content-type": "application/json"} #, "Authorization": "<auth-key>" }
         r = requests.put(url, data=match_data, headers=headers)
     except Exception as e:
         print(e)
-        return json.dumps({"meessage": "FAIL", "e": e})
+        return json.dumps({"message": "Could not store the matches in the database.", "code": FAILURE_CODE, "exception": e})
 
     # TODO: store in database
 

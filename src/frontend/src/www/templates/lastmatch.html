@@ -2,9 +2,10 @@
 
 <p class="page-title">LAST MATCH</p>
 
+<!-- <button id="test-btn">checbox test</button> -->
 <div class="grid-container" id="table-wrapper">
     <div class="left-panel">
-      <table style="padding:0; margin:0;" id="table"
+      <table style="padding:0; margin:0;" id="last-match-table"
               data-toolbar="#toolbar"
               data-toggle="table"
               data-height="580"
@@ -16,13 +17,15 @@
               data-minimum-count-columns="2"
               data-id-field="id"
               data-pagination-loop="false"
-              data-maintain-selected="true">
+              data-maintain-selected="true"
+              data-row-style="rowStyle">
           <thead>
           <tr>
-              <th data-field="role" data-checkbox="true"></th>
-              <th data-field="id" data-sortable="true">Student ID</th>
-              <th data-field="fname" data-sortable="true">First Name</th>
-              <th data-field="lname" data-sortable="true">Last Name</th>
+              <th data-field="selected" data-checkbox="true"></th>
+              <th data-field="is_mentor" data-sortable="true" data-visible="false">Mentor</th>
+              <th data-field="student_id" data-sortable="true">Student ID</th>
+              <th data-field="first_name" data-sortable="true">First Name</th>
+              <th data-field="last_name" data-sortable="true">Last Name</th>
               <th data-field="faculty" data-sortable="true">Faculty</th>
               <th data-field="program" data-sortable="true">Program</th>
           </tr>

@@ -60,11 +60,10 @@ def create_groups(mentors, mentees, candidates):
     for mentor in mentors:
         matched[mentor] = []
 
-
     # perform matching algorithm
     # set variables for mentor round-robin iteration
     target_mentor = 0
-    target_lenght = len(mentors)
+    target_length = len(mentors)
     while len(unmatched_mentees) > 0:
         for candidate in list(candidates_sorted):
             curr_mentor = candidate[0][0]
@@ -90,9 +89,10 @@ def create_groups(mentors, mentees, candidates):
 
                 # after matching, break to look for the next target mentor
                 break
+
         # goes to next mentor, wraps to first one if it goes out of bound
         target_mentor += 1;
-        target_mentor = target_mentor % target_lenght
+        target_mentor = target_mentor % target_length
 
     # check if all mentees have been assigned
     if len(unmatched_mentees) > 0:
@@ -290,7 +290,7 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
         # ----------- FACULTY RESULTS ----------
         # print the results for the current faculty
         for matched_mentor_index, matched_mentees_index in matched_indices.items():
-            if debug: print(matched_mentor_index, "len: " + str(len(matched_mentees_index)), matched_mentees_index)
+            if debug: print(matched_mentor_index, matched_mentees_index, "(" + str(len(matched_mentees_index)) + " mentees)")
         print("FINISHED!")
         if debug: print()
 
@@ -318,6 +318,7 @@ def match_all(mentors_filename, mentees_filename, output_filename, question_weig
 
     return (master_matches, total_num_groups)
 
+# TEMP
 def temp_convert_json(master_matches):
 
     # {

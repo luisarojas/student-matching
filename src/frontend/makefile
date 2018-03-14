@@ -21,7 +21,7 @@ serve:
 	python ./src/www/server.py
 
 match: clean # run matching algorithm
-	python ./src/scripts/match.py -m $(CLEAN_MENTOR_INFILE) -s $(CLEAN_STUDENT_INFILE) -o $(MATCHED_OUTFILE)
+	python ./src/scripts/match.py -m $(CLEAN_MENTOR_INFILE) -s $(CLEAN_STUDENT_INFILE) -o $(MATCHED_OUTFILE) -d
 
 clean: # clean data
 	python ./src/scripts/clean_data.py -m $(ORIG_MENTOR_INFILE) -s $(ORIG_STUDENT_INFILE) -mo $(CLEAN_MENTOR_INFILE) -so $(CLEAN_STUDENT_INFILE)
