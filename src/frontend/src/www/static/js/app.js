@@ -50,6 +50,10 @@ $('document').ready(function() {
                 $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
             })
 
+            // row click listener
+            $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
+                console.log(row.first_name);
+            });
 
             // add functionality to Faculty participation distribution bar
             var templateString = "<div class=\"tooltip\" role=\"tooltip\"><div class=\"arrow\"></div><div style=\"font-size:0.8em\" class=\"tooltip-inner\"></div></div>"
