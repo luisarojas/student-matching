@@ -44,6 +44,8 @@ $('document').ready(function() {
         })
         .done(function() {
 
+            // TODO: Select the first row on default.
+
             // get all checked rows
             $("#test-btn").click(function () {
                 console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
@@ -53,6 +55,8 @@ $('document').ready(function() {
             // row click listener
             $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
                 console.log(row.first_name);
+                $('.row-selected').removeClass('row-selected');
+                $(trElem).addClass('row-selected');
             });
 
             // add functionality to Faculty participation distribution bar

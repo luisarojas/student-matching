@@ -292,3 +292,11 @@ ul ul a {
 .healthsci { background-color: red !important; margin: 0 1px 0 1px;}
 .science { background-color: green !important; margin: 0 1px 0 1px;}
 .sosci { background-color: orange !important; margin: 0 1px 0 1px;}
+
+.row-selected td {
+    background-color: red !important;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: blue;
+}

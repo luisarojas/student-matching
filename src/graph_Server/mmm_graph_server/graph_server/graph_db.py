@@ -37,14 +37,14 @@ WITH {json} as data
 UNWIND data.Faculty as f
 FOREACH (g IN f.group |
   FOREACH (s IN g.students |
-    MERGE (p:Person {student_id:s.student.id}) 
+    MERGE (p:Person {student_id:s.student.id})
       ON CREATE SET p.student_id = s.student.id, p.name = s.student.name, p.surname = s.student.surname, p.email = s.student.email, p.program = s.student.program, p.faculty = f.name, p.is_mentor = s.student.is_mentor
       ON MATCH SET  p.name = s.student.name, p.surname = s.student.surname, p.email = s.student.email, p.program = s.student.program, p.faculty = f.name, p.is_mentor = s.student.is_mentor
-     
+
     MERGE (mentor:Person {student_id:g.mentor_id})
       ON CREATE SET mentor.student_id = g.mentor_id
-         
-    MERGE (p)-[:PART_OF_GROUP]-(mentor)
+
+    MERGE (p)-[:MATCHED_WITH]-(mentor)
 
     FOREACH (a IN s.student.answers |
       MERGE (q:Question {question_name: a.question_name})
@@ -62,4 +62,3 @@ FOREACH (g IN f.group |
     # Commit transaction
     tx.run(stmt, json=faculty)
     tx.commit()
-

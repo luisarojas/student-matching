@@ -101,9 +101,9 @@ class GroupAPI(Resource):
     def get(student_id):
         try:
             stmt = """
-MATCH(p:Person {student_id:$id})-[:PART_OF_GROUP]-(mentor:Person {is_mentor:true})
+MATCH(p:Person {student_id:$id})-[:MATCHED_WITH]-(mentor:Person {is_mentor:true})
  WITH mentor
- MATCH(student:Person)-[:PART_OF_GROUP]-(mentor) RETURN student
+ MATCH(student:Person)-[:MATCHED_WITH]-(mentor) RETURN student
 """
             result = graph.run(stmt, id=student_id).data()
             return create_success_response(result)
