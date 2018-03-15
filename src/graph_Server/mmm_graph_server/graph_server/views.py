@@ -5,6 +5,7 @@ from graph_server import graph, app, api
 from graph_server.graph_db import create_data
 
 import requests
+import json
 
 
 def check_token(token):
@@ -38,12 +39,19 @@ def create_message_response(status, message, status_code):
     return res
 
 
+def create_graph_result(result):
+    response = []
+    for student in result:
+        response.append(student.get(list(student.keys())[0]))
+    return response
+
+
 def get_mentors_mentees(is_mentor):
     try:
         #token = request.headers['Authorization']
         #response = check_token(token).json()
         if True:#response.get('status') == 'success':
-            result = graph.run("MATCH (student:Person {is_mentor:$status}) RETURN student", status=is_mentor).data()
+            result = create_graph_result(graph.run("MATCH (student:Person {is_mentor:$status}) RETURN student", status=is_mentor).data())
             return create_success_response(result)
         #else:
         #    return create_message_response(response['status'], response['message'], 401)
@@ -59,7 +67,7 @@ class StudentListAPI(Resource):
             #token = request.headers['Authorization']
             #response = check_token(token).json()
             if True:#response.get('status') == 'success':
-                result = graph.data("MATCH (student:Person) RETURN student")
+                result = create_graph_result(graph.data("MATCH (student:Person) RETURN student"))
                 return create_success_response(result)
             #else:
             #    return create_message_response(response['status'], response['message'], 401)
@@ -75,7 +83,7 @@ class StudentAPI(Resource):
             #token = request.headers['Authorization']
             #response = check_token(token).json()
             if True:#response.get('status') == 'success':
-                result = graph.run("MATCH (student:Person {student_id:$id}) RETURN student", id=student_id).data()
+                result = create_graph_result(graph.run("MATCH (student:Person {student_id:$id}) RETURN student", id=student_id).data())
                 return create_success_response(result)
             #else:
             #    return create_message_response(response['status'], response['message'], 401)
@@ -105,7 +113,7 @@ MATCH(p:Person {student_id:$id})-[:MATCHED_WITH]-(mentor:Person {is_mentor:true}
  WITH mentor
  MATCH(student:Person)-[:MATCHED_WITH]-(mentor) RETURN student
 """
-            result = graph.run(stmt, id=student_id).data()
+            result = create_graph_result(graph.run(stmt, id=student_id).data())
             return create_success_response(result)
         except Exception as e:
             print(e)
