@@ -105,7 +105,7 @@ def last_match():
 
 @app.route("/mentorLogs", methods=['POST']) # default is GET
 def mentor_logs():
-    return render_template('mentorLogs.html')
+    return render_template('mentorlogs.html')
 
 @app.route("/feedback", methods=['POST']) # default is GET
 def feedback():
