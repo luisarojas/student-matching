@@ -294,9 +294,9 @@ ul ul a {
 .sosci { background-color: orange !important; margin: 0 1px 0 1px;}
 
 .row-selected td {
-    background-color: red !important;
+    background-color: rgba(255,76,162,0.4) !important;
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: blue;
+  background-color: RGB(255,237,246);
 }
