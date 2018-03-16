@@ -218,7 +218,7 @@ def get_group():
 		FAILURE_DATA = {"message": "Could not retrieve the group for student " + str(student_id) + ".", "code": FAILURE_CODE, "exception": e}
 		return json.dumps(FAILURE_DATA)
 
-@app.route("/facultypercent", methods=["GET"])
+@app.route("/facultypercent", methods=["POST"])
 def get_facultypercent():
 	url = "http://graph_server:5002/facultypercent"
 	try:

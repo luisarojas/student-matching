@@ -53,7 +53,7 @@ $('document').ready(function() {
 		    $("#last-match-table").bootstrapTable('load', students)
 
                     //Update the progress bar for the faculties at the bottom
-                    $.get("/facultypercent").done(function(res){
+                    $.post("/facultypercent").done(function(res){
 	                var data = JSON.parse(res).percentages.data;
 	                data.forEach(function(faculty){
 		            faculty_name = faculty.faculty;
