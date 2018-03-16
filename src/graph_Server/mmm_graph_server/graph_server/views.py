@@ -146,6 +146,7 @@ class GroupInsertion(Resource):
     @staticmethod
     def put():
         try:
+            graph.run("match (n) detach delete n") 
             create_data(request.get_json())
             return create_message_response('success', 'Data Inserted', 201)
         except Exception as e:
