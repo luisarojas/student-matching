@@ -174,6 +174,7 @@ def match():
                                     app.config['DOWNLOAD_FOLDER'] + MATCH_OUTPUT_FILE, questions_weights, False)
 
     try:
+        # store results in database
         # send put request to neo4j database
         url = 'http://graph_server:5002/groupInsertion'
         # create your header as required
@@ -183,8 +184,6 @@ def match():
         print(e)
         return json.dumps({"message": "Could not store the matches in the database.", "code": FAILURE_CODE, "exception": e})
 
-    # TODO: store in database
-
     SUCCESS_DATA = {"message": "Successfully created " + str(total_num_groups) + " groups.", "code": SUCCESS_CODE, "numGroups": total_num_groups}
     return json.dumps(SUCCESS_DATA)
 
@@ -192,17 +191,13 @@ def match():
 def download_match():
     return send_file("downloads/" + MATCH_OUTPUT_FILE, as_attachment=True)
 
-@app.route('/test_neo4j')
-def test_neo4j():
-    print("/test_neo4j called")
-    driver = GraphDatabase.driver("bolt://neo4j:7687", auth=basic_auth(os.environ['NEO4J_USER'],os.environ['NEO4J_PSWD']))
-    return "OK"
 
-@app.route('/test_match')
-def test_json():
-    print("/test_match called")
-
-    return "OK"
+@app.route('/students', methods = ['POST'])
+def get_students():
+    print("/students called")
+    url = 'http://graph_server:5002/students'
+    r = requests.get(url)
+    return json.dumps(r.json())
 
 # check if the executed file is the main program
 if __name__ == "__main__":

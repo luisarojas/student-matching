@@ -44,8 +44,11 @@ $('document').ready(function() {
         })
         .done(function() {
 
-            // TODO: populate table with database data
-            
+            // get all the students from the database
+            $.post("/students").done(function(res){
+                students = JSON.parse(res).data;
+                console.log(students); //temp
+            })
 
             // TODO: Select the first row on default.
 
