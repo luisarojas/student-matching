@@ -10,4 +10,4 @@ ENV SERVER_PORT = 5002
 COPY mmm_graph_server .
 
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python", "server.py"]
+ENTRYPOINT ["python", "run.py"]
