@@ -134,7 +134,7 @@ class GroupInsertion(Resource):
 # Setting the routes
 api.add_resource(StudentListAPI, '/students')
 api.add_resource(StudentAPI, '/students/<int:student_id>')
-api.add_resource(MentorsAPI, '/students/mentors/')
-api.add_resource(MenteesAPI, '/students/mentees/')
+api.add_resource(MentorsAPI, '/students/mentors')
+api.add_resource(MenteesAPI, '/students/mentees')
 api.add_resource(GroupAPI, '/groups/<int:student_id>')
 api.add_resource(GroupInsertion, '/groupInsertion')
