@@ -8,6 +8,7 @@ data/matched.xlsx
 data/*clean.xlsx
 graph.db/
 auth_DB/data
+src/data
 
 # Created by https://www.gitignore.io/api/osx,emacs,python
 
