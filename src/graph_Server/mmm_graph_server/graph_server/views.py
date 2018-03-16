@@ -119,6 +119,28 @@ MATCH(p:Person {student_id:$id})-[:MATCHED_WITH]-(mentor:Person {is_mentor:true}
             print(e)
             return create_message_response('fail', 'Try again', 500)
 
+        
+class GetFacultyPercent(Resource):
+    @staticmethod
+    def get():
+        try:
+            #token = request.headers['Authorization']
+            #response = check_token(token).json()
+            if True:#response.get('status') == 'success':
+                query="""
+                match(n1:Person)
+                WITH toFloat(count(n1)) as total
+                match (n2:Person)
+                return n2.faculty as faculty, toFloat(count(n2))/total*100 as percent
+                """
+                result = graph.data(query)
+                return create_success_response(result)
+            #else:
+            #    return create_message_response(response['status'], response['message'], 401)
+        except Exception as e:
+            print(e)
+            return create_message_response('fail', 'Try again', 500)        
+
 
 class GroupInsertion(Resource):
     @staticmethod
@@ -129,6 +151,7 @@ class GroupInsertion(Resource):
         except Exception as e:
             print(e)
             return create_message_response('fail', 'Try again', 500)
+        
 
 
 # Setting the routes
@@ -137,4 +160,5 @@ api.add_resource(StudentAPI, '/students/<int:student_id>')
 api.add_resource(MentorsAPI, '/students/mentors')
 api.add_resource(MenteesAPI, '/students/mentees')
 api.add_resource(GroupAPI, '/groups/<int:student_id>')
+api.add_resource(GetFacultyPercent, '/facultypercent')
 api.add_resource(GroupInsertion, '/groupInsertion')
