@@ -59,6 +59,16 @@ $('document').ready(function() {
                 $(trElem).addClass('row-selected');
             });
 
+            // remove row background setting on checkbox checked
+            $("#last-match-table").on('check.bs.table', function(e, row, trElem) {
+                $(this).find("tr").removeClass('selected')
+            });
+
+            // remove row background setting on checkbox unchecked
+            $("#last-match-table").on('uncheck.bs.table	', function(e, row, trElem) {
+                $(this).find("tr").removeClass('selected')
+            });
+
             // add functionality to Faculty participation distribution bar
             var templateString = "<div class=\"tooltip\" role=\"tooltip\"><div class=\"arrow\"></div><div style=\"font-size:0.8em\" class=\"tooltip-inner\"></div></div>"
             $('[data-toggle="tooltip"]').tooltip({placement: "bottom", template: templateString})
