@@ -285,13 +285,13 @@ ul ul a {
 .bottom-left-panel { grid-area: bottom-left; }
 .bottom-right-panel { grid-area: bottom-right; }
 
-.fbit { background-color: darkblue !important;}
+.business { background-color: darkblue !important;}
 .education { background-color: grey !important;}
 .engineering { background-color: purple !important; margin: 0 1px 0 1px;}
-.nuclear { background-color: saddlebrown !important; margin: 0 1px 0 1px;}
-.healthsci { background-color: red !important; margin: 0 1px 0 1px;}
+.energy { background-color: saddlebrown !important; margin: 0 1px 0 1px;}
+.health { background-color: red !important; margin: 0 1px 0 1px;}
 .science { background-color: green !important; margin: 0 1px 0 1px;}
-.sosci { background-color: orange !important; margin: 0 1px 0 1px;}
+.social { background-color: orange !important; margin: 0 1px 0 1px;}
 
 .row-selected td {
     background-color: rgba(255,76,162,0.4) !important;

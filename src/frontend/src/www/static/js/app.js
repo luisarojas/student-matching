@@ -49,16 +49,21 @@ $('document').ready(function() {
                 
 		resJSON = JSON.parse(res)
 		if (resJSON.code == SUCCESS_CODE) {
-			students = resJSON.students.data
+		    students = resJSON.students.data
 		    $("#last-match-table").bootstrapTable('load', students)
 
-                    //alex 
-                    //Update the progess-bar with the correct percentages
-                    test_perc = {"fbit":10, "education":17, "engineering":23, "nuclear":20, "healthsci": 5, "science": 8, "sosci": 17}; //todo: get percentages from database
-                    Object.keys(test_perc).forEach(function(key) {
-                        value = test_perc[key];
-                        $(".progress-bar."+key).css("width", value+"%") 
-                        console.log(key, value);
+                    //Update the progress bar for the faculties at the bottom
+                    $.get("/facultypercent").done(function(res){
+	                var data = JSON.parse(res).percentages.data;
+	                data.forEach(function(faculty){
+		            faculty_name = faculty.faculty;
+		            css_selector = faculty_name.split(" ")[0].toLowerCase();
+		            percent = faculty.percent;
+		            //console.log(faculty_name, percent, css_selector);
+                            $(".progress-bar."+css_selector).css("width", percent+"%");
+                            $(".progress-bar."+css_selector).attr("data-original-title", faculty_name + " (" + Math.floor(percent) + "%)");
+                            
+	                });
                     });
                     
 		} else {
