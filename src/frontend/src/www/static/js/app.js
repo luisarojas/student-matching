@@ -50,7 +50,17 @@ $('document').ready(function() {
 		resJSON = JSON.parse(res)
 		if (resJSON.code == SUCCESS_CODE) {
 			students = resJSON.students.data
-			$("#last-match-table").bootstrapTable('load', students)
+		    $("#last-match-table").bootstrapTable('load', students)
+
+                    //alex 
+                    //Update the progess-bar with the correct percentages
+                    test_perc = {"fbit":10, "education":17, "engineering":23, "nuclear":20, "healthsci": 5, "science": 8, "sosci": 17}; //todo: get percentages from database
+                    Object.keys(test_perc).forEach(function(key) {
+                        value = test_perc[key];
+                        $(".progress-bar."+key).css("width", value+"%") 
+                        console.log(key, value);
+                    });
+                    
 		} else {
 			console.log(resJSON.message);
 			console.log(resJSON.exception);
