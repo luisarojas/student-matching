@@ -44,6 +44,9 @@ $('document').ready(function() {
         })
         .done(function() {
 
+            // TODO: populate table with database data
+            
+
             // TODO: Select the first row on default.
 
             // get all checked rows
