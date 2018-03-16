@@ -74,7 +74,8 @@ $('document').ready(function() {
 				data: JSON.stringify({"student_id": row.student_id}),
 				contentType: 'application/json; charset=utf-8',
 				success: function(res) {
-					console.log(res)
+					resData = JSON.parse(res)
+					console.log(resData.group.data)
 				}
 			});	
 					
