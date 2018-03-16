@@ -194,10 +194,29 @@ def download_match():
 
 @app.route('/students', methods = ['POST'])
 def get_students():
-    print("/students called")
-    url = 'http://graph_server:5002/students'
-    r = requests.get(url)
-    return json.dumps(r.json())
+	url = 'http://graph_server:5002/students'
+	try:
+		r = requests.get(url)
+		SUCCESS_DATA = {"message": "Successfully queried all students.", "code": SUCCESS_CODE, "students": r.json()}
+		return json.dumps(SUCCESS_DATA)
+	except Exception as e:
+		print(e)
+		FAILURE_DATA = {"message": "Could not retrieve all students from the database.", "code": FAILURE_CODE, "exception": e};
+		return json.dumps(FAILURE_DATA)
+
+@app.route("/get_group", methods=["POST"])
+def get_group():
+
+	student_id = request.get_json()["student_id"] # get id from request
+	url = "http://graph_server:5002/groups/" + str(student_id)
+	try:
+		r = requests.get(url)
+		SUCCESS_DATA = {"message": "Successfully queried the group for student " + str(student_id) + ".", "code": SUCCESS_CODE, "group": r.json()}
+		return json.dumps(SUCCESS_DATA)
+	except Exception as e:
+		print(e)
+		FAILURE_DATA = {"message": "Could not retrieve the group for student " + str(student_id) + ".", "code": FAILURE_CODE, "exception": e}
+		return json.dumps(FAILURE_DATA)
 
 # check if the executed file is the main program
 if __name__ == "__main__":

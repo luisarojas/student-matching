@@ -10,7 +10,6 @@
               data-toolbar="#toolbar"
               data-toggle="table"
               data-height="580"
-              data-url="{{ url_for('static', filename='json/test-data.json') }}"
               data-sort-name="id"
               data-sort-order="asc"
               data-search="true"
@@ -19,14 +18,17 @@
               data-id-field="id"
               data-pagination-loop="false"
               data-maintain-selected="true"
-              data-row-style="rowStyle">
+              data-row-style="rowStyle"
+		data-unique-id="student_id"
+		data-sort-name="surname">
           <thead>
           <tr>
               <th data-field="selected" data-checkbox="true"></th>
               <th hidden data-field="is_mentor" data-visible="false">Mentor</th>
               <th data-field="student_id" data-sortable="true">Student ID</th>
-              <th data-field="first_name" data-sortable="true">First Name</th>
-              <th data-field="last_name" data-sortable="true">Last Name</th>
+              <th data-field="name" data-sortable="true">First Name</th>
+              <th data-field="surname" data-sortable="true">Last Name</th>
+		<th data-field="email" data-sortable="false">E-mail</th>
               <th data-field="faculty" data-sortable="true">Faculty</th>
               <th data-field="program" data-sortable="true">Program</th>
           </tr>

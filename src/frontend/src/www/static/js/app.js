@@ -46,9 +46,16 @@ $('document').ready(function() {
 
             // get all the students from the database
             $.post("/students").done(function(res){
-                students = JSON.parse(res).data;
-                console.log(students); //temp
-            })
+                
+		resJSON = JSON.parse(res)
+		if (resJSON.code == SUCCESS_CODE) {
+			students = resJSON.students.data
+			$("#last-match-table").bootstrapTable('load', students)
+		} else {
+			console.log(resJSON.message);
+			console.log(resJSON.exception);
+		}                
+            });
 
             // TODO: Select the first row on default.
 
@@ -60,7 +67,19 @@ $('document').ready(function() {
 
             // row click listener
             $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
-                console.log(row.first_name);
+                
+			$.ajax({
+				type: "POST",
+				url: "/get_group",
+				data: JSON.stringify({"student_id": row.student_id}),
+				contentType: 'application/json; charset=utf-8',
+				success: function(res) {
+					console.log(res)
+				}
+			});	
+					
+		
+		// highlight selected row
                 $('.row-selected').removeClass('row-selected');
                 $(trElem).addClass('row-selected');
             });
