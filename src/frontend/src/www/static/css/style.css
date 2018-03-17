@@ -301,10 +301,26 @@ ul ul a {
   background-color: rgb(255,237,246) !important;
 }
 
+
 div#login input {
     border:solid 1px darkgrey;
     width:75%;
     padding: 5px;
     font-weight: 100;
     font-size: 0.8em;
+}
+    
+/* NEW MATCH : STEP 1 TABLE */
+#newmatch_step1_table{
+    /* background-color: red; */
+    margin-top: 2em;
+    width: 90%;
+}
+
+#newmatch_step1_table th{
+    text-align: center;
+}
+
+#newmatch_step1_table th{
+    font-weight: 500;
 }
