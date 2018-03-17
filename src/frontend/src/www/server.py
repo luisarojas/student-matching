@@ -74,12 +74,12 @@ def validate_upload_files(mentorfile, studentfile):
 
 # define basic route
 @app.route("/")
-def main():
-    return render_template('index.html')
+def login():
+    return render_template('login.html')
 
-@app.route("/home", methods=['POST'])
+@app.route("/home", methods=["POST"])
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route("/newMatchStep1", methods=['POST'])
 def new_match_s1():
@@ -228,8 +228,8 @@ def get_facultypercent():
 	except Exception as e:
 		print(e)
 		FAILURE_DATA = {"message": "Could not retrieve the group for student", "code": FAILURE_CODE, "exception": e}
-		return json.dumps(FAILURE_DATA)    
-            
+		return json.dumps(FAILURE_DATA)
+
 
 # check if the executed file is the main program
 if __name__ == "__main__":

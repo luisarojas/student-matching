@@ -300,3 +300,11 @@ ul ul a {
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: rgb(255,237,246) !important;
 }
+
+div#login input {
+    border:solid 1px darkgrey;
+    width:75%;
+    padding: 5px;
+    font-weight: 100;
+    font-size: 0.8em;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mentor-Mentee Matching System</title>
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    </head>
+    <body>
+
+        <div id="login" style="padding:40px 40px 5px 40px; border:solid 1px darkgrey; position:absolute;
+                                left:50%; top:50%; width: 350px;
+                                margin-left: -175px; margin-top: -300px;">
+
+            <img style="width:100%; margin-bottom: 45px;" src="{{ url_for('static', filename='img/logo.png') }}">
+
+            <center>
+                <form action="/home" method="POST">
+            <input type="text" name="username" class="form-group" placeholder="Username">
+            <input type="password" name="password" class="form-group" placeholder="Password">
+            <button id="login-btn" class="mmm-btn" style="width:75%;">
+                <a style="display:block;">
+                    <div><p>Login</p></div>
+                </a>
+            </button>
+        </form>
+            <p style="cursor: pointer; font-size: 0.8em; margin-top:45px;">Forgot your password?</p>
+            </center>
+        </div>
+
+        <footer id="copyright">
+          <p>© 2018 The Fantastic 5</p>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
+        <script>
+            $("#login-btn").click(function() {
+                console.log("button clicked!")
+            });
+        </script>
+    </body>
+</html>

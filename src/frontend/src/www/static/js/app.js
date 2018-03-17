@@ -10,7 +10,6 @@ $('document').ready(function() {
     // INITIAL POST FOR HOMEPAGE
     // ------------------------------------------
 
-    // $.post('/home').done(function(res) {
     $.post('/newMatchStep1').done(function(res) {
         $("#content").html(res)
     });
@@ -23,12 +22,6 @@ $('document').ready(function() {
     $(".btn-sidebar").click(function(){
         $(".btn-sidebar").removeClass("btn-sidebar-active");
         $(this).addClass("btn-sidebar-active");
-    })
-
-    $("#home-btn").click(function() {
-        $.post('/home').done(function(res) {
-            $("#content").html(res)
-        });
     });
 
     $("#newmatch-btn").click(function() {
@@ -46,7 +39,7 @@ $('document').ready(function() {
 
             // get all the students from the database
             $.post("/students").done(function(res){
-                
+
 		resJSON = JSON.parse(res)
 		if (resJSON.code == SUCCESS_CODE) {
 		    students = resJSON.students.data
@@ -62,14 +55,14 @@ $('document').ready(function() {
 		            //console.log(faculty_name, percent, css_selector);
                             $(".progress-bar."+css_selector).css("width", percent+"%");
                             $(".progress-bar."+css_selector).attr("data-original-title", faculty_name + " (" + Math.floor(percent) + "%)");
-                            
+
 	                });
                     });
-                    
+
 		} else {
 			console.log(resJSON.message);
 			console.log(resJSON.exception);
-		}                
+		}
             });
 
             // TODO: Select the first row on default.
@@ -82,7 +75,7 @@ $('document').ready(function() {
 
             // row click listener
             $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
-                
+
 			$.ajax({
 				type: "POST",
 				url: "/get_group",
@@ -92,9 +85,9 @@ $('document').ready(function() {
 					resData = JSON.parse(res)
 					console.log(resData.group.data)
 				}
-			});	
-					
-		
+			});
+
+
 		// highlight selected row
                 $('.row-selected').removeClass('row-selected');
                 $(trElem).addClass('row-selected');
