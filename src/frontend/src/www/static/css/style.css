@@ -37,13 +37,6 @@ a, a:hover, a:focus {
     transition: all 0.3s;
 }
 
-/* th.full-width {
-    width: 130px;
-} */
-
-/* ---------------------------------------------------
-    ADDED BY LUISA
------------------------------------------------------ */
 
 /* last match table */
 i.fa.fa-th-list {
@@ -309,18 +302,18 @@ div#login input {
     font-weight: 100;
     font-size: 0.8em;
 }
-    
-/* NEW MATCH : STEP 1 TABLE */
-#newmatch_step1_table{
-    /* background-color: red; */
-    margin-top: 2em;
+
+/* NEW MATCH : STEP 1 EXAMPLE TABLE */
+#newmatch_step1_table {
+    font-size: 0.8em;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
     width: 90%;
 }
 
-#newmatch_step1_table th{
+#newmatch_step1_table th {
     text-align: center;
-}
-
-#newmatch_step1_table th{
     font-weight: 500;
+    text-transform: uppercase;
 }
