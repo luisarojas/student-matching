@@ -317,3 +317,8 @@ div#login input {
     font-weight: 500;
     text-transform: uppercase;
 }
+
+select.filter-control-faculty {
+	font-size: 0.8em;
+	height: 20px;
+}

@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-table.css') }}">
+<link href="{{ url_for('static', filename='css/bootstrap-table-filter-control.css') }}" rel="stylesheet">
 
 <p class="page-title">LAST MATCH</p>
 
@@ -13,15 +14,15 @@
               data-sort-name="surname"
               data-sort-order="asc"
               data-search="true"
-              data-show-columns="true"
+              data-strict-search="true"
+		data-show-columns="true"
               data-minimum-count-columns="2"
               data-id-field="id"
               data-pagination-loop="false"
               data-maintain-selected="true"
               data-row-style="rowStyle"
               data-unique-id="student_id"
-              data-filter-control="true"
-              data-filter-show-clear="true">
+              data-filter-control="true">  
           <thead>
           <tr>
               <th data-field="selected" data-checkbox="true"></th>
@@ -86,4 +87,5 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap-table-filter-control.js') }}"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->

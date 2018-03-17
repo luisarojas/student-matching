@@ -64,6 +64,7 @@ $('document').ready(function() {
 		}
             });
 
+
             // TODO: Select the first row on default.
 
             // get all checked rows
