@@ -45,19 +45,18 @@ $('document').ready(function() {
 		    students = resJSON.students.data
 		    $("#last-match-table").bootstrapTable('load', students)
 
-                    //Update the progress bar for the faculties at the bottom
-                    $.post("/facultypercent").done(function(res){
-	                var data = JSON.parse(res).percentages.data;
-	                data.forEach(function(faculty){
-		            faculty_name = faculty.faculty;
-		            css_selector = faculty_name.split(" ")[0].toLowerCase();
-		            percent = faculty.percent;
-		            //console.log(faculty_name, percent, css_selector);
+            // update the progress bar for the faculties at the bottom
+            $.post("/facultypercent").done(function(res) {
+                var data = JSON.parse(res).percentages.data;
+                data.forEach(function(faculty) {
+                    faculty_name = faculty.faculty;
+                    css_selector = faculty_name.split(" ")[0].toLowerCase();
+                    percent = faculty.percent;
+                    //console.log(faculty_name, percent, css_selector);
                             $(".progress-bar."+css_selector).css("width", percent+"%");
                             $(".progress-bar."+css_selector).attr("data-original-title", faculty_name + " (" + Math.floor(percent) + "%)");
-
-	                });
-                    });
+                });
+            });
 
 		} else {
 			console.log(resJSON.message);

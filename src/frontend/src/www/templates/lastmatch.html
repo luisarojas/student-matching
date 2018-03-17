@@ -19,7 +19,9 @@
               data-pagination-loop="false"
               data-maintain-selected="true"
               data-row-style="rowStyle"
-		data-unique-id="student_id">
+              data-unique-id="student_id"
+              data-filter-control="true"
+              data-filter-show-clear="true">
           <thead>
           <tr>
               <th data-field="selected" data-checkbox="true"></th>
@@ -28,7 +30,7 @@
               <th data-field="name" data-sortable="true">First Name</th>
               <th data-field="surname" data-sortable="true">Last Name</th>
 		<th data-field="email" data-sortable="false">E-mail</th>
-              <th data-field="faculty" data-sortable="true">Faculty</th>
+              <th data-field="faculty" data-sortable="true" data-filter-control="select">Faculty</th>
               <th data-field="program" data-sortable="true">Program</th>
           </tr>
           </thead>
