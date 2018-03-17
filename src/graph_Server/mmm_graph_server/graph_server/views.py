@@ -46,12 +46,12 @@ def create_graph_result(result):
     return response
 
 
-def get_mentors_mentees(is_mentor):
+def get_mentors_mentees(is_mentor, faculty):
     try:
         #token = request.headers['Authorization']
         #response = check_token(token).json()
         if True:#response.get('status') == 'success':
-            result = create_graph_result(graph.run("MATCH (student:Person {is_mentor:$status}) RETURN student", status=is_mentor).data())
+            result = create_graph_result(graph.run("MATCH (student:Person {is_mentor:$status}) WHERE $faculty IS NULL OR student.faculty = $faculty RETURN student", status=is_mentor, faculty=faculty).data())
             return create_success_response(result)
         #else:
         #    return create_message_response(response['status'], response['message'], 401)
@@ -95,13 +95,17 @@ class StudentAPI(Resource):
 class MentorsAPI(Resource):
     @staticmethod
     def get():
-        return get_mentors_mentees(True)
+        if 'faculty' in request.args:
+            return get_mentors_mentees(True, request.args['faculty'])
+        return get_mentors_mentees(True, None)
 
 
 class MenteesAPI(Resource):
     @staticmethod
     def get():
-        return get_mentors_mentees(False)
+        if 'faculty' in request.args:
+            return get_mentors_mentees(False, request.args['faculty'])
+        return get_mentors_mentees(False, None)
 
 
 class GroupAPI(Resource):
