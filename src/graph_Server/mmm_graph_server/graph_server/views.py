@@ -116,6 +116,7 @@ class GroupAPI(Resource):
 MATCH(p:Person {student_id:$id})-[:MATCHED_WITH]-(mentor:Person {is_mentor:true})
  WITH mentor
  MATCH(student:Person)-[:MATCHED_WITH]-(mentor) RETURN student
+ ORDER BY student.surname
 """
             result = create_graph_result(graph.run(stmt, id=student_id).data())
             return create_success_response(result)
