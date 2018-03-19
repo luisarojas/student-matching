@@ -82,8 +82,30 @@ $('document').ready(function() {
 				data: JSON.stringify({"student_id": row.student_id}),
 				contentType: 'application/json; charset=utf-8',
 				success: function(res) {
-					resData = JSON.parse(res)
-					console.log(resData.group.data)
+					resData = JSON.parse(res);
+					console.log(resData.group.data);
+                    console.log(resData.group.data.length);
+
+                    $(".mentors-table").empty();
+                    $(".mentees-table").empty();
+
+                    for (i = 0; i < resData.group.data.length; ++i) {
+                        current_data = resData.group.data[i];
+
+                        student_id = current_data["student_id"];
+                        first_name = current_data["name"];
+                        last_name = current_data["surname"];
+                        faculty = current_data["faculty"];
+                        line = "<tr><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td><td>"+faculty+"</td></tr>";    
+                        
+                        if (current_data["is_mentor"]) {
+                            $(".mentors-table").append(line);
+                        } else {
+                            $(".mentees-table").append(line);
+                        }
+                    }
+
+                    $(".current-group").show();
 				}
 			});
 
