@@ -88,6 +88,7 @@ $('document').ready(function() {
 
                     $(".mentors-table").empty();
                     $(".mentees-table").empty();
+                    $(".faculty-table").empty();
 
                     for (i = 0; i < resData.group.data.length; ++i) {
                         current_data = resData.group.data[i];
@@ -96,7 +97,17 @@ $('document').ready(function() {
                         first_name = current_data["name"];
                         last_name = current_data["surname"];
                         faculty = current_data["faculty"];
-                        line = "<tr><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td><td>"+faculty+"</td></tr>";    
+                        class_n = "";
+
+                        if (i == 0) {
+                            $(".faculty-table").append("<tr><td colspan=\"3\">"+faculty+"</td></tr>");
+                        }
+
+                        if (row.student_id == student_id) {
+                            class_n += "highlight-row";
+                        }
+
+                        line = "<tr class=\""+class_n+"\"><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td></tr>";
                         
                         if (current_data["is_mentor"]) {
                             $(".mentors-table").append(line);

@@ -351,3 +351,7 @@ select.filter-control-faculty {
     font-size: 11px; 
     margin: 0px;
 }
+
+.highlight-row {
+    background-color: rgba(255,76,162,0.4);
+}
