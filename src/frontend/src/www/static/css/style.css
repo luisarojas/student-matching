@@ -346,3 +346,8 @@ select.filter-control-faculty {
 	font-size: 0.8em;
 	height: 20px;
 }
+
+.filter-control .form-control{
+    font-size: 11px; 
+    margin: 0px;
+}
