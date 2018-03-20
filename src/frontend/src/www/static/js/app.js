@@ -141,8 +141,8 @@ $('document').ready(function() {
             $('[data-toggle="tooltip"]').tooltip({placement: "bottom", template: templateString})
 
             // add three-dot menu to table
-            var imgElem = "<img class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px;\">"
-            $("#content").find("div#table-wrapper").find("div.left-panel").prepend(imgElem)
+            var imgElem = "<div class=\"dropdown\"><img class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px; cursor: pointer;\"><div class=\"dropdown-content\"><ul><li class=\"dropdown-list-el\">E-mail group</li></ul></div></div>";
+            $("#content").find("div#table-wrapper").find("div.left-panel").prepend(imgElem);
 
             // create line graph for tracked engagement
             var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]

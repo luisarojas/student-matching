@@ -355,3 +355,40 @@ select.filter-control-faculty {
 .highlight-row {
     background-color: rgba(255,76,162,0.4);
 }
+
+.dropdown {
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    right: 20px;
+    border: 1px solid lightgray;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.dropdown li {
+    padding: 5px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.dropdown li:hover {
+    background-color: rgb(255,237,246);
+}
