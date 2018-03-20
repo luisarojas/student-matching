@@ -75,9 +75,11 @@ $('document').ready(function() {
 
             // row click listener
             var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
-            var ctx = $("#content").find("#engagement-chart")
             $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
+
                 // create randomly generated line graph for tracked engagement
+		$("#content #engagement-chart-wrapper").html("<canvas id=\"engagement-chart\"></canvas>")
+		var ctx = $("#content").find("#engagement-chart")
                 var myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
