@@ -274,7 +274,7 @@ ul ul a {
 }
 
 .left-panel { grid-area: left; }
-.right-panel { grid-area: right; border: 1px solid lightgrey; padding: 5px; padding-top: 15px; padding-top: 15px;}
+.right-panel { grid-area: right; border: 1px solid lightgrey; padding: 15px !important; }
 .bottom-left-panel { grid-area: bottom-left; }
 .bottom-right-panel { grid-area: bottom-right; }
 
@@ -296,28 +296,25 @@ ul ul a {
 
 .current-group {
     position: relative;
-    height: 380px;
+    height: 400px;
     max-width: 250px;
-    overflow: scroll;
-    padding-right: 25px; 
-    margin-top: 25px;
+    overflow: auto;
+    /* padding-right: 25px; */
+    margin-top: 10px;
     display: none;
 }
 
 div.caption {
     text-transform: uppercase;
     font-weight: 500;
+	margin-top: 5px;
 }
 
-table.group-table td {
-    padding: 3px;
-    width: 90%;
+table.group-table {
+    width: 100%;
 }
 
-.current-group table {
-
-}
-
+table.group-table tr { line-height:18px; }
 
 div#login input {
     border:solid 1px darkgrey;

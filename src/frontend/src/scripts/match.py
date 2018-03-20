@@ -211,8 +211,8 @@ def save_to_excel(output_filename, master_match_dict, column_names):
     workbook.close()
 
     # Generate temporary json file.
-    with open('./src/www/static/json/test-data.json', 'w') as outfile:
-        json.dump(jsondata, outfile)
+    # with open('./src/www/static/json/test-data.json', 'w') as outfile:
+        # json.dump(jsondata, outfile)
 
     print("\n> Saved to file: " + output_filename)
 
