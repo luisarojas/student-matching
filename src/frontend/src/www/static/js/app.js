@@ -74,54 +74,90 @@ $('document').ready(function() {
             })
 
             // row click listener
+            var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
+            var ctx = $("#content").find("#engagement-chart")
             $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
+                // create randomly generated line graph for tracked engagement
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            data: getRandomArr(months.length, 0, 6),
+                            label: "Group",
+                            borderColor: "#3e95cd",
+                            fill: false,
+                            borderWidth: 2,
+                            pointBorderWidth: 2,
+                            pointRadius: 2
+                        }, {
+                            data: getRandomArr(months.length, 0, 6),
+                            label: "Faculty",
+                            borderColor: "#c45850",
+                            fill: false,
+                            borderWidth: 2,
+                            pointBorderWidth: 2,
+                            pointRadius: 2
+                        }]
+                    },
+                    options: { layout: { padding: { left: 0, right: 0, top: -9, bottom: -5 }},
+                                title: { display: false, text: 'Mentor & Mentee Engagement' },
+                                scales: { yAxes: [{ scaleLabel: { display: false,
+                                                                    labelString: 'Engagement' }}],
+                                        xAxes: [{ scaleLabel: { display: false,
+                                                                labelString: 'Month' }}]},
+                                tooltips: { enabled: false },
+                                legend: { display: true, labels: { boxWidth: 15}},
+                                responsive: true,
+                                maintainAspectRatio: false }
+                });
 
-			$.ajax({
-				type: "POST",
-				url: "/get_group",
-				data: JSON.stringify({"student_id": row.student_id}),
-				contentType: 'application/json; charset=utf-8',
-				success: function(res) {
-					resData = JSON.parse(res);
-					console.log(resData.group.data);
-                    console.log(resData.group.data.length);
+    			$.ajax({
+    				type: "POST",
+    				url: "/get_group",
+    				data: JSON.stringify({"student_id": row.student_id}),
+    				contentType: 'application/json; charset=utf-8',
+    				success: function(res) {
+    					resData = JSON.parse(res);
+    					console.log(resData.group.data);
+                        console.log(resData.group.data.length);
 
-                    $(".mentors-table").empty();
-                    $(".mentees-table").empty();
-                    $(".faculty-table").empty();
+                        $(".mentors-table").empty();
+                        $(".mentees-table").empty();
+                        $(".faculty-table").empty();
 
-                    for (i = 0; i < resData.group.data.length; ++i) {
-                        current_data = resData.group.data[i];
+                        for (i = 0; i < resData.group.data.length; ++i) {
+                            current_data = resData.group.data[i];
 
-                        student_id = current_data["student_id"];
-                        first_name = current_data["name"];
-                        last_name = current_data["surname"];
-                        faculty = current_data["faculty"];
-                        class_n = "";
+                            student_id = current_data["student_id"];
+                            first_name = current_data["name"];
+                            last_name = current_data["surname"];
+                            faculty = current_data["faculty"];
+                            class_n = "";
 
-                        if (i == 0) {
-                            $(".faculty-table").append("<tr><td colspan=\"3\">"+faculty+"</td></tr>");
+                            if (i == 0) {
+                                $(".faculty-table").append("<tr><td colspan=\"3\">"+faculty+"</td></tr>");
+                            }
+
+                            if (row.student_id == student_id) {
+                                class_n += "highlight-row";
+                            }
+
+                            line = "<tr class=\""+class_n+"\"><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td></tr>";
+
+                            if (current_data["is_mentor"]) {
+                                $(".mentors-table").append(line);
+                            } else {
+                                $(".mentees-table").append(line);
+                            }
                         }
 
-                        if (row.student_id == student_id) {
-                            class_n += "highlight-row";
-                        }
-
-                        line = "<tr class=\""+class_n+"\"><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td></tr>";
-                        
-                        if (current_data["is_mentor"]) {
-                            $(".mentors-table").append(line);
-                        } else {
-                            $(".mentees-table").append(line);
-                        }
-                    }
-
-                    $(".current-group").show();
-				}
-			});
+                        $(".current-group").show();
+    				}
+    			});
 
 
-		// highlight selected row
+                // highlight selected row
                 $('.row-selected').removeClass('row-selected');
                 $(trElem).addClass('row-selected');
             });
@@ -143,72 +179,6 @@ $('document').ready(function() {
             // add three-dot menu to table
             var imgElem = "<div class=\"dropdown\"><img class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px; cursor: pointer;\"><div class=\"dropdown-content\"><ul><li class=\"dropdown-list-el\">E-mail group</li></ul></div></div>";
             $("#content").find("div#table-wrapper").find("div.left-panel").prepend(imgElem);
-
-            // create line graph for tracked engagement
-            var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
-            var ctx = $("#content").find("#engagement-chart")
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: months,
-                    datasets: [{
-                        data: getRandomArr(months.length, 0, 6),
-                        label: "Group",
-                        borderColor: "#3e95cd",
-                        fill: false,
-                        borderWidth: 2,
-                        pointBorderWidth: 2,
-                        pointRadius: 2
-                    }, {
-                        data: getRandomArr(months.length, 0, 6),
-                        label: "Faculty",
-                        borderColor: "#c45850",
-                        fill: false,
-                        borderWidth: 2,
-                        pointBorderWidth: 2,
-                        pointRadius: 2
-                    }]
-                },
-                options: {
-                    layout: {
-                        padding: {
-                            left: 0,
-                            right: 0,
-                            top: -9,
-                            bottom: -5
-                        }
-                    },
-                    title: {
-                        display: false,
-                        text: 'Mentor & Mentee Engagement'
-                    },
-                    scales: {
-                        yAxes: [{
-                            scaleLabel: {
-                                display: false,
-                                labelString: 'Engagement'
-                            }
-                        }],
-                        xAxes: [{
-                            scaleLabel: {
-                                display: false,
-                                labelString: 'Month',
-                            }
-                        }]
-                    },
-                    tooltips: {
-                        enabled: false
-                    },
-                    legend: {
-                        display: true,
-                        labels: {
-                            boxWidth: 15
-                        }
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
         });
     });
 
