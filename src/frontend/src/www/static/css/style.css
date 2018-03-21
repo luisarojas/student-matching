@@ -1,6 +1,10 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
+/* ---------------------------------------------------
+    GENERAL STYLES
+----------------------------------------------------- */
+
 code {
     font-family: 'Inconsolata', monospace;
     background: #f4f4f4;
@@ -37,48 +41,7 @@ a, a:hover, a:focus {
     transition: all 0.3s;
 }
 
-
-/* last match table */
-i.fa.fa-th-list {
-    background: url('../img/modules-black.png') no-repeat top left;
-    width: 15px;
-    height: 15px;
-    display: inline-block;
-    background-size: 15px 15px;
-    position: relative;
-    top:1px;
-}
-
-/* last match table */
-button.btn.btn-secondary.dropdown-toggle {
-    background-color:white;
-    color:black;
-    border-color: lightgrey;
-}
-
-#table-wrapper, #table-wrapper .search input, button.btn.btn-secondary.dropdown-toggle, div.keep-open.btn-group, ul.pagination li a, .pagination-detail {
-    font-size: 0.8em !important;
-    line-height: 0.8em !important;
-}
-
-#table-wrapper .fixed-table-toolbar .float-right, #table-wrapper .fixed-table-toolbar .float-left, .pagination-detail {
-    margin-top: 0 !important;
-}
-
-.dropdown-item {
-    font-size: 0.7em !important;
-    font-weight: lighter !important;
-}
-
-.bootstrap-table div .th-inner {
-    text-align: center !important;
-    font-weight: 500 !important;
-    text-transform: uppercase !important;
-}
-
-.btn-icon {
-    height: 20px;
-}
+.btn-icon { height: 20px; }
 
 .mmm-btn {
     cursor: pointer;
@@ -101,18 +64,153 @@ button.btn.btn-secondary.dropdown-toggle {
     display: inline;
 }
 
-.mmm-btn div {
-    padding: 5px 25px 5px 20px;
-}
+.mmm-btn div { padding: 5px 25px 5px 20px; }
 
-.menu-icon {
-    height: 15px;
-}
+.menu-icon { height: 15px; }
 
 button a {
     width: 100%;
     height: 100%;
 }
+
+/* title for each main section */
+.page-title {
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+/* ---------------------------------------------------
+    LAST MATCH SECTION
+----------------------------------------------------- */
+
+i.fa.fa-th-list {
+    background: url('../img/modules-black.png') no-repeat top left;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background-size: 15px 15px;
+    position: relative;
+    top:1px;
+}
+
+button.btn.btn-secondary.dropdown-toggle {
+    background-color:white;
+    color:black;
+    border-color: lightgrey;
+}
+
+#table-wrapper, #table-wrapper .search input, button.btn.btn-secondary.dropdown-toggle, div.keep-open.btn-group, ul.pagination li a, .pagination-detail {
+    font-size: 0.8em !important;
+    line-height: 0.8em !important;
+}
+
+#table-wrapper .fixed-table-toolbar .float-right, #table-wrapper .fixed-table-toolbar .float-left, .pagination-detail {
+    margin-top: 0 !important;
+}
+
+.bootstrap-table div .th-inner {
+    text-align: center !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+}
+
+.fixed-table-header { border-bottom: solid 1px lightgrey; }
+
+.left-panel { grid-area: left; }
+.right-panel { grid-area: right; border: 1px solid lightgrey; padding: 15px !important; }
+.bottom-left-panel { grid-area: bottom-left; }
+.bottom-right-panel { grid-area: bottom-right; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'left left left left right'
+    'left left left left right'
+    'bottom-left bottom-left bottom-left bottom-left bottom-right';
+    grid-gap: 15px;
+}
+
+.business { background-color: darkblue !important;}
+.education { background-color: grey !important;}
+.engineering { background-color: purple !important; margin: 0 1px 0 1px;}
+.energy { background-color: saddlebrown !important; margin: 0 1px 0 1px;}
+.health { background-color: red !important; margin: 0 1px 0 1px;}
+.science { background-color: green !important; margin: 0 1px 0 1px;}
+.social { background-color: orange !important; margin: 0 1px 0 1px;}
+
+.row-selected td { background-color: rgba(255,76,162,0.4) !important; }
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th { background-color: rgb(255,237,246) !important; }
+
+.current-group {
+    position: relative;
+    height: 400px;
+    max-width: 250px;
+    overflow: auto;
+    margin-top: 10px;
+    display: none;
+}
+
+div.caption {
+    text-transform: uppercase;
+    font-weight: 500;
+	margin-top: 5px;
+}
+
+table.group-table { width: 100%; }
+
+table.group-table tr { line-height:18px; }
+
+select.filter-control-faculty {
+	font-size: 0.8em;
+	height: 15px;
+}
+
+.filter-control .form-control {
+    font-size: 11px;
+    margin: 0px;
+}
+
+.highlight-row { background-color: rgba(255,76,162,0.4); }
+
+.dropdown-item {
+    font-size: 0.7em !important;
+    font-weight: lighter !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 170px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    padding: 10px;
+    z-index: 1;
+    right: 20px;
+    border: 1px solid lightgray;
+}
+
+.dropdown ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.dropdown li p {
+    padding: 0;
+    cursor: pointer;
+}
+
+.dropdown li hr {
+	margin-top: 5px;
+	margin-bottom:5px;
+}
+
+.dropdown li p:hover { background-color: rgb(255,237,246); }
+
+/* ---------------------------------------------------
+    FOOTER
+----------------------------------------------------- */
 
 footer {
     background: rgb(226, 226, 226);
@@ -130,19 +228,6 @@ footer p {
     line-height: 40px;
 }
 
-.page-title {
-    font-size: 2em;
-    text-transform: uppercase;
-}
-
-.inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
 
 /* ---------------------------------------------------
     SIDEBAR
@@ -201,9 +286,10 @@ ul ul a {
     background: rgba(225, 225, 225, 0);
 }
 
+.btn-sidebar-active { background-color: rgba(100,216,226, 0.7); }
 
 /* ---------------------------------------------------
-    CONTENT STYLE
+    MAIN CONTENT AREA STYLE
 ----------------------------------------------------- */
 #content {
     overflow:auto;
@@ -214,6 +300,45 @@ ul ul a {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+/* ---------------------------------------------------
+    LOGIN
+----------------------------------------------------- */
+
+div#login input {
+    border:solid 1px darkgrey;
+    width:75%;
+    padding: 5px;
+    font-weight: 100;
+    font-size: 0.8em;
+}
+
+/* ---------------------------------------------------
+    STEP 1
+----------------------------------------------------- */
+
+#newmatch_step1_table {
+    font-size: 0.8em;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+#newmatch_step1_table th {
+    text-align: center;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 /* ---------------------------------------------------
@@ -241,122 +366,3 @@ ul ul a {
         display: none;
     }
 } */
-
-.btn-sidebar-active { background-color: rgba(100,216,226, 0.7); }
-
-.fixed-table-header { border-bottom: solid 1px lightgrey; }
-
-/* ---------------------------------------------------
-    GRID TESTING
------------------------------------------------------ */
-
-.grid-container {
-    display: grid;
-    grid-template-areas:
-    'left left left left right'
-    'left left left left right'
-    'bottom-left bottom-left bottom-left bottom-left bottom-right';
-    grid-gap: 15px;
-}
-
-.left-panel { grid-area: left; }
-.right-panel { grid-area: right; border: 1px solid lightgrey; padding: 15px !important; }
-.bottom-left-panel { grid-area: bottom-left; }
-.bottom-right-panel { grid-area: bottom-right; }
-
-.business { background-color: darkblue !important;}
-.education { background-color: grey !important;}
-.engineering { background-color: purple !important; margin: 0 1px 0 1px;}
-.energy { background-color: saddlebrown !important; margin: 0 1px 0 1px;}
-.health { background-color: red !important; margin: 0 1px 0 1px;}
-.science { background-color: green !important; margin: 0 1px 0 1px;}
-.social { background-color: orange !important; margin: 0 1px 0 1px;}
-
-.row-selected td { background-color: rgba(255,76,162,0.4) !important; }
-
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th { background-color: rgb(255,237,246) !important; }
-
-.current-group {
-    position: relative;
-    height: 400px;
-    max-width: 250px;
-    overflow: auto;
-    /* padding-right: 25px; */
-    margin-top: 10px;
-    display: none;
-}
-
-div.caption {
-    text-transform: uppercase;
-    font-weight: 500;
-	margin-top: 5px;
-}
-
-table.group-table { width: 100%; }
-
-table.group-table tr { line-height:18px; }
-
-div#login input {
-    border:solid 1px darkgrey;
-    width:75%;
-    padding: 5px;
-    font-weight: 100;
-    font-size: 0.8em;
-}
-
-/* NEW MATCH : STEP 1 EXAMPLE TABLE */
-#newmatch_step1_table {
-    font-size: 0.8em;
-    color: black;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 90%;
-}
-
-#newmatch_step1_table th {
-    text-align: center;
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
-select.filter-control-faculty {
-	font-size: 0.8em;
-	height: 20px;
-}
-
-.filter-control .form-control{
-    font-size: 11px; 
-    margin: 0px;
-}
-
-.highlight-row { background-color: rgba(255,76,162,0.4); }
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 170px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-    padding: 10px;
-    z-index: 1;
-    right: 20px;
-    border: 1px solid lightgray;
-}
-
-.dropdown ul {
-    list-style-type: none;
-    padding: 0px;
-    margin: 0px;
-}
-
-.dropdown li p {
-    padding: 0;
-    cursor: pointer;
-}
-
-.dropdown li hr { 
-	margin-top: 5px;
-	margin-bottom:5px;
-}
-
-.dropdown li p:hover { background-color: rgb(255,237,246); }
