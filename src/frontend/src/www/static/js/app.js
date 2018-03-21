@@ -121,8 +121,8 @@ $('document').ready(function() {
     				contentType: 'application/json; charset=utf-8',
     				success: function(res) {
     					resData = JSON.parse(res);
-    					console.log(resData.group.data);
-                        console.log(resData.group.data.length);
+    					//console.log(resData.group.data); //debug
+                        //console.log(resData.group.data.length); 
 
                         $(".mentors-table").empty();
                         $(".mentees-table").empty();
