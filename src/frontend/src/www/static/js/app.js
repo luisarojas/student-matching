@@ -113,7 +113,7 @@ $('document').ready(function() {
                                 responsive: true,
                                 maintainAspectRatio: false }
                 });
-
+			// get group for the selected student
     			$.ajax({
     				type: "POST",
     				url: "/get_group",
@@ -122,11 +122,19 @@ $('document').ready(function() {
     				success: function(res) {
     					resData = JSON.parse(res);
     					console.log(resData.group.data);
-                        console.log(resData.group.data.length);
-
+                        		numMentees = resData.group.data.length - 1; // subtract the mentor
+			
+			// reset the content for the different tables
                         $(".mentors-table").empty();
                         $(".mentees-table").empty();
                         $(".faculty-table").empty();
+			
+			// update faculty name for this group
+			var facultyName = resData.group.data[0]["faculty"]
+			$(".faculty-table").append("<tr><td colspan=\"3\">" + facultyName + "</td></tr>");
+
+			// update number of mentees in the current group
+			$("div.current-group div.group-mentor table.group-table thead#mentees-header p.mentees-num").html("(" + numMentees + ")")		
 
                         for (i = 0; i < resData.group.data.length; ++i) {
                             current_data = resData.group.data[i];
@@ -134,24 +142,19 @@ $('document').ready(function() {
                             student_id = current_data["student_id"];
                             first_name = current_data["name"];
                             last_name = current_data["surname"];
-                            faculty = current_data["faculty"];
+                            // faculty = current_data["faculty"];
                             class_n = "";
-
-                            if (i == 0) {
-                                $(".faculty-table").append("<tr><td colspan=\"3\">"+faculty+"</td></tr>");
-                            }
-
-                            if (row.student_id == student_id) {
-                                class_n += "highlight-row";
-                            }
+				
+				// add group faculty
+                            //if (i == 0) { $(".faculty-table").append("<tr><td colspan=\"3\">" + faculty + "</td></tr>"); }
+				
+				// highlight the student clicked
+                            if (row.student_id == student_id) { class_n += "highlight-row"; }
 
                             line = "<tr class=\""+class_n+"\"><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td></tr>";
 
-                            if (current_data["is_mentor"]) {
-                                $(".mentors-table").append(line);
-                            } else {
-                                $(".mentees-table").append(line);
-                            }
+                            if (current_data["is_mentor"]) { $(".mentors-table").append(line); } // add mentor to the table 
+				else { $(".mentees-table").append(line); } // add mentees to the table
                         }
 
                         $(".current-group").show();
