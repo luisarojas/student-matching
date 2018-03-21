@@ -148,9 +148,7 @@ footer p {
     SIDEBAR
 ----------------------------------------------------- */
 
-.sidebar-header #logo {
-    width: 100%;
-}
+.sidebar-header #logo { width: 100%; }
 
 #sidebar {
     width: 250px;
@@ -170,13 +168,9 @@ footer p {
     background: rgba(225, 225, 225, 0);
 }
 
-#sidebar ul.components {
-    padding: 20px 0;
-}
+#sidebar ul.components { padding: 20px 0; }
 
-#sidebar ul p {
-    padding: 10px;
-}
+#sidebar ul p { padding: 10px; }
 
 #sidebar ul li a {
     cursor: pointer;
@@ -186,10 +180,8 @@ footer p {
     display: block;
     text-transform: uppercase;
 }
-#sidebar ul li a:hover {
-    /* color: #7386D5; */
-    background: rgba(100, 216, 226, 0.25);
-}
+
+#sidebar ul li a:hover { background: rgba(100, 216, 226, 0.25); }
 
 /* down/up arrow for "recent" tab */
 a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
@@ -200,9 +192,7 @@ a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
     font-size: 1.2em;
 }
 
-a[aria-expanded="true"]::before {
-    content: '>';
-}
+a[aria-expanded="true"]::before { content: '>'; }
 
 /* submenu contents */
 ul ul a {
@@ -225,10 +215,6 @@ ul ul a {
     top: 0;
     right: 0;
 }
-
-/* #content.active {
-    width: 100%;
-} */
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -256,9 +242,9 @@ ul ul a {
     }
 } */
 
-.btn-sidebar-active {
-    background-color: rgba(100,216,226, 0.7);
-}
+.btn-sidebar-active { background-color: rgba(100,216,226, 0.7); }
+
+.fixed-table-header { border-bottom: solid 1px lightgrey; }
 
 /* ---------------------------------------------------
     GRID TESTING
@@ -286,13 +272,9 @@ ul ul a {
 .science { background-color: green !important; margin: 0 1px 0 1px;}
 .social { background-color: orange !important; margin: 0 1px 0 1px;}
 
-.row-selected td {
-    background-color: rgba(255,76,162,0.4) !important;
-}
+.row-selected td { background-color: rgba(255,76,162,0.4) !important; }
 
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: rgb(255,237,246) !important;
-}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th { background-color: rgb(255,237,246) !important; }
 
 .current-group {
     position: relative;
@@ -310,9 +292,7 @@ div.caption {
 	margin-top: 5px;
 }
 
-table.group-table {
-    width: 100%;
-}
+table.group-table { width: 100%; }
 
 table.group-table tr { line-height:18px; }
 
@@ -349,43 +329,34 @@ select.filter-control-faculty {
     margin: 0px;
 }
 
-.highlight-row {
-    background-color: rgba(255,76,162,0.4);
-}
-
-.dropdown {
-}
+.highlight-row { background-color: rgba(255,76,162,0.4); }
 
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: white;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
+    min-width: 170px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    padding: 10px;
     z-index: 1;
     right: 20px;
     border: 1px solid lightgray;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .dropdown ul {
     list-style-type: none;
     padding: 0px;
     margin: 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
-.dropdown li {
-    padding: 5px;
-    padding-left: 10px;
+.dropdown li p {
+    padding: 0;
     cursor: pointer;
 }
 
-.dropdown li:hover {
-    background-color: rgb(255,237,246);
+.dropdown li hr { 
+	margin-top: 5px;
+	margin-bottom:5px;
 }
+
+.dropdown li p:hover { background-color: rgb(255,237,246); }
