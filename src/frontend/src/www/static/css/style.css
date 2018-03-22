@@ -80,6 +80,118 @@ button a {
 }
 
 /* ---------------------------------------------------
+    SIDEBAR
+----------------------------------------------------- */
+
+.sidebar-header #logo { width: 100%; }
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0);
+    color: black;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    width: 250px;
+    padding: 20px;
+    background: rgba(225, 225, 225, 0);
+}
+
+#sidebar ul.components { padding: 20px 0; }
+
+#sidebar ul p { padding: 10px; }
+
+#sidebar ul li a {
+    cursor: pointer;
+    text-align: center;
+    padding: 20px 20px 20px 10px;
+    font-size: 0.9em;
+    display: block;
+    text-transform: uppercase;
+}
+
+#sidebar ul li a:hover { background: rgba(100, 216, 226, 0.25); }
+
+/* down/up arrow for "recent" tab */
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content:'<';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-size: 1.2em;
+}
+
+a[aria-expanded="true"]::before { content: '>'; }
+
+/* submenu contents */
+ul ul a {
+    font-size: 0.8em !important;
+    padding-left: 30px !important;
+    background: rgba(225, 225, 225, 0);
+}
+
+.btn-sidebar-active { background-color: rgba(100,216,226, 0.7); }
+
+/* ---------------------------------------------------
+    MAIN CONTENT AREA STYLE
+----------------------------------------------------- */
+#content {
+    overflow:auto;
+    width: calc(100% - 300px);
+    padding: 40px 40px 40px 15px;
+    height: calc(100% - 40px);
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* ---------------------------------------------------
+    LOGIN
+----------------------------------------------------- */
+
+div#login input {
+    border:solid 1px darkgrey;
+    width:75%;
+    padding: 5px;
+    font-weight: 100;
+    font-size: 0.8em;
+}
+
+/* ---------------------------------------------------
+    STEP 1
+----------------------------------------------------- */
+
+#newmatch_step1_table {
+    font-size: 0.8em;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+#newmatch_step1_table th {
+    text-align: center;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+/* ---------------------------------------------------
     LAST MATCH SECTION
 ----------------------------------------------------- */
 
@@ -226,119 +338,6 @@ footer {
 footer p {
     color: #999;
     line-height: 40px;
-}
-
-
-/* ---------------------------------------------------
-    SIDEBAR
------------------------------------------------------ */
-
-.sidebar-header #logo { width: 100%; }
-
-#sidebar {
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 999;
-    background: rgba(255, 255, 255, 0);
-    color: black;
-    transition: all 0.3s;
-}
-
-#sidebar .sidebar-header {
-    width: 250px;
-    padding: 20px;
-    background: rgba(225, 225, 225, 0);
-}
-
-#sidebar ul.components { padding: 20px 0; }
-
-#sidebar ul p { padding: 10px; }
-
-#sidebar ul li a {
-    cursor: pointer;
-    text-align: center;
-    padding: 20px 20px 20px 10px;
-    font-size: 0.9em;
-    display: block;
-    text-transform: uppercase;
-}
-
-#sidebar ul li a:hover { background: rgba(100, 216, 226, 0.25); }
-
-/* down/up arrow for "recent" tab */
-a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content:'<';
-    display: block;
-    position: absolute;
-    right: 20px;
-    font-size: 1.2em;
-}
-
-a[aria-expanded="true"]::before { content: '>'; }
-
-/* submenu contents */
-ul ul a {
-    font-size: 0.8em !important;
-    padding-left: 30px !important;
-    background: rgba(225, 225, 225, 0);
-}
-
-.btn-sidebar-active { background-color: rgba(100,216,226, 0.7); }
-
-/* ---------------------------------------------------
-    MAIN CONTENT AREA STYLE
------------------------------------------------------ */
-#content {
-    overflow:auto;
-    width: calc(100% - 300px);
-    padding: 40px 40px 40px 15px;
-    height: calc(100% - 40px);
-    transition: all 0.3s;
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-/* ---------------------------------------------------
-    LOGIN
------------------------------------------------------ */
-
-div#login input {
-    border:solid 1px darkgrey;
-    width:75%;
-    padding: 5px;
-    font-weight: 100;
-    font-size: 0.8em;
-}
-
-/* ---------------------------------------------------
-    STEP 1
------------------------------------------------------ */
-
-#newmatch_step1_table {
-    font-size: 0.8em;
-    color: black;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 90%;
-}
-
-#newmatch_step1_table th {
-    text-align: center;
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
-.inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
 }
 
 /* ---------------------------------------------------
