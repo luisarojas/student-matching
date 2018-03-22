@@ -22,7 +22,7 @@
               data-maintain-selected="true"
               data-row-style="rowStyle"
               data-unique-id="student_id"
-              data-filter-control="true">  
+              data-filter-control="true">
           <thead>
           <tr>
               <th data-field="selected" data-checkbox="true"></th>
@@ -97,9 +97,22 @@
   </div>
 
   <div class="bottom-right-panel">
-      <button class="mmm-btn" style="margin: 0; float: right;">
-          <a style="display:block;">
-              <div><p>DOWNLOAD</p></div>
+
+      <button class="mmm-btn mmm-btn-disabled" style="width: 52%; margin: 0; float: left;">
+          <a style="display:inline-block;">
+              <div>
+                  <img src="{{ url_for('static', filename='./img/download-icon.png') }}" style="height:15px">
+                  <p>ENGAGEMENT</p>
+              </div>
+          </a>
+      </button>
+
+      <button class="mmm-btn" style="width: 45%; margin: 0; float: right;">
+          <a href="/download" style="display:inline-block;">
+              <div>
+                  <img src="{{ url_for('static', filename='./img/download-icon.png') }}" style="height:15px">
+                  <p>MATCHES</p>
+              </div>
           </a>
       </button>
   </div>
