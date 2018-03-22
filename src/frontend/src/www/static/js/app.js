@@ -37,25 +37,27 @@ $('document').ready(function() {
         .done(function() {
 
             // get all the students from the database
-            $.post("/students").done(function(res) {
+            $.post("/students").done(function(res){
 
-        		resJSON = JSON.parse(res)
-        		if (resJSON.code == SUCCESS_CODE) {
-        		    students = resJSON.students.data
-        		    $("#last-match-table").bootstrapTable('load', students)
+		resJSON = JSON.parse(res)
+		if (resJSON.code == SUCCESS_CODE) {
+		    students = resJSON.students.data
+		    $("#last-match-table").bootstrapTable('load', students)
+                    // select the first row on default.
+                    $("#last-match-table tr[data-index='0'] td")[0].click()
 
-                    // update the progress bar for the faculties at the bottom
-                    $.post("/facultypercent").done(function(res) {
-                        var data = JSON.parse(res).percentages.data;
-                        data.forEach(function(faculty) {
-                            faculty_name = faculty.faculty;
-                            css_selector = faculty_name.split(" ")[0].toLowerCase();
-                            percent = faculty.percent;
-                            //console.log(faculty_name, percent, css_selector);
-                                    $(".progress-bar."+css_selector).css("width", percent+"%");
-                                    $(".progress-bar."+css_selector).attr("data-original-title", faculty_name + " (" + Math.floor(percent) + "%)");
-                        });
-                    });
+            // update the progress bar for the faculties at the bottom
+            $.post("/facultypercent").done(function(res) {
+                var data = JSON.parse(res).percentages.data;
+                data.forEach(function(faculty) {
+                    faculty_name = faculty.faculty;
+                    css_selector = faculty_name.split(" ")[0].toLowerCase();
+                    percent = faculty.percent;
+                    //console.log(faculty_name, percent, css_selector);
+                            $(".progress-bar."+css_selector).css("width", percent+"%");
+                            $(".progress-bar."+css_selector).attr("data-original-title", faculty_name + " (" + Math.floor(percent) + "%)");
+                });
+            });
 
         		} else {
         			console.log(resJSON.message);
@@ -247,7 +249,9 @@ $('document').ready(function() {
                     console.log(resData.message)
                     numStudentsToMatch = resData.numStudents
 
-                    // load step 2
+			// ------------------------------------------
+    			// NEW MATCH - STEP 2
+    			// ------------------------------------------
                     $.post('/newMatchStep2').done(function(innerRes) {
 
                         innerResData = JSON.parse(innerRes)
@@ -304,6 +308,14 @@ $('document').ready(function() {
     // "match" button is clicked
     $("#content").on('click', '#match-btn', function () {
 
+	// hide button elements
+	$("#checkmark-icon").css("display","none")
+	$("#loading-icon").css("display","inline-block")
+	$("#step2-buttons").css("display", "none");
+	$("#match-success-msg n").html("");
+	$("#match-success-msg").css("display", "none");
+
+	// scroll to the top of the page
         $('html, body').animate({scrollTop: $("#step2-title").offset().top}, 0);
 
         // disable matching button
@@ -338,12 +350,14 @@ $('document').ready(function() {
 
                 // buttons temporarily disabled - functionality not available yet
                 $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled");
-                $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
-
-                $("#match-btn a").removeAttr("href")
+                // $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
+		$("#step2-edit-matches").click(function() {
+			 $("#lastmatch-btn").click();
+		});
 
                 // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
-                // $("#match-btn").removeAttr('disabled').css("background", "rgb(100,216,226)").css("cursor", "pointer");
+                // $("#match-btn a").removeAttr("href")
+		$("#match-btn").removeClass("mmm-btn-disabled").removeAttr("disabled")
             }
         });
     });
