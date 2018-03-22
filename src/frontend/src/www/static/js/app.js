@@ -37,27 +37,31 @@ $('document').ready(function() {
         .done(function() {
 
             // get all the students from the database
-            $.post("/students").done(function(res){
+            $.post("/students").done(function(res) {
 
-		resJSON = JSON.parse(res)
-		if (resJSON.code == SUCCESS_CODE) {
-		    students = resJSON.students.data
-		    $("#last-match-table").bootstrapTable('load', students)
+        		resJSON = JSON.parse(res)
+        		if (resJSON.code == SUCCESS_CODE) {
+
+        		    students = resJSON.students.data
+        		    $("#last-match-table").bootstrapTable('load', students)
+
                     // select the first row on default.
                     $("#last-match-table tr[data-index='0'] td")[0].click()
 
-            // update the progress bar for the faculties at the bottom
-            $.post("/facultypercent").done(function(res) {
-                var data = JSON.parse(res).percentages.data;
-                data.forEach(function(faculty) {
-                    faculty_name = faculty.faculty;
-                    css_selector = faculty_name.split(" ")[0].toLowerCase();
-                    percent = faculty.percent;
-                    //console.log(faculty_name, percent, css_selector);
+                    // update the progress bar for the faculties at the bottom
+                    $.post("/facultypercent").done(function(res) {
+
+                        var data = JSON.parse(res).percentages.data;
+                        data.forEach(function(faculty) {
+
+                            faculty_name = faculty.faculty;
+                            css_selector = faculty_name.split(" ")[0].toLowerCase();
+                            percent = faculty.percent;
+
                             $(".progress-bar."+css_selector).css("width", percent+"%");
                             $(".progress-bar."+css_selector).attr("data-original-title", faculty_name + " (" + Math.floor(percent) + "%)");
-                });
-            });
+                        });
+                    });
 
         		} else {
         			console.log(resJSON.message);
@@ -66,11 +70,13 @@ $('document').ready(function() {
             })
             .done(function () {
 
-                // get all checked rows
-                $("#test-btn").click(function () {
-                    console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
-                    $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
-                })
+
+
+                // TEST: get all checked rows. to be used for the emailing and manual assignation functionality.
+                // $("#test-btn").click(function () {
+                //     console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
+                //     $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
+                // })
 
                 // row click listener
                 var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
@@ -188,10 +194,27 @@ $('document').ready(function() {
     				"</div>" +
     			"</div>";
                 $("#content").find("div#table-wrapper").find("div.left-panel").prepend(menuElem);
-        		$("#three-dot-menu-btn").click(function() {
-        			console.log("menu clicked!");
+
+                $("#three-dot-menu-btn").click(function() {
         			$(".dropdown-content").toggle()
         		});
+
+                // dropdown menu event listeners
+                $(".dropdown-content").find("#dropdown-email-btn").click(function() {
+                    console.log("email button clicked")
+                });
+
+                $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
+                    console.log("manual assignation button clicked")
+                });
+
+                $("html").click(function (test) {
+                	var $elem = $(".dropdown-content");
+                	if (test.target.id !== "three-dot-menu-btn") {
+                        if ($elem.css("display") !== "none") { $elem.hide() }
+                    }
+                });
+
             });
         });
     });
@@ -249,9 +272,9 @@ $('document').ready(function() {
                     console.log(resData.message)
                     numStudentsToMatch = resData.numStudents
 
-			// ------------------------------------------
-    			// NEW MATCH - STEP 2
-    			// ------------------------------------------
+                    // ------------------------------------------
+                    // NEW MATCH - STEP 2
+                    // ------------------------------------------
                     $.post('/newMatchStep2').done(function(innerRes) {
 
                         innerResData = JSON.parse(innerRes)
