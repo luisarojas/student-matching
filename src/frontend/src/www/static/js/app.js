@@ -67,154 +67,149 @@ $('document').ready(function() {
         			console.log(resJSON.message);
         			console.log(resJSON.exception);
         		}
-            })
-            .done(function () {
+            });
 
+            // TEST: get all checked rows. to be used for the emailing and manual assignation functionality.
+            // $("#test-btn").click(function () {
+            //     console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
+            //     $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
+            // })
 
+            // row click listener
+            var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
+            $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
 
-                // TEST: get all checked rows. to be used for the emailing and manual assignation functionality.
-                // $("#test-btn").click(function () {
-                //     console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
-                //     $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
-                // })
-
-                // row click listener
-                var months = ["Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
-                $("#last-match-table").on('click-row.bs.table', function(e, row, trElem) {
-
-                    // create randomly generated line graph for tracked engagement
-                    $("#content #engagement-chart-wrapper").html("<canvas id=\"engagement-chart\"></canvas>")
-                    var ctx = $("#content").find("#engagement-chart")
-                    var myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: months,
-                            datasets: [{
-                                data: getRandomArr(months.length, 0, 6),
-                                label: "Group",
-                                borderColor: "#3e95cd",
-                                fill: false,
-                                borderWidth: 2,
-                                pointBorderWidth: 2,
-                                pointRadius: 2
-                            }, {
-                                data: getRandomArr(months.length, 0, 6),
-                                label: "Faculty",
-                                borderColor: "#c45850",
-                                fill: false,
-                                borderWidth: 2,
-                                pointBorderWidth: 2,
-                                pointRadius: 2
-                            }]
-                        },
-                        options: { layout: { padding: { left: 0, right: 0, top: -9, bottom: -5 }},
-                                    title: { display: false, text: 'Mentor & Mentee Engagement' },
-                                    scales: { yAxes: [{ scaleLabel: { display: false,
-                                                                        labelString: 'Engagement' }}],
-                                            xAxes: [{ scaleLabel: { display: false,
-                                                                    labelString: 'Month' }}]},
-                                    tooltips: { enabled: false },
-                                    legend: { display: true, labels: { boxWidth: 15}},
-                                    responsive: true,
-                                    maintainAspectRatio: false }
-                    });
-
-                    // get group for the selected student
-        			$.ajax({
-        				type: "POST",
-        				url: "/get_group",
-        				data: JSON.stringify({"student_id": row.student_id}),
-        				contentType: 'application/json; charset=utf-8',
-        				success: function(res) {
-        					resData = JSON.parse(res);
-        					console.log(resData.group.data);
-                            numMentees = resData.group.data.length - 1; // subtract the mentor
-
-                            // reset the content for the different tables
-                            $(".mentors-table").empty();
-                            $(".mentees-table").empty();
-                            $(".faculty-table").empty();
-
-                			// update faculty name for this group
-                			var facultyName = resData.group.data[0]["faculty"]
-                			$(".faculty-table").append("<tr><td colspan=\"3\">" + facultyName + "</td></tr>");
-
-                			// update number of mentees in the current group
-                			$("div.current-group div.group-mentor table.group-table thead#mentees-header p.mentees-num").html("(" + numMentees + ")")
-
-                            for (i = 0; i < resData.group.data.length; ++i) {
-
-                                current_data = resData.group.data[i];
-
-                                student_id = current_data["student_id"];
-                                first_name = current_data["name"];
-                                last_name = current_data["surname"];
-                                class_n = "";
-
-    				            // highlight the student clicked
-                                if (row.student_id == student_id) { class_n += "highlight-row"; }
-
-                                line = "<tr class=\""+class_n+"\"><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td></tr>";
-
-                                if (current_data["is_mentor"]) { $(".mentors-table").append(line); } // add mentor to the table
-    				            else { $(".mentees-table").append(line); } // add mentees to the table
-                            }
-
-                            $(".current-group").show();
-        				}
-        			});
-
-                    // highlight selected row
-                    $('.row-selected').removeClass('row-selected');
-                    $(trElem).addClass('row-selected');
+                // create randomly generated line graph for tracked engagement
+                $("#content #engagement-chart-wrapper").html("<canvas id=\"engagement-chart\"></canvas>")
+                var ctx = $("#content").find("#engagement-chart")
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            data: getRandomArr(months.length, 0, 6),
+                            label: "Group",
+                            borderColor: "#3e95cd",
+                            fill: false,
+                            borderWidth: 2,
+                            pointBorderWidth: 2,
+                            pointRadius: 2
+                        }, {
+                            data: getRandomArr(months.length, 0, 6),
+                            label: "Faculty",
+                            borderColor: "#c45850",
+                            fill: false,
+                            borderWidth: 2,
+                            pointBorderWidth: 2,
+                            pointRadius: 2
+                        }]
+                    },
+                    options: { layout: { padding: { left: 0, right: 0, top: -9, bottom: -5 }},
+                                title: { display: false, text: 'Mentor & Mentee Engagement' },
+                                scales: { yAxes: [{ scaleLabel: { display: false,
+                                                                    labelString: 'Engagement' }}],
+                                        xAxes: [{ scaleLabel: { display: false,
+                                                                labelString: 'Month' }}]},
+                                tooltips: { enabled: false },
+                                legend: { display: true, labels: { boxWidth: 15}},
+                                responsive: true,
+                                maintainAspectRatio: false }
                 });
 
-                // remove row background setting on checkbox checked
-                $("#last-match-table").on('check.bs.table', function(e, row, trElem) {
-                    $(this).find("tr").removeClass('selected')
-                });
+                // get group for the selected student
+    			$.ajax({
+    				type: "POST",
+    				url: "/get_group",
+    				data: JSON.stringify({"student_id": row.student_id}),
+    				contentType: 'application/json; charset=utf-8',
+    				success: function(res) {
+    					resData = JSON.parse(res);
+    					console.log(resData.group.data);
+                        numMentees = resData.group.data.length - 1; // subtract the mentor
 
-                // remove row background setting on checkbox unchecked
-                $("#last-match-table").on('uncheck.bs.table	', function(e, row, trElem) {
-                    $(this).find("tr").removeClass('selected')
-                });
+                        // reset the content for the different tables
+                        $(".mentors-table").empty();
+                        $(".mentees-table").empty();
+                        $(".faculty-table").empty();
 
-                // add functionality to Faculty participation distribution bar
-                var templateString = "<div class=\"tooltip\" role=\"tooltip\"><div class=\"arrow\"></div><div style=\"font-size:0.8em\" class=\"tooltip-inner\"></div></div>"
-                $('[data-toggle="tooltip"]').tooltip({placement: "bottom", template: templateString})
+            			// update faculty name for this group
+            			var facultyName = resData.group.data[0]["faculty"]
+            			$(".faculty-table").append("<tr><td colspan=\"3\">" + facultyName + "</td></tr>");
 
-                // add three-dot menu to table
-                var menuElem = "<div class=\"dropdown\">" +
-    				"<img id=\"three-dot-menu-btn\" class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px; cursor: pointer;\">" +
-    				"<div class=\"dropdown-content\">" +
-    					"<ul>" +
-    						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><p>E-mail group</p</li>" +
-    						"<li class=\"dropdown-list-el\" id=\"dropdown-manual-assignation-btn\"><p>Manual Assignation</p></li>" +
-    					"</ul>" +
-    				"</div>" +
-    			"</div>";
-                $("#content").find("div#table-wrapper").find("div.left-panel").prepend(menuElem);
+            			// update number of mentees in the current group
+            			$("div.current-group div.group-mentor table.group-table thead#mentees-header p.mentees-num").html("(" + numMentees + ")")
 
-                $("#three-dot-menu-btn").click(function() {
-        			$(".dropdown-content").toggle()
-        		});
+                        for (i = 0; i < resData.group.data.length; ++i) {
 
-                // dropdown menu event listeners
-                $(".dropdown-content").find("#dropdown-email-btn").click(function() {
-                    console.log("email button clicked")
-                });
+                            current_data = resData.group.data[i];
 
-                $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
-                    console.log("manual assignation button clicked")
-                });
+                            student_id = current_data["student_id"];
+                            first_name = current_data["name"];
+                            last_name = current_data["surname"];
+                            class_n = "";
 
-                $("html").click(function (test) {
-                	var $elem = $(".dropdown-content");
-                	if (test.target.id !== "three-dot-menu-btn") {
-                        if ($elem.css("display") !== "none") { $elem.hide() }
-                    }
-                });
+				            // highlight the student clicked
+                            if (row.student_id == student_id) { class_n += "highlight-row"; }
 
+                            line = "<tr class=\""+class_n+"\"><td>"+student_id+"</td><td>"+first_name+"</td><td>"+last_name+"</td></tr>";
+
+                            if (current_data["is_mentor"]) { $(".mentors-table").append(line); } // add mentor to the table
+				            else { $(".mentees-table").append(line); } // add mentees to the table
+                        }
+
+                        $(".current-group").show();
+    				}
+    			});
+
+                // highlight selected row
+                $('.row-selected').removeClass('row-selected');
+                $(trElem).addClass('row-selected');
+            });
+
+            // remove row background setting on checkbox checked
+            $("#last-match-table").on('check.bs.table', function(e, row, trElem) {
+                $(this).find("tr").removeClass('selected')
+            });
+
+            // remove row background setting on checkbox unchecked
+            $("#last-match-table").on('uncheck.bs.table	', function(e, row, trElem) {
+                $(this).find("tr").removeClass('selected')
+            });
+
+            // add functionality to Faculty participation distribution bar
+            var templateString = "<div class=\"tooltip\" role=\"tooltip\"><div class=\"arrow\"></div><div style=\"font-size:0.8em\" class=\"tooltip-inner\"></div></div>"
+            $('[data-toggle="tooltip"]').tooltip({placement: "bottom", template: templateString})
+
+            // add three-dot menu to table
+            var menuElem = "<div class=\"dropdown\">" +
+				"<img id=\"three-dot-menu-btn\" class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px; cursor: pointer;\">" +
+				"<div class=\"dropdown-content\">" +
+					"<ul>" +
+						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><p>E-mail group</p</li>" +
+						"<li class=\"dropdown-list-el\" id=\"dropdown-manual-assignation-btn\"><p>Manual Assignation</p></li>" +
+					"</ul>" +
+				"</div>" +
+			"</div>";
+            $("#content").find("div#table-wrapper").find("div.left-panel").prepend(menuElem);
+
+            $("#three-dot-menu-btn").click(function() {
+    			$(".dropdown-content").toggle()
+    		});
+
+            // dropdown menu event listeners
+            $(".dropdown-content").find("#dropdown-email-btn").click(function() {
+                console.log("email button clicked")
+            });
+
+            $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
+                console.log("manual assignation button clicked")
+            });
+
+            $("html").click(function (test) {
+            	var $elem = $(".dropdown-content");
+            	if (test.target.id !== "three-dot-menu-btn") {
+                    if ($elem.css("display") !== "none") { $elem.hide() }
+                }
             });
         });
     });
