@@ -44,6 +44,8 @@ $('document').ready(function() {
 		if (resJSON.code == SUCCESS_CODE) {
 		    students = resJSON.students.data
 		    $("#last-match-table").bootstrapTable('load', students)
+                    // select the first row on default.
+                    $("#last-match-table tr[data-index='0'] td")[0].click()
 
             // update the progress bar for the faculties at the bottom
             $.post("/facultypercent").done(function(res) {
@@ -64,8 +66,6 @@ $('document').ready(function() {
 		}
             });
 
-
-            // TODO: Select the first row on default.
 
             // get all checked rows
             $("#test-btn").click(function () {
