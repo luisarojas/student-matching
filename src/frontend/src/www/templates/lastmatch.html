@@ -121,7 +121,7 @@
 
 <!-- MODALS -->
 
-  <!-- Modal -->
+  <!-- E-mail Modal -->
   <div class="modal hide fade" id="modal-email" role="dialog">
     <div class="modal-dialog">
       
@@ -133,6 +133,15 @@
         </div>
         <div class="modal-body">
           <p>Instructions about emailing</p>
+          <!-- EMAIL BUTTON  -->
+          <button id="" class="mmm-btn" style="width: 45%; margin: 0;">
+            <a style="display:inline-block;">
+              <div>
+                <img src="/static/img/download-icon.png" style="height:15px">
+                <p>SEND EMAIL</p>
+              </div>
+            </a>
+          </button>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -140,9 +149,30 @@
       </div>
       
     </div>
-  </div>          
+  </div>
 
-<!-- END TEMP -->
+  <!-- E-mail Modal -->
+  <div class="modal hide fade" id="modal-manual-assignation" role="dialog">
+    <div class="modal-dialog">
+      
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Manual Assignation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Instructions about manual assignation</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>            
+
+<!-- END MODALS -->
 
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-table-filter-control.js') }}"></script>

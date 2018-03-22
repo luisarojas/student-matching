@@ -205,7 +205,8 @@ $('document').ready(function() {
             });
 
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
-                console.log("manual assignation button clicked")
+                console.log("manual assignation button clicked");
+                $('#modal-manual-assignation').modal('show');                 
             });
 
             $("html").click(function (test) {
