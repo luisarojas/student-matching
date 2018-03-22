@@ -365,3 +365,11 @@ footer p {
         display: none;
     }
 } */
+
+th[data-field='faculty'] > :first-child{
+    position:absolute;
+    top:0;
+}
+.bootstrap-table-filter-control-faculty{
+    height:25px !important;   
+}
