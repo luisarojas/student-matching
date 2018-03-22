@@ -124,7 +124,7 @@ $('document').ready(function() {
     				contentType: 'application/json; charset=utf-8',
     				success: function(res) {
     					resData = JSON.parse(res);
-    					console.log(resData.group.data);
+    					//console.log(resData.group.data);
                         numMentees = resData.group.data.length - 1; // subtract the mentor
 
                         // reset the content for the different tables
@@ -199,6 +199,9 @@ $('document').ready(function() {
             // dropdown menu event listeners
             $(".dropdown-content").find("#dropdown-email-btn").click(function() {
                 console.log("email button clicked")
+                //alex todo: Display a pop-up for emailing
+                $('#modal-email').modal('show'); 
+                
             });
 
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
