@@ -51,7 +51,7 @@ def get_mentors_mentees(is_mentor, faculty):
         #token = request.headers['Authorization']
         #response = check_token(token).json()
         if True:#response.get('status') == 'success':
-            result = create_graph_result(graph.run("MATCH (student:Person {is_mentor:$status}) WHERE $faculty IS NULL OR student.faculty = $faculty RETURN student", status=is_mentor, faculty=faculty).data())
+            result = create_graph_result(graph.run("MATCH (student:Person {is_mentor:$status}) WHERE $faculty IS NULL OR student.faculty = $faculty RETURN student ORDER BY student.surname", status=is_mentor, faculty=faculty).data())
             return create_success_response(result)
         #else:
         #    return create_message_response(response['status'], response['message'], 401)
