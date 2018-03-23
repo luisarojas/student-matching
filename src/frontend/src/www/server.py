@@ -219,8 +219,9 @@ def get_student_id(student_id):
 @app.route('/students/mentors', methods = ['POST'])
 def get_student_mentors():
 	url = 'http://graph_server:5002/students/mentors'
+	# faculty = request.get_json()["faculty"]
 	try:
-		r = requests.get(url)
+		r = requests.get(url, params=request.get_json())
 		SUCCESS_DATA = {"message": "Successfully queried all students.", "code": SUCCESS_CODE, "mentors":r.json()};
 		return json.dumps(SUCCESS_DATA)
 	except Exception as e:
@@ -265,7 +266,7 @@ def get_facultypercent():
 		print(e)
 		FAILURE_DATA = {"message": "Could not retrieve the group for student", "code": FAILURE_CODE, "exception": e}
 		return json.dumps(FAILURE_DATA)
-
+            
 
 # check if the executed file is the main program
 if __name__ == "__main__":
