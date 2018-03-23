@@ -204,7 +204,7 @@ def get_students():
 		FAILURE_DATA = {"message": "Could not retrieve all students from the database.", "code": FAILURE_CODE, "exception": e};
 		return json.dumps(FAILURE_DATA)
 
-@app.route("/get_all_groups", methods=["GET"])
+@app.route("/groups", methods=["GET"])
 def get_all_groups():
 	url = "http://graph_server:5002/groups"
 	try:
