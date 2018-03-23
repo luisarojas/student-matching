@@ -208,7 +208,7 @@ $('document').ready(function() {
             });
 
             //Send an email to all the users checked on the table
-            $("#btn-email-checked").click(function(){                
+            $("#btn-email-selected").click(function(){                
                 console.log("[TODO] Sending email...");
                 //todo alex
                 //todo: add to list in email modal
