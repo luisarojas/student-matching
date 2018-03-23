@@ -80,11 +80,16 @@ button a {
 }
 
 /* MODALS */
-.modal-header .close{
+.modal-header .close {
     position: absolute;
-    right: 0.4em;
-    top: 0.2em;
-    outline: none;
+    right: 0.6em;
+    top: 0.4em;
+}
+
+.modal-title {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    margin-bottom: 0;
 }
 
 /* ---------------------------------------------------
@@ -335,7 +340,7 @@ th[data-field='faculty'] > :first-child{
 }
 
 .bootstrap-table-filter-control-faculty{
-    height:25px !important;   
+    height:25px !important;
 }
 
 /* ---------------------------------------------------
@@ -383,4 +388,3 @@ footer p {
         display: none;
     }
 } */
-

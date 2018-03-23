@@ -137,7 +137,7 @@ class GroupListAPI(Resource):
             print(e)
             return create_message_response('fail', 'Try again', 500)
 
-        
+
 class GetFacultyPercent(Resource):
     @staticmethod
     def get():
@@ -157,20 +157,20 @@ class GetFacultyPercent(Resource):
             #    return create_message_response(response['status'], response['message'], 401)
         except Exception as e:
             print(e)
-            return create_message_response('fail', 'Try again', 500)        
+            return create_message_response('fail', 'Try again', 500)
 
 
 class GroupInsertion(Resource):
     @staticmethod
     def put():
         try:
-            graph.run("match (n) detach delete n") 
+            graph.run("match (n) detach delete n")
             create_data(request.get_json())
             return create_message_response('success', 'Data Inserted', 201)
         except Exception as e:
             print(e)
             return create_message_response('fail', 'Try again', 500)
-        
+
 
 
 # Setting the routes

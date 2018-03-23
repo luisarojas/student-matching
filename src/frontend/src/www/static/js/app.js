@@ -199,8 +199,8 @@ $('document').ready(function() {
             // dropdown menu event listeners
             $(".dropdown-content").find("#dropdown-email-btn").click(function() {
                 //Display a pop-up for emailing
-                $('#modal-email').modal('show'); 
-                
+                $('#modal-email').modal('show');
+
             });
 
             //Send an email to all the users checked on the table
@@ -211,7 +211,8 @@ $('document').ready(function() {
             });
 
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
-                $('#modal-manual-assignation').modal('show');                 
+                console.log("manual assignation button clicked");
+                $('#modal-manual-assignation').modal('show');
             });
 
             $("html").click(function (test) {
@@ -313,8 +314,8 @@ $('document').ready(function() {
                                     } else if (selectedVal == 3) {
                                         $(this).parent().find("label").css("color","red");
                                     }
-                                })
-                        })
+                                });
+                        });
                     });
 
                 } else {
@@ -335,14 +336,14 @@ $('document').ready(function() {
     // "match" button is clicked
     $("#content").on('click', '#match-btn', function () {
 
-	// hide button elements
-	$("#checkmark-icon").css("display","none")
-	$("#loading-icon").css("display","inline-block")
-	$("#step2-buttons").css("display", "none");
-	$("#match-success-msg n").html("");
-	$("#match-success-msg").css("display", "none");
+    	// hide button elements
+    	$("#checkmark-icon").css("display","none")
+    	$("#loading-icon").css("display","inline-block")
+    	$("#step2-buttons").css("display", "none");
+    	$("#match-success-msg n").html("");
+    	$("#match-success-msg").css("display", "none");
 
-	// scroll to the top of the page
+    	// scroll to the top of the page
         $('html, body').animate({scrollTop: $("#step2-title").offset().top}, 0);
 
         // disable matching button
@@ -367,29 +368,48 @@ $('document').ready(function() {
             contentType: 'application/json; charset=utf-8',
             success: function (res) {
                 resData = JSON.parse(res)
+                numGroups = resData.numGroups
 
                 // update ui upon match completion
                 $("#match-success-msg").css("display", "block");
-                $("#match-success-msg n").html(resData.numGroups);
+                $("#match-success-msg n").html(numGroups);
                 $("#step2-buttons").css("display", "block");
                 $("#loading-icon").toggle()
                 $("#checkmark-icon").toggle()
 
                 // buttons temporarily disabled - functionality not available yet
                 // $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled"); //todo todelete
-                $("#step2-email-mentors").click(function(){
-                    //todo add functionality
-                    $('#modal-email-mentors').modal('show'); 
+                $("#step2-email-mentors").click(function() {
+
+                    // get all the students from the database
+                    $.post("/students", function(res) {
+                		resJSON = JSON.parse(res)
+                		if (resJSON.code == SUCCESS_CODE) {
+                		    students = resJSON.students.data
+                            console.log(students)
+
+                            students.forEach(function (student, i) {
+                                console.log(student.is_mentor)
+                            });
+
+                		} else {
+                			console.log(resJSON.message);
+                			console.log(resJSON.exception);
+                		}
+                    })
+                    .done(function() {
+                        $('#modal-email-mentors').modal('show');
+                        $("#modal-email-mentors #num-mentors-email").html(numGroups)
+                    });
                 });
-                
-                // $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
-		$("#step2-edit-matches").click(function() {
-			 $("#lastmatch-btn").click();
-		});
+
+
+        		$("#step2-edit-matches").click(function() {
+        			 $("#lastmatch-btn").click();
+        		});
 
                 // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
-                // $("#match-btn a").removeAttr("href")
-		$("#match-btn").removeClass("mmm-btn-disabled").removeAttr("disabled")
+                $("#match-btn").removeClass("mmm-btn-disabled").removeAttr("disabled")
             }
         });
     });
