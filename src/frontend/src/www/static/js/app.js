@@ -371,7 +371,12 @@ $('document').ready(function() {
                 $("#checkmark-icon").toggle()
 
                 // buttons temporarily disabled - functionality not available yet
-                $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled");
+                // $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled"); //todo todelete
+                $("#step2-email-mentors").click(function(){
+                    //todo add functionality
+                    $('#modal-email-mentors').modal('show'); 
+                });
+                
                 // $("#step2-edit-matches").attr('disabled','disabled').addClass("mmm-btn-disabled");
 		$("#step2-edit-matches").click(function() {
 			 $("#lastmatch-btn").click();
