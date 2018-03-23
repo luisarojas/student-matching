@@ -452,7 +452,19 @@ $('document').ready(function() {
                             "</div>"
                         $('#modal-email-mentors').find(".modal-body").html(successEmailMsg)
 
-                        console.log(emails[0])
+                        // send emails
+                        // console.log(emails[0])
+                        $.ajax({
+            				type: "POST",
+            				url: "/send_email",
+            				data: JSON.stringify(emails),
+            				contentType: 'application/json; charset=utf-8',
+            			    success: function(res) {
+                                resData = JSON.parse(res);
+                                console.log(resData)
+            				}
+            			});
+
                     });
                 });
 

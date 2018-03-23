@@ -144,6 +144,7 @@ button a {
     text-align: center;
     padding: 20px 20px 20px 10px;
     font-size: 0.9em;
+    font-weight: 400;
     display: block;
     text-transform: uppercase;
 }

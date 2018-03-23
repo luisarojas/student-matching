@@ -227,7 +227,7 @@ def get_student_mentors():
 	except Exception as e:
 		print(e)
 		FAILURE_DATA = {"message": "Could not retrieve all students from the database.", "code": FAILURE_CODE, "exception": e};
-		return json.dumps(FAILURE_DATA)            
+		return json.dumps(FAILURE_DATA)
 
 @app.route("/groups", methods=["GET"])
 def get_all_groups():
@@ -239,7 +239,7 @@ def get_all_groups():
 	except Exception as e:
 		print(e)
 		FAILURE_DATA = {"message": "Could not retrieve the group for student", "code": FAILURE_CODE, "exception": e}
-		return json.dumps(FAILURE_DATA)            
+		return json.dumps(FAILURE_DATA)
 
 @app.route("/get_group", methods=["POST"])
 def get_group():
@@ -266,7 +266,12 @@ def get_facultypercent():
 		print(e)
 		FAILURE_DATA = {"message": "Could not retrieve the group for student", "code": FAILURE_CODE, "exception": e}
 		return json.dumps(FAILURE_DATA)
-            
+
+@app.route("/send_email", methods=["POST"])
+def send_email():
+    req = request.get_json()
+    print(req)
+    return json.dumps(req)
 
 # check if the executed file is the main program
 if __name__ == "__main__":
