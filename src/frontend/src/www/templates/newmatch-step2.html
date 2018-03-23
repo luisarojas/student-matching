@@ -1,5 +1,5 @@
 <p id="step2-title" class="page-title"><b>STEP 2:</b> MATCH</p>
-<p>Below, please select the level of relevance you consider for each of the questions identified.<br><br>Once you're done, click the 'MATCH' button to begin the matching process.<br><br></p>
+<p>Below, please select the level of relevance you consider for each of the questions identified. Once you're done, click the 'MATCH' button to begin the matching process.<br><br></p>
 <input id="" type="checkbox"><p style="display:inline;"> &nbsp;Merge with most recent matches stored.</p><br>
 
 <!-- table -->
@@ -53,28 +53,39 @@
     </div>
 </div>
 
-<!-- E-mail Mentrs Modal -->
+<!-- EMAIL MENTORS MODAL -->
 <div class="modal hide fade" id="modal-email-mentors" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
+    <!-- content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Email Mentors</h4>
       </div>
+
       <div class="modal-body">
-        <p style="font-size:0.8em; font-weight:400; display:inline;" id="num-mentors-email"></p><p style="display:inline; font-size:0.8em;"> Mentors will be sent a list of the mentees that have been assigned to them. You can choose to include a personalized message in said e-mails, which can be redacted below.</p><br><br>
-        <textarea class="form-control" id="mentor-e-mail-textarea" style="font-size:0.8em; height:125px;color:black;"></textarea>
-        <!-- EMAIL BUTTON  -->
-        <button class="mmm-btn" style="float:right;">
-          <a style="display:inline-block;">
-            <div>
-              <img src="/static/img/mail-icon.png" style="height:15px">
-              <p>SEND EMAIL</p>
-            </div>
-          </a>
-        </button>
+          <form id="mentor-email-form" action="e.preventDefault()"><div class="form-group">
+            <p style="display:inline; font-weight:400;" id="num-mentors-email"></p>
+            <p style="display:inline;"> Mentors will be sent a list of the mentees that have been assigned to them. You can choose to include a personalized message in said e-mails, which can be redacted below.</p>
+            <p style="margin-top:10px;">You may also use the following tags to personalize your email <i>content</i>:</p>
+            <p>
+                <code>[FNAME]</code> = Mentor's <b>first</b> name.<br>
+                <code>[LNAME]</code> = Mentor's <b>last</b> name.
+            </p>
+            <p style="margin-top:20px;">Subject:</p>
+            <input style="font-weight:300; font-size:0.8em; color:black; height:25px;" type="text" class="form-control">
+            <p style="margin-top: 10px;">Content:</p>
+            <textarea class="form-control" style="font-weight:300; font-size:0.8em; height:125px; color:black;"></textarea>
+
+            <!-- submit button  -->
+            <button type="submit" id="send-email-mentors-btn" class="mmm-btn" style="float:right; margin-top:10px;">
+              <a style="display:inline-block;">
+                <div><img src="/static/img/mail-icon.png" style="height:15px">
+                  <p>SEND EMAIL</p></div>
+              </a>
+            </button>
+        </div></form>
       </div>
     </div>
 

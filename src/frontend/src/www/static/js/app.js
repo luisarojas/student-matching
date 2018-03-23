@@ -144,7 +144,6 @@ $('document').ready(function() {
             			$("div.current-group div.group-mentor table.group-table thead#mentees-header p.mentees-num").html("(" + numMentees + ")")
 
                         for (i = 0; i < resData.group.data.length; ++i) {
-
                             current_data = resData.group.data[i];
 
                             student_id = current_data["student_id"];
@@ -204,7 +203,7 @@ $('document').ready(function() {
             $(".dropdown-content").find("#dropdown-email-btn").click(function() {
                 //Display a pop-up for emailing
                 $('#modal-email').modal('show');
-                
+
             });
 
             //Send an email to all the users checked on the table
@@ -375,6 +374,7 @@ $('document').ready(function() {
             data: JSON.stringify(questionWeights),
             contentType: 'application/json; charset=utf-8',
             success: function (res) {
+
                 resData = JSON.parse(res)
                 numGroups = resData.numGroups
 
@@ -386,19 +386,34 @@ $('document').ready(function() {
                 $("#checkmark-icon").toggle()
                 $("#gloader").hide();
 
-                // buttons temporarily disabled - functionality not available yet
-                // $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled"); //todo todelete
+                emails = []
+                // event listener for automatic emailing for mentors, with a list of their mentees
                 $("#step2-email-mentors").click(function() {
-
-                    // get all the students from the database
-                    $.post("/students", function(res) {
+                    // get all the groups from the database
+                    $.get("/groups", function(res) {
                 		resJSON = JSON.parse(res)
-                		if (resJSON.code == SUCCESS_CODE) {
-                		    students = resJSON.students.data
-                            console.log(students)
 
-                            students.forEach(function (student, i) {
-                                console.log(student.is_mentor)
+                		if (resJSON.code == SUCCESS_CODE) {
+                		    groups = resJSON.groups.data
+
+                            var menteesListStr = ""
+                            groups.forEach(function (group, i) {
+
+                                menteesListStr = ""
+                                group.group.forEach(function(mentee, i) {
+                                    menteesListStr += mentee.name + " " + mentee.surname + " (" + mentee.student_id + ")" + "\n"
+                                });
+
+                                // generate an email object with default values for to, from, subject and content
+                                emailObj = createEmailObject();
+                                emailObj.to = group.mentor.email
+                                emailObj.content = menteesListStr
+
+                                // additional field in order to customize the email content
+                                emailObj.mentor = group.mentor
+
+                                // add to all-emails array
+                                emails.push(emailObj)
                             });
 
                 		} else {
@@ -409,6 +424,34 @@ $('document').ready(function() {
                     .done(function() {
                         $('#modal-email-mentors').modal('show');
                         $("#modal-email-mentors #num-mentors-email").html(numGroups)
+                    });
+
+                    // triggered when the email is sent
+                    $("#mentor-email-form").submit(function(e) {
+
+                        // supress default form action
+                        e.preventDefault();
+
+                        // grab the current value of the text area
+                        textareaText = $(this).find("textarea").val();
+                        inputText = $(this).find("input").val();
+
+                        // complete the email object with updated values of subject and content
+                        emails.forEach(function (email, i) {
+                            customTextareaText = textareaText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname)
+                            emails[i].content = customTextareaText + "\n\n" + email.content;
+                            emails[i].subject = inputText;
+                        });
+
+                        // replace the modal content with a success message
+                        var successEmailMsg = "" +
+                            "<div style=\"width:100%; text-align:center;\">" +
+                                "<img src=\"static/img/green-checkmark.png\" style=\"height:40px; margin-bottom:10px;\">" +
+                                "<p>E-mail sent.</p>" +
+                            "</div>"
+                        $('#modal-email-mentors').find(".modal-body").html(successEmailMsg)
+
+                        console.log(emails[0])
                     });
                 });
 
@@ -451,6 +494,17 @@ function rowStyle(row, index) {
 }
 
 //Initialize a bunch of elements on loading the main page
-function initialize(){
+function initialize (){
     $("#gloader").hide();
+}
+
+function createEmailObject() {
+
+    var emailObj = new Object()
+    emailObj.to = "to@test.com"
+    emailObj.from = "noreply@test.com"
+    emailObj.subject = ""
+    emailObj.content = ""
+
+    return emailObj
 }

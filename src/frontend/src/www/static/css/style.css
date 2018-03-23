@@ -93,6 +93,16 @@ button a {
     margin-bottom: 0;
 }
 
+.modal-body p {
+    font-size: 0.8em;
+    font-weight: 300;
+}
+
+.modal-body code {
+    font-size: 1em;
+    font-weight: 300;
+}
+
 /* GLOBAL SPINNER/LOADER */
 .loader {
   border: 1px solid #f3f3f1;
