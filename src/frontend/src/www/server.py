@@ -216,6 +216,18 @@ def get_student_id(student_id):
 		FAILURE_DATA = {"message": "Could not retrieve all students from the database.", "code": FAILURE_CODE, "exception": e};
 		return json.dumps(FAILURE_DATA)
 
+@app.route('/students/mentors', methods = ['POST'])
+def get_student_mentors():
+	url = 'http://graph_server:5002/students/mentors'
+	try:
+		r = requests.get(url)
+		SUCCESS_DATA = {"message": "Successfully queried all students.", "code": SUCCESS_CODE, "mentors":r.json()};
+		return json.dumps(SUCCESS_DATA)
+	except Exception as e:
+		print(e)
+		FAILURE_DATA = {"message": "Could not retrieve all students from the database.", "code": FAILURE_CODE, "exception": e};
+		return json.dumps(FAILURE_DATA)            
+
 @app.route("/groups", methods=["GET"])
 def get_all_groups():
 	url = "http://graph_server:5002/groups"
