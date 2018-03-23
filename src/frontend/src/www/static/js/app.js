@@ -207,7 +207,7 @@ $('document').ready(function() {
             });
 
             //Send an email to all the users checked on the table
-            $("#btn-email-selected").click(function(){                
+            $("#btn-email-selected").click(function(){
                 console.log("[TODO] Sending email...");
                 //todo alex
                 //todo: add to list in email modal
@@ -439,8 +439,9 @@ $('document').ready(function() {
                         // complete the email object with updated values of subject and content
                         emails.forEach(function (email, i) {
                             customTextareaText = textareaText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname)
+                            customInputText = inputText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname)
                             emails[i].content = customTextareaText + "\n\n" + email.content;
-                            emails[i].subject = inputText;
+                            emails[i].subject = customInputText;
                         });
 
                         // replace the modal content with a success message
