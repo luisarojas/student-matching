@@ -12,6 +12,7 @@ $('document').ready(function() {
 
     $.post('/newMatchStep1').done(function(res) {
         $("#content").html(res)
+        initialize()
     });
 
     // ------------------------------------------
@@ -37,8 +38,9 @@ $('document').ready(function() {
         .done(function() {
 
             // get all the students from the database
+            $("#gloader").show();
             $.post("/students").done(function(res) {
-
+                $("#gloader").hide();
         		resJSON = JSON.parse(res)
         		if (resJSON.code == SUCCESS_CODE) {
 
@@ -117,12 +119,14 @@ $('document').ready(function() {
                 });
 
                 // get group for the selected student
+                $("#gloader").show();
     			$.ajax({
     				type: "POST",
     				url: "/get_group",
     				data: JSON.stringify({"student_id": row.student_id}),
     				contentType: 'application/json; charset=utf-8',
-    				success: function(res) {
+    			    success: function(res) {
+                                $("#gloader").hide();
     					resData = JSON.parse(res);
     					//console.log(resData.group.data);
                         numMentees = resData.group.data.length - 1; // subtract the mentor
@@ -439,4 +443,9 @@ function rowStyle(row, index) {
         };
     }
     return {};
+}
+
+//Initialize a bunch of elements on loading the main page
+function initialize(){
+    $("#gloader").hide();
 }

@@ -125,7 +125,6 @@ MATCH(p:Person {student_id:$id})-[:MATCHED_WITH]-(mentor:Person {is_mentor:true}
             return create_message_response('fail', 'Try again', 500)
 
 #Returns all the groups with mentors and their corresponding mentees
-#alex todo
 class GroupListAPI(Resource):
     @staticmethod
     def get():
