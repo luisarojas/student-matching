@@ -198,14 +198,19 @@ $('document').ready(function() {
 
             // dropdown menu event listeners
             $(".dropdown-content").find("#dropdown-email-btn").click(function() {
-                console.log("email button clicked")
-                //alex todo: Display a pop-up for emailing
+                //Display a pop-up for emailing
                 $('#modal-email').modal('show'); 
                 
             });
 
+            //Send an email to all the users checked on the table
+            $("#btn-email-checked").click(function(){
+                console.log("clicked");
+                //todo alex
+                console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
+            });
+
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
-                console.log("manual assignation button clicked");
                 $('#modal-manual-assignation').modal('show');                 
             });
 

@@ -124,6 +124,19 @@ MATCH(p:Person {student_id:$id})-[:MATCHED_WITH]-(mentor:Person {is_mentor:true}
             print(e)
             return create_message_response('fail', 'Try again', 500)
 
+#Returns all the groups with mentors and their corresponding mentees
+#alex todo
+class GroupListAPI(Resource):
+    @staticmethod
+    def get():
+        try:
+            if True:#response.get('status') == 'success':
+                result = graph.data("MATCH (m:Person {is_mentor:true})-[:MATCHED_WITH]-(s:Person{is_mentor:false}) RETURN m as mentor , collect(s) as group")
+                return create_success_response(result)
+        except Exception as e:
+            print(e)
+            return create_message_response('fail', 'Try again', 500)
+
         
 class GetFacultyPercent(Resource):
     @staticmethod
@@ -165,6 +178,7 @@ api.add_resource(StudentListAPI, '/students')
 api.add_resource(StudentAPI, '/students/<int:student_id>')
 api.add_resource(MentorsAPI, '/students/mentors')
 api.add_resource(MenteesAPI, '/students/mentees')
+api.add_resource(GroupListAPI, '/groups')
 api.add_resource(GroupAPI, '/groups/<int:student_id>')
 api.add_resource(GetFacultyPercent, '/facultypercent')
 api.add_resource(GroupInsertion, '/groupInsertion')
