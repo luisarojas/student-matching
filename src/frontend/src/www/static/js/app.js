@@ -368,6 +368,7 @@ $('document').ready(function() {
             questionWeights.questions.push({'header': questionHeader, 'weight': questionWeight});
         });
 
+        $("#gloader").show();
         $.ajax({
             type: 'POST',
             url: "/match",
@@ -383,6 +384,7 @@ $('document').ready(function() {
                 $("#step2-buttons").css("display", "block");
                 $("#loading-icon").toggle()
                 $("#checkmark-icon").toggle()
+                $("#gloader").hide();
 
                 // buttons temporarily disabled - functionality not available yet
                 // $("#step2-email-mentors").attr('disabled','disabled').addClass("mmm-btn-disabled"); //todo todelete

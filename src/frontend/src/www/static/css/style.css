@@ -115,14 +115,6 @@ button a {
   100% { transform: rotate(360deg); }
 }
 
-
-#gloader{
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin:0.4em;
-}
-
 /* ---------------------------------------------------
     SIDEBAR
 ----------------------------------------------------- */
