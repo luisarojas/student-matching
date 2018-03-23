@@ -123,35 +123,51 @@
 
 <!-- E-mail Modal -->
 <div class="modal hide fade" id="modal-email" role="dialog">
-  <div class="modal-dialog">
-    
+  <div class="modal-dialog" style="max-width:60%">
+
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Email Selected Students</h4>
       </div>
-      <div class="modal-body">
-        <p>Instructions about emailing</p>
-        <!-- EMAIL BUTTON  -->
-        <button id="btn-email-checked" class="mmm-btn" style="width: 45%; margin: 0;">
-          <a style="display:inline-block;">
-            <div>
-              <img src="/static/img/mail-icon.png" style="height:15px">
-              <p>SEND EMAIL</p>
-            </div>
-          </a>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <h3>Footer</h3>
-      </div>
+      <div class="modal-body container">
+        <div class="row">
+          <div class="col-9"> <!-- left -->
+            1 of 2
+            <p style="font-size:0.8em; font-weight:400; display:inline;" id="num-mentors-email"></p><p style="display:inline; font-size:0.8em;"> Mentors will be sent a list of the mentees that have been assigned to them. You can choose to include a personalized message in said e-mails, which can be redacted below.</p><br><br>
+            <textarea class="form-control" id="mentor-e-mail-textarea" style="font-size:0.8em; height:150px;color:black;"></textarea>
+            <!-- EMAIL BUTTON  -->
+            <button id="btn-email-checked" class="mmm-btn" style="float:right;">
+              <a style="display:inline-block;">
+                <div>
+                  <img src="/static/img/mail-icon.png" style="height:15px">
+                  <p>SEND EMAIL</p>
+                </div>
+              </a>
+            </button>
+          </div> <!-- left end -->
+          <div class="col" style="height: inherit; overflow-y: scroll; height: 300px;"> <!-- right -->            
+            2 of 2
+            <!-- temp -->
+            <table id="email-checked-table" class="table table-hover table-sm" >
+              <thead>
+                <tr>
+                  <th scope="col">email</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div> <!-- right end -->
+        </div><!-- row end -->         
+      </div><!-- container end -->
     </div>
-    
+
   </div>
 </div>
 
-<!-- E-mail Modal -->
+<!-- Manual Assignation Modal -->
 <div class="modal hide fade" id="modal-manual-assignation" role="dialog">
   <div class="modal-dialog">
     
@@ -167,8 +183,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
-    </div>
-    
+    </div>    
   </div>
 </div>            
 

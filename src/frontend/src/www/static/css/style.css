@@ -84,6 +84,7 @@ button a {
     position: absolute;
     right: 0.6em;
     top: 0.4em;
+    outline:0;
 }
 
 .modal-title {
@@ -117,7 +118,7 @@ button a {
 
 #gloader{
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
     margin:0.4em;
 }

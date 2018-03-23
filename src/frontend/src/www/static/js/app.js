@@ -203,15 +203,23 @@ $('document').ready(function() {
             // dropdown menu event listeners
             $(".dropdown-content").find("#dropdown-email-btn").click(function() {
                 //Display a pop-up for emailing
-                $('#modal-email').modal('show');
+                // console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
 
+                //Clear the table
+                $("#email-checked-table tbody").empty()
+                //todo: add to list in email modal
+                $("#last-match-table").bootstrapTable('getSelections').forEach(function(ele){
+	            //console.log(ele);
+                    $("#email-checked-table tbody").append("<tr><<td>" + ele.email + "</td>/tr>")
+                })
+                $('#modal-email').modal('show');
+                
             });
 
             //Send an email to all the users checked on the table
             $("#btn-email-checked").click(function(){
-                console.log("clicked");
+                console.log("[TODO] Sending email...");
                 //todo alex
-                console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
             });
 
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
