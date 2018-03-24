@@ -71,12 +71,13 @@
             <p style="margin-top:10px;">You may also use the following tags to personalize your email subject and content:</p>
             <p>
                 <code>[FNAME]</code> = Mentor's <b>first</b> name.<br>
-                <code>[LNAME]</code> = Mentor's <b>last</b> name.
+                <code>[LNAME]</code> = Mentor's <b>last</b> name.<br>
+                <code>[MLIST]</code> = List of <b>mentees</b> assigned to the mentor.
             </p>
             <p style="margin-top:20px;">Subject:</p>
-            <input style="font-weight:300; font-size:0.8em; color:black; height:25px;" type="text" class="form-control">
+            <input style="font-weight:300; font-size:0.8em; color:black; height:25px;" type="text" class="form-control" value="Mentee Assignation">
             <p style="margin-top: 10px;">Content:</p>
-            <textarea class="form-control" style="font-weight:300; font-size:0.8em; height:125px; color:black;"></textarea>
+            <textarea class="form-control" style="line-height: 1.3em; font-weight:300; font-size:0.8em; height:145px; color:black;">Hello [FNAME] [LNAME],&#13;&#10;&#13;&#10;Please see the mentees that have been assigned to you below.&#13;&#10;&#13;&#10;[MLIST]&#13;&#10;&#13;&#10;Regards,&#13;&#10;UOIT - Student Experience</textarea>
 
             <!-- submit button  -->
             <button type="submit" id="send-email-mentors-btn" class="mmm-btn" style="float:right; margin-top:10px;">

@@ -399,8 +399,6 @@ def temp_convert_json(master_matches):
         #input()
     return new_faculty_dict
 
-
-
 if __name__ == "__main__": # will only be ran when script is executed from command-line
 
     # ------------------------ ARGS SET-UP ------------------------

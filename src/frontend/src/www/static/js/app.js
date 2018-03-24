@@ -497,7 +497,7 @@ $('document').ready(function() {
 
                                 menteesListStr = ""
                                 group.group.forEach(function(mentee, i) {
-                                    menteesListStr += mentee.name + " " + mentee.surname + " (" + mentee.student_id + ")" + "\n"
+                                    menteesListStr += mentee.name + " " + mentee.surname + ", " + mentee.email  + "<br>"
                                 });
 
                                 // generate an email object with default values for to, from, subject and content
@@ -534,9 +534,9 @@ $('document').ready(function() {
 
                         // complete the email object with updated values of subject and content
                         emails.forEach(function (email, i) {
-                            customTextareaText = textareaText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname)
+                            customTextareaText = textareaText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname).replace("[MLIST]", email.content)
                             customInputText = inputText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname)
-                            emails[i].content = customTextareaText + "\n\n" + email.content;
+                            emails[i].content = customTextareaText;
                             emails[i].subject = customInputText;
                         });
 
@@ -557,7 +557,9 @@ $('document').ready(function() {
             				contentType: 'application/json; charset=utf-8',
             			    success: function(res) {
                                 resData = JSON.parse(res);
-                                console.log(resData)
+                                if (resData.code == SUCCESS_CODE) {
+                                    console.log(resData.message);
+                                }
             				}
             			});
 

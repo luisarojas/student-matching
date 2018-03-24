@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, send_file
 from werkzeug import secure_filename
 from pandas import ExcelFile
-import json, os, sys, math
 import pandas as pd
 import numpy as np
-import requests
+import json, os, sys, math, requests
 
 app = Flask(__name__)
 
@@ -269,9 +268,20 @@ def get_facultypercent():
 
 @app.route("/send_email", methods=["POST"])
 def send_email():
+
     req = request.get_json()
-    print(req)
-    return json.dumps(req)
+
+    num_emails = 1
+
+    # check if an array was passed
+    if isinstance(req, (list, np.ndarray)):
+        num_emails = len(req)
+        for email in req:
+            print("> To: " + email["to"] + "\n> From: " + email["from"] + "\n> Subject: " + email["subject"] + "\n> Content: " + email["content"])
+            print()
+
+    SUCCESS_DATA = {"message": "Successfully sent " + str(num_emails) + " e-mails.", "code": SUCCESS_CODE}
+    return json.dumps(SUCCESS_DATA)
 
 # check if the executed file is the main program
 if __name__ == "__main__":
