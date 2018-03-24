@@ -491,6 +491,7 @@ $('document').ready(function() {
                 $("#step2-email-mentors").click(function() {
                     // get all the groups from the database
                     $.get("/groups", function(res) {
+                        emails = []
                 		resJSON = JSON.parse(res)
 
                 		if (resJSON.code == SUCCESS_CODE) {
@@ -525,47 +526,7 @@ $('document').ready(function() {
                         $('#modal-email-mentors').modal('show');
                         $("#modal-email-mentors #num-mentors-email").html(numGroups)
                     });
-
-                    // triggered when the email is sent
-                    $("#mentor-email-form").submit(function(e) {
-
-                        // supress default form action
-                        e.preventDefault();
-
-                        // grab the current value of the text area
-                        textareaText = $(this).find("textarea").val();
-                        inputText = $(this).find("input").val();
-
-                        // complete the email object with updated values of subject and content
-                        emails.forEach(function (email, i) {
-                            customTextareaText = textareaText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname).replace("[MLIST]", email.content)
-                            customInputText = inputText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname)
-                            emails[i].content = customTextareaText;
-                            emails[i].subject = customInputText;
-                        });
-
-                        // replace the modal content with a success message
-                        $('#modal-email-mentors').find("form").hide()
-                        $('#modal-email-mentors').find(".modal-success-body").show()
-
-                        // send emails
-                        // console.log(emails[0])
-                        $.ajax({
-            				type: "POST",
-            				url: "/send_email",
-            				data: JSON.stringify(emails),
-            				contentType: 'application/json; charset=utf-8',
-            			    success: function(res) {
-                                resData = JSON.parse(res);
-                                if (resData.code == SUCCESS_CODE) {
-                                    console.log(resData.message);
-                                }
-            				}
-            			});
-
-                    });
-                });
-
+                }); // end on-click listener
 
         		$("#step2-edit-matches").click(function() {
         			 $("#lastmatch-btn").click();
@@ -573,6 +534,46 @@ $('document').ready(function() {
 
                 // re-enable matching button (clicking it again causes issues... will leave it disabled for now)
                 $("#match-btn").removeClass("mmm-btn-disabled").removeAttr("disabled")
+            }
+        });
+    });
+
+    // triggered when the email is sent
+    $("#content").on("submit", "#mentor-email-form", function(e) {
+
+        // supress default form action
+        e.preventDefault();
+
+        // grab the current value of the text area
+        textareaText = $(this).find("textarea").val();
+        inputText = $(this).find("input").val();
+
+        // complete the email object with updated values of subject and content
+        emails.forEach(function (email, i) {
+            customTextareaText = textareaText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname).replace("[MLIST]", email.content)
+            customInputText = inputText.replace("[FNAME]", email.mentor.name).replace("[LNAME]", email.mentor.surname)
+            emails[i].content = customTextareaText;
+            emails[i].subject = customInputText;
+        });
+
+        // replace the modal content with a success message
+        $('#modal-email-mentors').find("form").hide()
+        $('#modal-email-mentors').find(".modal-success-body").show()
+
+        console.log(emails.length)
+
+        // send emails
+        // console.log(emails[0])
+        $.ajax({
+            type: "POST",
+            url: "/send_email",
+            data: JSON.stringify(emails),
+            contentType: 'application/json; charset=utf-8',
+            success: function(res) {
+                resData = JSON.parse(res);
+                if (resData.code == SUCCESS_CODE) {
+                    console.log(resData.message);
+                }
             }
         });
     });
