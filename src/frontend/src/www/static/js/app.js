@@ -604,7 +604,7 @@ function rowStyle(row, index) {
 
 //Initialize a bunch of elements on loading the main page
 function initialize (){
-    $("#gloader").hide();
+    $("#gloader").hide(); //todo: uncomment
 }
 
 function createEmailObject() {
