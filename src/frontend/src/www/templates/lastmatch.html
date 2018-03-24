@@ -182,10 +182,28 @@
         <h4 class="modal-title">Manual Assignation</h4>
       </div>
       <div class="modal-body">
-        <p>Instructions about manual assignation</p>
+          <div class="manual-section">
+              <table class="manual-table">
+                  <thead>
+                      <tr>
+                          <td><div class="caption">Faculty</div></td>
+                          <td><div class="caption">Mentee</div></td>
+                          <td><div class="caption">Mentor</div></td>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+              <div class="vspacing"></div>
+              <p>Change the current mentor in the dropdown box and click "Save Match". If you wish to cancel, just press the "Close" button and no changes will be made.</p>
+          </div>
+          <div class="manual-error">
+              <p>No students were selected that match the criteria for manual assignation.</p>
+          </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default">Save Match</button>
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
       </div>
     </div>    
   </div>

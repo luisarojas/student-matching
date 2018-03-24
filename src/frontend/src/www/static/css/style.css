@@ -408,3 +408,7 @@ footer p {
         display: none;
     }
 } */
+
+.vspacing {
+    margin-top:15px;
+}

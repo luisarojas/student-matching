@@ -218,6 +218,102 @@ $('document').ready(function() {
 
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
                 console.log("manual assignation button clicked");
+                // Update manual assignation modal box before showing.
+                $('.manual-faculty').empty();
+                $('.manual-mentee').empty();
+                $('.manual-mentor select').empty();
+                //var selected_student = parseInt($('tr.row-selected').attr('data-uniqueid'));
+
+                var selectedStudents = $("#last-match-table").bootstrapTable('getSelections');
+                $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
+
+                $(".manual-table tbody").empty();
+
+                var displayCount = 0;
+
+                for (var idx = 0; idx < selectedStudents.length; ++idx) {
+
+                    if (!selectedStudents[idx].is_mentor) {
+                        displayCount++;
+                    } else {
+                        continue;
+                    }
+
+                    current_student = selectedStudents[idx].student_id;
+                
+                    $.post('/students/'+current_student).done(function(res) {
+                        resData = JSON.parse(res);
+                        
+                        studentData = resData.student.data[0];
+                        // Get if current student is mentor.
+                        var selected_student = studentData.student_id;
+                        var is_mentor = studentData.is_mentor;
+                        var sfaculty = studentData.faculty;
+                        var sfullname = studentData.name + ' ' + studentData.surname;
+
+                        // Get mentors for current faculty.
+                        $.ajax({
+                            type: "POST",
+                            url: "/students/mentors",
+                            data: JSON.stringify({"faculty": sfaculty }),
+                            contentType: 'application/json; charset=utf-8',
+                            success: function(res) {
+                                var mentorsData = JSON.parse(res);
+
+                                mentorsData = mentorsData.mentors.data;
+                               
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/get_group",
+                                    data: JSON.stringify({"student_id": selected_student}),
+                                    contentType: 'application/json; charset=utf-8',
+                                    success: function(res) {
+                                        grpData = JSON.parse(res);
+                                        grpData = grpData.group.data;
+
+                                        // Get current mentor.
+                                        var mentorId = 0;
+                                        for (var i = 0; i < grpData.length; ++i) {
+                                            if (grpData[i].is_mentor) {
+                                                mentorId = grpData[i].student_id;
+                                                break;
+                                            }
+                                        }
+
+                                        $(".manual-table tbody").append("<tr>" +
+                                                "<td>"+sfaculty+"</td>" +
+                                                "<td>"+sfullname+"</td>" +
+                                                "<td><select id=select-"+selected_student+"></select></td>");
+
+                                        // Create options for mentors.
+                                        for (var i = 0; i < mentorsData.length; ++i) {
+                                            var selected = '';
+                                            if (mentorsData[i].student_id == mentorId) {
+                                                selected = 'selected=\"selected\"';
+                                            }
+                                            $('#select-'+selected_student).append('<option '
+                                                    + selected + '>'
+                                                    + mentorsData[i].name + ' '
+                                                    + mentorsData[i].surname
+                                                    + '</option>');
+                                        }                                        
+                                    }
+                                });
+                            }
+                        });
+                      
+                    });
+                }
+
+                if (displayCount > 0) {
+                    $(".manual-section").show();
+                    $(".manual-error").hide();
+                } else {
+                    $(".manual-section").hide();
+                    $(".manual-error").show();
+                }
+
+
                 $('#modal-manual-assignation').modal('show');
             });
 
