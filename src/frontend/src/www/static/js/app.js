@@ -240,10 +240,10 @@ $('document').ready(function() {
                     }
 
                     current_student = selectedStudents[idx].student_id;
-                
+
                     $.post('/students/'+current_student).done(function(res) {
                         resData = JSON.parse(res);
-                        
+
                         studentData = resData.student.data[0];
                         // Get if current student is mentor.
                         var selected_student = studentData.student_id;
@@ -261,7 +261,7 @@ $('document').ready(function() {
                                 var mentorsData = JSON.parse(res);
 
                                 mentorsData = mentorsData.mentors.data;
-                               
+
                                 $.ajax({
                                     type: "POST",
                                     url: "/get_group",
@@ -296,12 +296,12 @@ $('document').ready(function() {
                                                     + mentorsData[i].name + ' '
                                                     + mentorsData[i].surname
                                                     + '</option>');
-                                        }                                        
+                                        }
                                     }
                                 });
                             }
                         });
-                      
+
                     });
                 }
 
@@ -438,7 +438,11 @@ $('document').ready(function() {
     // "match" button is clicked
     $("#content").on('click', '#match-btn', function () {
 
-    	// hide button elements
+        // initialize modal elements
+        $('#modal-email-mentors').find("form").show()
+        $('#modal-email-mentors').find(".modal-success-body").hide()
+
+        // initialize button elements
     	$("#checkmark-icon").css("display","none")
     	$("#loading-icon").css("display","inline-block")
     	$("#step2-buttons").css("display", "none");
@@ -541,12 +545,8 @@ $('document').ready(function() {
                         });
 
                         // replace the modal content with a success message
-                        var successEmailMsg = "" +
-                            "<div style=\"width:100%; text-align:center;\">" +
-                                "<img src=\"static/img/green-checkmark.png\" style=\"height:40px; margin-bottom:10px;\">" +
-                                "<p>E-mail sent.</p>" +
-                            "</div>"
-                        $('#modal-email-mentors').find(".modal-body").html(successEmailMsg)
+                        $('#modal-email-mentors').find("form").hide()
+                        $('#modal-email-mentors').find(".modal-success-body").show()
 
                         // send emails
                         // console.log(emails[0])
