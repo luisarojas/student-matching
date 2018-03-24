@@ -225,7 +225,7 @@ $('document').ready(function() {
                 //var selected_student = parseInt($('tr.row-selected').attr('data-uniqueid'));
 
                 var selectedStudents = $("#last-match-table").bootstrapTable('getSelections');
-                $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
+                // $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
 
                 $(".manual-table tbody").empty();
 
