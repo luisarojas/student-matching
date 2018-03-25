@@ -39,7 +39,7 @@ $('document').ready(function() {
 
             // get all the students from the database
             $("#gloader").show();
-            $.post("/students").done(function(res) {
+            $.post("/students", function(res) {
                 $("#gloader").hide();
         		resJSON = JSON.parse(res)
         		if (resJSON.code == SUCCESS_CODE) {
@@ -69,6 +69,8 @@ $('document').ready(function() {
         			console.log(resJSON.message);
         			console.log(resJSON.exception);
         		}
+            }).done(function() {
+                $("#content").find("#table-wrapper").find("div.bootstrap-table").find("label").find("input[data-field='is_mentor']").parent().hide()
             });
 
             // TEST: get all checked rows. to be used for the emailing and manual assignation functionality.
@@ -323,6 +325,7 @@ $('document').ready(function() {
                     if ($elem.css("display") !== "none") { $elem.hide() }
                 }
             });
+
         });
     });
 
