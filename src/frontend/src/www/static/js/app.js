@@ -70,10 +70,40 @@ $('document').ready(function() {
         			console.log(resJSON.exception);
         		}
             }).done(function() {
+
                 $("#content").find("#table-wrapper").find("div.bootstrap-table").find("label").find("input[data-field='is_mentor']").parent().hide()
+
+                var roleFilterElem = "<div style=\"height:15px;\">" +
+                                        "<p style=\"margin-right: 10px; display: inline\">Filter by role:</p>" +
+                                        "<select id=\"role-filter\" style=\"font-size:0.8em; vertical-align:middle; height:25px; width: auto; display: inline;\" class=\"form-control\">" +
+                                            "<option selected>All</option>" +
+                                            "<option>Mentors</option>" +
+                                            "<option>Mentees</option>" +
+                                        "</select>" +
+                                    "</div>"
+                $("#content").find("#table-wrapper").find("div.bootstrap-table").find(".fixed-table-toolbar").find(".float-left").append(roleFilterElem);
+
+                // filter by role dropdown listener
+                $("#content").find("select#role-filter").on('change', function() {
+                    var valSelected = $(this).val()
+                    if (valSelected === "Mentors") {
+                        // TODO
+                        // $("#last-match-table").bootstrapTable("filterBy", {"is_mentor": "true"});
+                        console.log(valSelected)
+
+                    } else if (valSelected === "Mentees") {
+                        // TODO
+                        // $("#last-match-table").bootstrapTable("filterBy", {"is_mentor": "false"});
+                        console.log(valSelected)
+
+                    } else { // "All" was selected
+                        $("#last-match-table").bootstrapTable("filterBy", {}); // working
+                        console.log(valSelected)
+                    }
+                });
             });
 
-            // TEST: get all checked rows. to be used for the emailing and manual assignation functionality.
+            // TEST BUTTON: get all checked rows. to be used for the emailing and manual assignation functionality.
             // $("#test-btn").click(function () {
             //     console.log(JSON.stringify($("#last-match-table").bootstrapTable('getSelections')));
             //     $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
@@ -190,12 +220,13 @@ $('document').ready(function() {
 				"<img id=\"three-dot-menu-btn\" class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px; cursor: pointer;\">" +
 				"<div class=\"dropdown-content\">" +
 					"<ul>" +
-						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><p>E-mail group</p</li>" +
+						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><p>E-mail</p</li>" +
 						"<li class=\"dropdown-list-el\" id=\"dropdown-manual-assignation-btn\"><p>Manual Assignation</p></li>" +
 					"</ul>" +
 				"</div>" +
 			"</div>";
             $("#content").find("div#table-wrapper").find("div.left-panel").prepend(menuElem);
+
 
             $("#three-dot-menu-btn").click(function() {
     			$(".dropdown-content").toggle()
@@ -285,7 +316,7 @@ $('document').ready(function() {
                                         $(".manual-table tbody").append("<tr>" +
                                                 "<td>"+sfaculty+"</td>" +
                                                 "<td>"+sfullname+"</td>" +
-                                                "<td><select id=select-"+selected_student+"></select></td>");
+                                                "<td><select class=\"form-control\" id=\"select-"+selected_student+"\"></select></td>");
 
                                         // Create options for mentors.
                                         for (var i = 0; i < mentorsData.length; ++i) {

@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-table.css') }}">
 <link href="{{ url_for('static', filename='css/bootstrap-table-filter-control.css') }}" rel="stylesheet">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> -->
 
 <p class="page-title">LAST MATCH</p>
 
@@ -30,7 +31,7 @@
               <th data-field="student_id" data-sortable="true">Student ID</th>
               <th data-field="name" data-sortable="true">First Name</th>
               <th data-field="surname" data-sortable="true">Last Name</th>
-		<th data-field="email" data-sortable="false">E-mail</th>
+              <th data-field="email" data-sortable="false">E-mail</th>
               <th data-field="faculty" data-sortable="true" data-filter-control="select">Faculty</th>
               <th data-field="program" data-sortable="true">Program</th>
           </tr>
@@ -134,16 +135,16 @@
       <div class="modal-body container">
 
         <!-- instructions -->
-        <div class="row" style="margin-bottom: 2em">          
+        <div class="row" style="margin-bottom: 2em">
           <div class="col">
             <span style="font-size:0.8em; font-weight:400;">
               Send a personalized email to selected students from the table
             </span>
           </div>
         </div> <!-- instructions END -->
-        
+
         <!-- subject  -->
-        <div class="row"> 
+        <div class="row">
           <div class="col-9">
             <input type="text" name="subject" class="form-control" placeholder="Subject" style="font-size:0.8em; color:black; margin-bottom:0.5em">
           </div>
@@ -151,7 +152,7 @@
 
         <!-- message -->
         <div class="row">
-          <div class="col"> 
+          <div class="col">
             <textarea class="form-control" placeholder="Message" id="mentor-e-mail-textarea" style="font-size:0.8em; height:150px;color:black;"></textarea>
             <!-- EMAIL BUTTON  -->
             <button id="btn-email-selected" class="mmm-btn" style="float:right;outline:0;">
@@ -164,7 +165,7 @@
             </button>
           </div>
         </div> <!-- message END -->
-        
+
       </div><!-- container END -->
     </DIV>
 
@@ -174,7 +175,7 @@
 <!-- Manual Assignation Modal -->
 <div class="modal hide fade" id="modal-manual-assignation" role="dialog">
   <div class="modal-dialog">
-    
+
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -205,12 +206,12 @@
         <button type="button" class="btn btn-default">Save Match</button>
         <button type="button" class="btn" data-dismiss="modal">Close</button>
       </div>
-    </div>    
+    </div>
   </div>
-</div>            
+</div>
 
 <!-- END MODALS -->
 
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-table-filter-control.js') }}"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
