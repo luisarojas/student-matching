@@ -2183,9 +2183,10 @@
 
         this.$selectAll.add(this.$selectAll_).prop('checked', checkAll);
 
-        this.$selectItem.each(function () {
-            $(this).closest('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected');
-        });
+        //ALEX EDIT - Removing selected highlight when clicking check all
+        // this.$selectItem.each(function () {
+        //     $(this).closest('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected');
+        // });
     };
 
     BootstrapTable.prototype.updateRows = function () {
