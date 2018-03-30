@@ -371,14 +371,15 @@ $('document').ready(function() {
                 if (displayCount > 0) {
                     $(".manual-section").show();
                     $(".manual-error").hide();
+                    $('#modal-manual-assignation .modal-footer').show()
                 } else {
                     $(".manual-section").hide();
                     $(".manual-error").show();
+                    $('#modal-manual-assignation .modal-footer').hide()
                 }
 
                 //display the manual assignation modal
                 $('#modal-manual-assignation .modal-body').show()
-                $('#modal-manual-assignation .modal-footer').show()
                 $('#modal-manual-assignation .modal-success-body').hide()
                 $('#modal-manual-assignation .loader').hide()
                 $('#modal-manual-assignation').modal('show');
