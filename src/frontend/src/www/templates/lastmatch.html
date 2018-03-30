@@ -208,7 +208,13 @@
                   </tbody>
               </table>
               <div class="vspacing"></div>
-              <p>Change the current mentor in the dropdown box and click "Save Match". If you wish to cancel, just press the "Close" button and no changes will be made.</p>
+              <p>Change the current mentor in the dropdown box and click "Save Match". If you wish to cancel, just press the "Cancel" button and no changes will be made.</p>
+              <!-- Checkbox for emailing updates to mentors -->
+              <input id="checkBox" type="checkbox" checked>
+              <span style="font-size:0.8em; font-weight:400;">
+                Send email to mentors to update them on the changes
+              </span>
+            </input>
           </div>
           <div class="manual-error">
               <p>No students were selected that match the criteria for manual assignation.</p>
@@ -216,7 +222,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default">Save Match</button>
-        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="button" class="btn" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
