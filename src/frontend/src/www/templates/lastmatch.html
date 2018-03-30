@@ -132,16 +132,28 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Email Selected Students</h4>
       </div>
-      <div class="modal-body container">
+      <div class="modal-body container">        
 
         <!-- instructions -->
-        <div class="row" style="margin-bottom: 2em">
+        <div class="row">
           <div class="col">
             <span style="font-size:0.8em; font-weight:400;">
               Send a personalized email to selected students from the table
             </span>
           </div>
         </div> <!-- instructions END -->
+
+        <!-- Checkbox for sending email to the whole group -->
+        <div class="row" style="margin-bottom: 2em">
+          <div class="col">
+            <input id="checkBox" type="checkbox">
+            <span style="font-size:0.8em; font-weight:400;">
+              Send email to all students in this group
+            </span>
+            </input>
+          </div>
+        </div>
+
 
         <!-- subject  -->
         <div class="row">
