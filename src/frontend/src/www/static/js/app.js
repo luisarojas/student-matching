@@ -237,6 +237,7 @@ $('document').ready(function() {
                 //Ensure that only the needed info is displayed in the modal
                 $('#modal-email-checked .modal-body').show()
                 $('#modal-email-checked .modal-success-body').hide()
+                $('#modal-email-checked .loader').hide()
                 //Display a pop-up for emailing
                 $('#modal-email-checked').modal('show');                
 
@@ -246,8 +247,14 @@ $('document').ready(function() {
             $("#btn-email-selected").click(function(){
                 console.log("[TODO] Sending email...");
                 //todo alex
+
                 $('#modal-email-checked .modal-body').hide()
-                $('#modal-email-checked .modal-success-body').show()
+                $('#modal-email-checked .loader').show()
+                $.get("/sleeper").done(function(){
+                    //success
+                    $('#modal-email-checked .loader').hide()
+                    $('#modal-email-checked .modal-success-body').show() 
+                });
 
                 //display all the emails
                 $("#last-match-table").bootstrapTable('getSelections').forEach(function(ele){

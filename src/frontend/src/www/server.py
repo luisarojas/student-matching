@@ -4,6 +4,7 @@ from pandas import ExcelFile
 import pandas as pd
 import numpy as np
 import json, os, sys, math, requests
+from time import sleep
 
 app = Flask(__name__)
 
@@ -283,7 +284,14 @@ def send_email():
     SUCCESS_DATA = {"message": "Successfully sent " + str(num_emails) + " e-mails.", "code": SUCCESS_CODE}
     return json.dumps(SUCCESS_DATA)
 
+@app.route("/sleeper", methods=["GET"])
+def sleeper():
+    sleep(1.5)
+    return "OK"
+
 # check if the executed file is the main program
 if __name__ == "__main__":
     # app.run(port=5000) # run the app
     app.run(host="0.0.0.0", debug=True)
+
+    
