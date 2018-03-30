@@ -234,8 +234,11 @@ $('document').ready(function() {
 
             // dropdown menu event listeners
             $(".dropdown-content").find("#dropdown-email-btn").click(function() {
+                //Ensure that only the needed info is displayed in the modal
+                $('#modal-email-checked .modal-body').show()
+                $('#modal-email-checked .modal-success-body').hide()
                 //Display a pop-up for emailing
-                $('#modal-email').modal('show');
+                $('#modal-email-checked').modal('show');                
 
             });
 
@@ -243,10 +246,15 @@ $('document').ready(function() {
             $("#btn-email-selected").click(function(){
                 console.log("[TODO] Sending email...");
                 //todo alex
-                //todo: add to list in email modal
+                $('#modal-email-checked .modal-body').hide()
+                $('#modal-email-checked .modal-success-body').show()
+
+                //display all the emails
                 $("#last-match-table").bootstrapTable('getSelections').forEach(function(ele){
 	            console.log(ele);
                 })
+
+                //todo: send request with emails to server
             });
 
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {

@@ -123,7 +123,7 @@
 <!-- MODALS -->
 
 <!-- E-mail Selected Modal -->
-<div class="modal hide fade" id="modal-email" role="dialog">
+<div class="modal hide fade" id="modal-email-checked" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -134,50 +134,63 @@
       </div>
       <div class="modal-body container">        
 
-        <!-- instructions -->
+          <!-- instructions -->
+          <div class="row">
+            <div class="col">
+              <span style="font-size:0.8em; font-weight:400;">
+                Send a personalized email to selected students from the table
+              </span>
+            </div>
+          </div> <!-- instructions END -->
+
+          <!-- Checkbox for sending email to the whole group -->
+          <div class="row" style="margin-bottom: 2em">
+            <div class="col">
+              <input id="checkBox" type="checkbox">
+              <span style="font-size:0.8em; font-weight:400;">
+                Send email to all students in this group
+              </span>
+            </input>
+            </div>
+          </div>
+
+
+          <!-- subject  -->
+          <div class="row">
+            <div class="col-9">
+              <input type="text" name="subject" class="form-control" placeholder="Subject" style="font-size:0.8em; color:black; margin-bottom:0.5em">
+            </div>
+          </div> <!-- subject END  -->
+
+          <!-- message -->
+          <div class="row">
+            <div class="col">
+              <textarea class="form-control" placeholder="Message" id="mentor-e-mail-textarea" style="font-size:0.8em; height:150px;color:black;"></textarea>
+              <!-- EMAIL BUTTON  -->
+              <button id="btn-email-selected" class="mmm-btn" style="float:right;outline:0;">
+                <a style="display:inline-block;">
+                  <div>
+                    <img src="/static/img/mail-icon.png" style="height:15px">
+                    <p>SEND EMAIL</p>
+                  </div>
+                </a>
+              </button>
+            </div>
+          </div> <!-- message END -->
+      </div> <!-- modal body END -->
+        
+        
+        <!-- success message -->
         <div class="row">
           <div class="col">
-            <span style="font-size:0.8em; font-weight:400;">
-              Send a personalized email to selected students from the table
-            </span>
-          </div>
-        </div> <!-- instructions END -->
-
-        <!-- Checkbox for sending email to the whole group -->
-        <div class="row" style="margin-bottom: 2em">
-          <div class="col">
-            <input id="checkBox" type="checkbox">
-            <span style="font-size:0.8em; font-weight:400;">
-              Send email to all students in this group
-            </span>
-            </input>
+            <div class="modal-success-body" style="width:100%; text-align:center; display:none;">
+              <img src="static/img/green-checkmark.png" style="height:40px; margin-bottom:10px;">
+              <p>E-mail sent.</p>
+            </div>
           </div>
         </div>
-
-
-        <!-- subject  -->
-        <div class="row">
-          <div class="col-9">
-            <input type="text" name="subject" class="form-control" placeholder="Subject" style="font-size:0.8em; color:black; margin-bottom:0.5em">
-          </div>
-        </div> <!-- subject END  -->
-
-        <!-- message -->
-        <div class="row">
-          <div class="col">
-            <textarea class="form-control" placeholder="Message" id="mentor-e-mail-textarea" style="font-size:0.8em; height:150px;color:black;"></textarea>
-            <!-- EMAIL BUTTON  -->
-            <button id="btn-email-selected" class="mmm-btn" style="float:right;outline:0;">
-              <a style="display:inline-block;">
-                <div>
-                  <img src="/static/img/mail-icon.png" style="height:15px">
-                  <p>SEND EMAIL</p>
-                </div>
-              </a>
-            </button>
-          </div>
-        </div> <!-- message END -->
-
+        
+      
       </div><!-- container END -->
     </DIV>
 
