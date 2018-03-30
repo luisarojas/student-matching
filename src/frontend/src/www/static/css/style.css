@@ -171,15 +171,15 @@ ul ul a {
 
 .btn-sidebar-active { background-color: rgba(100,216,226, 0.7); }
 
-/* Loader */
+/* loader */
 .loader {
-  border: 16px solid #f3f3f3;
+  border: 2px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
+  border-top: 2px solid rgb(100,216,226);
+  width: 100px;
+  height: 100px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 /* Safari */
@@ -192,6 +192,7 @@ ul ul a {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
 
 /* ---------------------------------------------------
     MAIN CONTENT AREA STYLE

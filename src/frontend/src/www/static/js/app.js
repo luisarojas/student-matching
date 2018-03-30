@@ -245,7 +245,7 @@ $('document').ready(function() {
 
             //Send an email to all the users checked on the table
             $("#btn-email-selected").click(function(){
-                console.log("[TODO] Sending email...");
+                //console.log("[TODO] Sending email...");
                 //todo alex
 
                 $('#modal-email-checked .modal-body').hide()
@@ -263,6 +263,21 @@ $('document').ready(function() {
 
                 //todo: send request with emails to server
             });
+
+            $("#btn-manual-assig-save").click(function(){
+                console.log("clicked");
+
+                $('#modal-manual-assignation .modal-body').hide()
+                $('#modal-manual-assignation .modal-footer').hide()
+                $('#modal-manual-assignation .loader').show()
+                $.get("/sleeper").done(function(){
+                    //success
+                    $('#modal-manual-assignation .loader').hide()
+                    $('#modal-manual-assignation .modal-success-body').show() 
+                });
+            });
+
+            
 
             $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
                 console.log("manual assignation button clicked");
@@ -361,7 +376,11 @@ $('document').ready(function() {
                     $(".manual-error").show();
                 }
 
-
+                //display the manual assignation modal
+                $('#modal-manual-assignation .modal-body').show()
+                $('#modal-manual-assignation .modal-footer').show()
+                $('#modal-manual-assignation .modal-success-body').hide()
+                $('#modal-manual-assignation .loader').hide()
                 $('#modal-manual-assignation').modal('show');
             });
 
