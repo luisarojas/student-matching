@@ -232,8 +232,10 @@ $('document').ready(function() {
     			$(".dropdown-content").toggle()
     		});
 
-            // dropdown menu event listeners
-            $(".dropdown-content").find("#dropdown-email-btn").click(function() {
+            // ---------dropdown menu event listeners---------
+
+            //Email-dropdown
+            $(".dropdown-content #dropdown-email-btn").click(function() {
 
                 //Hide all the components
                 $("#modal-email-checked .main-components").hide()
@@ -258,16 +260,14 @@ $('document').ready(function() {
             //Send an email to all the users checked on the table
             $("#btn-email-selected").click(function(){
                 //console.log("[TODO] Sending email...");
-                //todo alex
 
                 $("#modal-email-checked .main-components").hide()
                 $("#modal-email-checked .loading-components").show()
                 $("#modal-email-checked .success-components").hide()
                 $("#modal-email-checked .error-components").hide()
+                //TODO send this to an actual email route in the server
                 $.get("/sleeper").done(function(){
                     //success
-                    // $('#modal-email-checked .loader').hide()
-                    // $('#modal-email-checked .modal-success-body').show()
                     $("#modal-email-checked .loading-components").hide()
                     $("#modal-email-checked .success-components").show()
                 });
@@ -295,8 +295,7 @@ $('document').ready(function() {
 
             
 
-            $(".dropdown-content").find("#dropdown-manual-assignation-btn").click(function() {
-                console.log("manual assignation button clicked");
+            $(".dropdown-content #dropdown-manual-assignation-btn").click(function() {
                 // Update manual assignation modal box before showing.
                 $('.manual-faculty').empty();
                 $('.manual-mentee').empty();
