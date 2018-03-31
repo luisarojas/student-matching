@@ -135,7 +135,7 @@
       <div class="modal-body container">        
 
           <!-- instructions -->
-          <div class="row">
+          <div class="row main-components">
             <div class="col">
               <span style="font-size:0.8em; font-weight:400;">
                 Send a personalized email to selected students from the table
@@ -144,7 +144,7 @@
           </div> <!-- instructions END -->
 
           <!-- Checkbox for sending email to the whole group -->
-          <div class="row" style="margin-bottom: 2em">
+          <div class="row main-components" style="margin-bottom: 2em">
             <div class="col">
               <input id="checkBox" type="checkbox">
               <span style="font-size:0.8em; font-weight:400;">
@@ -156,14 +156,14 @@
 
 
           <!-- subject  -->
-          <div class="row">
+          <div class="row main-components">
             <div class="col-9">
               <input type="text" name="subject" class="form-control" placeholder="Subject" style="font-size:0.8em; color:black; margin-bottom:0.5em">
             </div>
           </div> <!-- subject END  -->
 
           <!-- message -->
-          <div class="row">
+          <div class="row main-components">
             <div class="col">
               <textarea class="form-control" placeholder="Message" id="mentor-e-mail-textarea" style="font-size:0.8em; height:150px;color:black;"></textarea>
               <!-- EMAIL BUTTON  -->
@@ -180,23 +180,30 @@
       </div> <!-- modal body END -->
 
         <!-- loader -->
-        <div class="row">
+        <div class="row loading-components">
           <div class="col">
             <center><div class="loader"></div></center>
           </div>
         </div>              
         
         <!-- success message -->
-        <div class="row">
+        <div class="row success-components">
           <div class="col">
-            <div class="modal-success-body" style="width:100%; text-align:center; display:none;">
+            <div class="modal-success-body" style="width:100%; text-align:center;">
               <img src="static/img/green-checkmark.png" style="height:40px; margin-bottom:10px;">
               <p>E-mail sent.</p>
             </div>
           </div>
         </div>
-        
-      
+
+        <div class="row error-components">
+          <div class="col">
+            <span style="font-size:0.8em; font-weight:400;">
+              No students were selected that match the criteria for manual assignation.
+            </span>
+          </div>
+        </div>
+              
       </div><!-- container END -->
     </DIV>
 

@@ -234,10 +234,22 @@ $('document').ready(function() {
 
             // dropdown menu event listeners
             $(".dropdown-content").find("#dropdown-email-btn").click(function() {
-                //Ensure that only the needed info is displayed in the modal
-                $('#modal-email-checked .modal-body').show()
-                $('#modal-email-checked .modal-success-body').hide()
-                $('#modal-email-checked .loader').hide()
+
+                //Hide all the components
+                $("#modal-email-checked .main-components").hide()
+                $("#modal-email-checked .loading-components").hide()
+                $("#modal-email-checked .success-components").hide()
+                $("#modal-email-checked .error-components").hide()                    
+
+                //check if there are any selected students
+                if ($("#last-match-table").bootstrapTable('getSelections').length > 0){
+                    //Ensure that only the needed info is displayed in the modal
+                    $("#modal-email-checked .main-components").show()
+                }else{
+                    //Display Error
+                    $("#modal-email-checked .error-components").show()                    
+                }
+                
                 //Display a pop-up for emailing
                 $('#modal-email-checked').modal('show');                
 
@@ -248,12 +260,16 @@ $('document').ready(function() {
                 //console.log("[TODO] Sending email...");
                 //todo alex
 
-                $('#modal-email-checked .modal-body').hide()
-                $('#modal-email-checked .loader').show()
+                $("#modal-email-checked .main-components").hide()
+                $("#modal-email-checked .loading-components").show()
+                $("#modal-email-checked .success-components").hide()
+                $("#modal-email-checked .error-components").hide()
                 $.get("/sleeper").done(function(){
                     //success
-                    $('#modal-email-checked .loader').hide()
-                    $('#modal-email-checked .modal-success-body').show() 
+                    // $('#modal-email-checked .loader').hide()
+                    // $('#modal-email-checked .modal-success-body').show()
+                    $("#modal-email-checked .loading-components").hide()
+                    $("#modal-email-checked .success-components").show()
                 });
 
                 //display all the emails
