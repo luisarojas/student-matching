@@ -319,10 +319,25 @@ button.btn.btn-secondary.dropdown-toggle {
     display: none;
 }
 
+#manual-table {
+    margin: 15px 15px 15px 15px;
+    font-size: 0.9em;
+    /* width: 100%; */
+}
+
+#manual-table select {
+    font-size: 0.9em;
+    max-height: 30px;
+}
+
+#manual-table td {
+    padding: 6px;
+}
+
 div.caption {
     text-transform: uppercase;
     font-weight: 500;
-	margin-top: 5px;
+	/* margin-top: 5px; */
 }
 
 table.group-table { width: 100%; }

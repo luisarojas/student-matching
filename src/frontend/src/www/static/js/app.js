@@ -311,7 +311,7 @@ $('document').ready(function() {
                 var selectedStudents = $("#last-match-table").bootstrapTable('getSelections');
                 // $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
 
-                $(".manual-table tbody").empty();
+                $("#manual-table tbody").empty();
 
                 var displayCount = 0;
 
@@ -364,7 +364,7 @@ $('document').ready(function() {
                                             }
                                         }
 
-                                        $(".manual-table tbody").append("<tr>" +
+                                        $("#manual-table tbody").append("<tr>" +
                                                 "<td>"+sfaculty+"</td>" +
                                                 "<td>"+sfullname+"</td>" +
                                                 "<td><select onchange=\"manAssignationDropdownChanged()\" class=\"form-control\" id=\"select-" + selected_student + "\"></select></td>");
