@@ -132,7 +132,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Email Selected Students</h4>
       </div>
-      <div class="modal-body container">        
+      <div class="modal-body container">
 
           <!-- instructions -->
           <div class="row main-components">
@@ -183,8 +183,8 @@
           <div class="col">
             <center><div class="loader"></div></center>
           </div>
-        </div>              
-        
+        </div>
+
         <!-- success message -->
         <div class="row success-components">
           <div class="col">
@@ -194,7 +194,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- error -->
         <div class="row error-components">
           <div class="col">
@@ -209,11 +209,11 @@
           <div class="class">
           </div>
         </div>
-        
+
       </div> <!-- modal body END -->
     </div><!-- modal content END -->
-  </DIV>
-</DIV>
+</div>
+</div>
 
 
 <!-- Manual Assignation Modal -->
@@ -226,8 +226,14 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Manual Assignation</h4>
       </div>
+
       <div class="modal-body">
           <div class="manual-section">
+              <p>Change the current mentor in the dropdown box and click the "Save" button below. If you wish to cancel, just close this window; no changes will be saved.</p>
+              
+              <!-- Checkbox for emailing updates to mentors -->
+              <input type="checkbox" checked><p style="display:inline;"> &nbsp;E-mail mentors with updated mentee list.</p><br>
+
               <table class="manual-table">
                   <thead>
                       <tr>
@@ -239,46 +245,49 @@
                   <tbody>
                   </tbody>
               </table>
-              <div class="vspacing"></div>
-              <p>Change the current mentor in the dropdown box and click "Save Match". If you wish to cancel, just press the "Cancel" button and no changes will be made.</p>
-              <!-- Checkbox for emailing updates to mentors -->
-              <input id="checkBox" type="checkbox" checked>
-              <span style="font-size:0.8em; font-weight:400;">
-                Send email to mentors to update them on the changes
-              </span>
-            </input>
+              <!-- <div class="vspacing"></div> -->
+
           </div>
           <div class="manual-error">
-              <p>No students were selected that match the criteria for manual assignation.</p>
+              <p>Please select at least one mentee for manual assignation.</p>
           </div>
-      </div><!-- modal-body END -->
+          <!-- save button  -->
+          <button type="submit" id="save-manual-assignation-btn" class="mmm-btn" style="float:right; margin-top:10px;">
+            <a style="display:inline-block;">
+              <div><img src="/static/img/save-icon.png" style="height:15px">
+                <p>SAVE</p></div>
+            </a>
+          </button>
+      </div> <!-- end modal body -->
 
       <!-- loader -->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col">
             <center><div class="loader"></div></center>
           </div>
-        </div>              
-        
+        </div> -->
+
         <!-- success message -->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col">
             <div class="modal-success-body" style="width:100%; text-align:center; display:none;">
               <img src="static/img/green-checkmark.png" style="height:40px; margin-bottom:10px;">
               <p>Saved</p>
             </div>
           </div>
-        </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-        <button id="btn-manual-assig-save" type="button" class="btn btn-default">Save Match</button>
-      </div>
+        </div> -->
+
+
+
+
+    </div> <!-- end modal content -->
     </div>
   </div>
+  <!-- END MODALS -->
+
 </div>
 
-<!-- END MODALS -->
+
 
 <script src="{{ url_for('static', filename='js/bootstrap-table.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-table-filter-control.js') }}"></script>

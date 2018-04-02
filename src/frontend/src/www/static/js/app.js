@@ -241,7 +241,7 @@ $('document').ready(function() {
                 $("#modal-email-checked .main-components").hide()
                 $("#modal-email-checked .loading-components").hide()
                 $("#modal-email-checked .success-components").hide()
-                $("#modal-email-checked .error-components").hide()                    
+                $("#modal-email-checked .error-components").hide()
 
                 //check if there are any selected students
                 if ($("#last-match-table").bootstrapTable('getSelections').length > 0){
@@ -249,11 +249,11 @@ $('document').ready(function() {
                     $("#modal-email-checked .main-components").show()
                 }else{
                     //Display Error
-                    $("#modal-email-checked .error-components").show()                    
+                    $("#modal-email-checked .error-components").show()
                 }
-                
+
                 //Display a pop-up for emailing
-                $('#modal-email-checked').modal('show');                
+                $('#modal-email-checked').modal('show');
 
             });
 
@@ -280,20 +280,26 @@ $('document').ready(function() {
                 //todo: send request with emails to server
             });
 
-            $("#btn-manual-assig-save").click(function(){
-                console.log("clicked");
-
-                $('#modal-manual-assignation .modal-body').hide()
-                $('#modal-manual-assignation .modal-footer').hide()
-                $('#modal-manual-assignation .loader').show()
-                $.get("/sleeper").done(function(){
-                    //success
-                    $('#modal-manual-assignation .loader').hide()
-                    $('#modal-manual-assignation .modal-success-body').show() 
-                });
+            $('#modal-manual-assignation').on('hidden.bs.modal', function () {
+                console.log("Modal dismissed")
+                if ($("#save-manual-assignation-btn").hasClass("mmm-btn-disabled")) { // matches have been saved
+                    $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
+                }
             });
 
-            
+            $("#save-manual-assignation-btn").click(function() {
+
+                $('#modal-manual-assignation').find('#save-manual-assignation-btn').addClass("mmm-btn-disabled").find('p').html("SAVED")
+
+                // $('#modal-manual-assignation .modal-body').hide()
+                // $('#modal-manual-assignation .modal-footer').hide()
+                // $('#modal-manual-assignation .loader').show()
+                // $.get("/sleeper").done(function(){
+                //     //success
+                //     $('#modal-manual-assignation .loader').hide()
+                //     $('#modal-manual-assignation .modal-success-body').show()
+                // });
+            });
 
             $(".dropdown-content #dropdown-manual-assignation-btn").click(function() {
                 // Update manual assignation modal box before showing.
@@ -361,7 +367,7 @@ $('document').ready(function() {
                                         $(".manual-table tbody").append("<tr>" +
                                                 "<td>"+sfaculty+"</td>" +
                                                 "<td>"+sfullname+"</td>" +
-                                                "<td><select class=\"form-control\" id=\"select-"+selected_student+"\"></select></td>");
+                                                "<td><select onchange=\"manAssignationDropdownChanged()\" class=\"form-control\" id=\"select-" + selected_student + "\"></select></td>");
 
                                         // Create options for mentors.
                                         for (var i = 0; i < mentorsData.length; ++i) {
@@ -387,10 +393,12 @@ $('document').ready(function() {
                     $(".manual-section").show();
                     $(".manual-error").hide();
                     $('#modal-manual-assignation .modal-footer').show()
+                    $("#save-manual-assignation-btn").show()
                 } else {
                     $(".manual-section").hide();
                     $(".manual-error").show();
                     $('#modal-manual-assignation .modal-footer').hide()
+                    $("#save-manual-assignation-btn").hide()
                 }
 
                 //display the manual assignation modal
@@ -703,4 +711,8 @@ function createEmailObject() {
     emailObj.content = ""
 
     return emailObj
+}
+
+function manAssignationDropdownChanged() {
+    $('#modal-manual-assignation').find('#save-manual-assignation-btn').removeClass("mmm-btn-disabled").find('p').html("SAVE")
 }
