@@ -221,7 +221,7 @@ $('document').ready(function() {
 				"<div class=\"dropdown-content\">" +
 					"<ul>" +
 						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><img style=\"height: 15px; margin-right: 5px; display:inline;\" src=\"../static/img/email-icon-black.png\"><p style=\"display:inline;\">E-mail Students</p</li>" +
-                        "<li><hr style=\"padding:2px 0 2px 0; margin:0;\"></li>" +
+                        "<li><hr></li>" +
 						"<li class=\"dropdown-list-el\" id=\"dropdown-manual-assignation-btn\"><p>Manual Assignation</p></li>" +
 					"</ul>" +
 				"</div>" +
