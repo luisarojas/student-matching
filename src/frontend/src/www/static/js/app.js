@@ -220,9 +220,9 @@ $('document').ready(function() {
 				"<img id=\"three-dot-menu-btn\" class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px; cursor: pointer;\">" +
 				"<div class=\"dropdown-content\">" +
 					"<ul>" +
-						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><img style=\"height: 15px; margin-right: 5px; display:inline;\" src=\"../static/img/email-icon-black.png\"><p style=\"display:inline;\">E-mail Students</p</li>" +
+						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><img style=\"height: 15px; margin-right: 10px; display:inline;\" src=\"../static/img/email-icon-black.png\"><p style=\"display:inline;\">E-mail Students</p</li>" +
                         "<li><hr></li>" +
-						"<li class=\"dropdown-list-el\" id=\"dropdown-manual-assignation-btn\"><p>Manual Assignation</p></li>" +
+						"<li class=\"dropdown-list-el\" id=\"dropdown-manual-assignation-btn\"><img style=\"height: 15px; margin-right: 10px; display:inline;\" src=\"../static/img/manual-asign-icon.png\"><p style=\"display:inline;\">Manual Assignation</p></li>" +
 					"</ul>" +
 				"</div>" +
 			"</div>";
