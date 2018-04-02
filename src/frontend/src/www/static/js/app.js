@@ -220,7 +220,8 @@ $('document').ready(function() {
 				"<img id=\"three-dot-menu-btn\" class=\"float-right\" src=\"../static/img/three-dot-menu.png\" style=\"height: 28px; padding: 5px 5px 5px 10px; cursor: pointer;\">" +
 				"<div class=\"dropdown-content\">" +
 					"<ul>" +
-						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><p>E-mail</p</li>" +
+						"<li class=\"dropdown-list-el\" id=\"dropdown-email-btn\"><img style=\"height: 15px; margin-right: 5px; display:inline;\" src=\"../static/img/email-icon-black.png\"><p style=\"display:inline;\">E-mail Students</p</li>" +
+                        "<li><hr style=\"padding:2px 0 2px 0; margin:0;\"></li>" +
 						"<li class=\"dropdown-list-el\" id=\"dropdown-manual-assignation-btn\"><p>Manual Assignation</p></li>" +
 					"</ul>" +
 				"</div>" +
@@ -285,7 +286,6 @@ $('document').ready(function() {
             });
 
             $('#modal-manual-assignation').on('hidden.bs.modal', function () {
-                console.log("Modal dismissed")
                 if ($("#save-manual-assignation-btn").hasClass("mmm-btn-disabled")) { // matches have been saved
                     $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
                 }
@@ -360,9 +360,6 @@ $('document').ready(function() {
                                         grpData = JSON.parse(res);
                                         grpData = grpData.group.data;
 
-                                        console.log(grpData);
-                                        console.log(mentorsData);
-
                                         // Get current mentor.
                                         var mentorId = 0;
                                         for (var i = 0; i < grpData.length; ++i) {
@@ -374,25 +371,43 @@ $('document').ready(function() {
 
                                         // create select element
                                         $("#manual-table tbody").append("<tr>" +
-                                                "<td>"+sfaculty+"</td>" +
-                                                "<td>"+sfullname+"</td>" +
+                                                "<td>" + sfaculty + "</td>" +
+                                                "<td>" + sfullname + "</td>" +
                                                 "<td><select onchange=\"manAssignationDropdownChanged()\" class=\"form-control\" id=\"select-" + selected_student + "\"></select></td>");
 
+                                        var menteesArray = []
                                         // Create options for mentors, adding them to the select element
                                         for (var i = 0; i < mentorsData.length; ++i) {
+
+                                            // TODO: get group for this mentor using API. Then, get number of group members -1 for number of mentees.
+                                            // var numMentees = 0;
+                                            // $.ajax({
+                                            //     type: "POST",
+                                            //     url: "/get_group",
+                                            //     data: JSON.stringify({"student_id": mentorsData[i].student_id}),
+                                            //     contentType: 'application/json; charset=utf-8',
+                                            //     success: function(res) {
+                                            //
+                                            //         currMentorGroup = JSON.parse(res)
+                                            //         currMentorGroup = currMentorGroup.group.data
+                                            //         numMentees = currMentorGroup.length - 1;
+                                            //         console.log(numMentees);
+                                            //     }
+                                            // });
 
                                             var selected = '';
                                             var currMentorSym = ''
 
                                             if (mentorsData[i].student_id == mentorId) {
                                                 selected = 'selected=\"selected\"';
-                                                currMentorSym = " &starf;"
+                                                currMentorSym = "&starf;"
                                             }
 
                                             $('#select-' + selected_student).append('<option '
                                                     + selected + '>'
                                                     + mentorsData[i].name + ' '
-                                                    + mentorsData[i].surname
+                                                    + mentorsData[i].surname + ' '
+                                                    // + '(' + numMentees + ')' + ' '
                                                     + currMentorSym
                                                     + '</option>');
                                         }

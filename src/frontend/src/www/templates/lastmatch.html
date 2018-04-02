@@ -140,9 +140,9 @@
               <p>The selected students will be sent an e-mail, where the content can be specified below.</p>
               <p style="margin-top:10px;">You may also use the following tags to further personalize your email subject and content:</p>
               <p>
-                  <code>[FNAME]</code> = Mentor's <b>first</b> name.<br>
-                  <code>[LNAME]</code> = Mentor's <b>last</b> name.<br>
-                  <code>[MLIST]</code> = List of <b>mentees</b> assigned to the mentor.
+                  <code>[FNAME]</code> = Student's <b>first</b> name.<br>
+                  <code>[LNAME]</code> = Student's <b>last</b> name.<br>
+                  <code>[MLIST]</code> = List of <b>mentees</b> in the group.
               </p>
           </div> <!-- instructions END -->
 
@@ -152,7 +152,8 @@
           <textarea class="form-control" style="line-height: 1.3em; font-weight:300; font-size:0.8em; height:145px; color:black;"></textarea>
 
           <!-- Checkbox for sending email to the whole group -->
-          <input type="checkbox" checked><p style="display:inline;"> &nbsp;Also e-mail all mentees assigned to the selected mentors.</p><br>
+          <!-- <input type="checkbox" checked><p style="display:inline;"> &nbsp;Also e-mail all mentees assigned to the selected mentors.</p><br> -->
+          <input type="checkbox" checked><p style="display:inline;"> &nbsp;Also e-mail all members in the same group the students selected.</p><br>
 
           <!-- EMAIL BUTTON  -->
           <button id="email-students-btn" class="mmm-btn" style="float:right;outline:0;">
