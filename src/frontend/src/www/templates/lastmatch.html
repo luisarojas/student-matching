@@ -122,61 +122,48 @@
 
 <!-- MODALS -->
 
-<!-- E-mail Selected Modal -->
-<div class="modal hide fade" id="modal-email-checked" role="dialog">
+<!-- EMAIL STUDENTS MODAL -->
+<div class="modal hide fade" id="modal-email-students" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
+    <!-- content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Email Selected Students</h4>
+        <h4 class="modal-title">Email Students</h4>
       </div>
-      <div class="modal-body container">
+      <div class="modal-body">
 
+          <div class="main-components">
           <!-- instructions -->
-          <div class="row main-components">
-            <div class="col">
-              <span style="font-size:0.8em; font-weight:400;">
-                Send a personalized email to selected students from the table
-              </span>
-            </div>
+          <div>
+              <p>The selected students will be sent an e-mail, where the content can be specified below.</p>
+              <p style="margin-top:10px;">You may also use the following tags to further personalize your email subject and content:</p>
+              <p>
+                  <code>[FNAME]</code> = Mentor's <b>first</b> name.<br>
+                  <code>[LNAME]</code> = Mentor's <b>last</b> name.<br>
+                  <code>[MLIST]</code> = List of <b>mentees</b> assigned to the mentor.
+              </p>
           </div> <!-- instructions END -->
 
+          <p style="margin-top:20px;">Subject:</p>
+          <input style="font-weight:300; font-size:0.8em; color:black; height:25px;" type="text" class="form-control">
+          <p style="margin-top: 10px;">Content:</p>
+          <textarea class="form-control" style="line-height: 1.3em; font-weight:300; font-size:0.8em; height:145px; color:black;"></textarea>
+
           <!-- Checkbox for sending email to the whole group -->
-          <div class="row main-components" style="margin-bottom: 2em">
-            <div class="col">
-              <input id="checkBox" type="checkbox">
-              <span style="font-size:0.8em; font-weight:400;">
-                Send email to all students in this group
-              </span>
-            </input>
-            </div>
-          </div>
+          <input type="checkbox" checked><p style="display:inline;"> &nbsp;Also e-mail all mentees assigned to the selected mentors.</p><br>
 
-
-          <!-- subject  -->
-          <div class="row main-components">
-            <div class="col-9">
-              <input type="text" name="subject" class="form-control" placeholder="Subject" style="font-size:0.8em; color:black; margin-bottom:0.5em">
-            </div>
-          </div> <!-- subject END  -->
-
-          <!-- message -->
-          <div class="row main-components">
-            <div class="col">
-              <textarea class="form-control" placeholder="Message" id="mentor-e-mail-textarea" style="font-size:0.8em; height:150px;color:black;"></textarea>
-              <!-- EMAIL BUTTON  -->
-              <button id="btn-email-selected" class="mmm-btn" style="float:right;outline:0;">
-                <a style="display:inline-block;">
-                  <div>
-                    <img src="/static/img/mail-icon.png" style="height:15px">
-                    <p>SEND EMAIL</p>
-                  </div>
-                </a>
-              </button>
-            </div>
-          </div> <!-- message END -->
+          <!-- EMAIL BUTTON  -->
+          <button id="email-students-btn" class="mmm-btn" style="float:right;outline:0;">
+            <a style="display:inline-block;">
+              <div>
+                <img src="/static/img/mail-icon.png" style="height:15px">
+                <p>SEND EMAIL</p>
+              </div>
+            </a>
+          </button>
+      </div>
 
         <!-- loader -->
         <div class="row loading-components">
@@ -197,21 +184,22 @@
 
         <!-- error -->
         <div class="row error-components">
-          <div class="col-1">
+          <!-- <div class="col-1">
             <img src="static/img/error-icon.png" style="height:25px;">
-          </div>
-          <div class="col-11">
+          </div> -->
+          <!-- <div class="col-11"> -->
+          <div>
             <div style="font-size:0.8em; font-weight:400; text-align:center;">
-              Must select atleast one student!
+              Please select at least one student to e-mail.
             </div>
           </div>
         </div>
 
         <!-- footer -->
-        <div class="row">
+        <!-- <div class="row">
           <div class="class">
           </div>
-        </div>
+        </div> -->
 
       </div> <!-- modal body END -->
     </div><!-- modal content END -->
@@ -232,8 +220,8 @@
 
       <div class="modal-body">
           <div class="manual-section">
-              <p>Change the current mentor in the dropdown box and click the "Save" button below. If you wish to cancel, just close this window; no changes will be saved.</p>
-
+              <p style="display:inline;">Change the current mentor in the dropdown box and click the  </p> <inlinestyle style="color: #61bdc6; display:inline; font-weight:500; font-size:0.8em;">SAVE</inlinestyle> <p style="display:inline;"> button below. If you wish to cancel, just close this window; no changes will be saved.</p>
+              <p>The current mentor for each mentee is marked with a star ( &starf; ) beside their name.</p>
               <hr>
 
               <table id="manual-table">
@@ -281,10 +269,6 @@
             </div>
           </div>
         </div> -->
-
-
-
-
     </div> <!-- end modal content -->
     </div>
   </div>

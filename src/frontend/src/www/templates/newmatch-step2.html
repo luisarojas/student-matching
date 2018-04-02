@@ -1,5 +1,5 @@
 <p id="step2-title" class="page-title"><b>STEP 2:</b> MATCH</p>
-<p>Below, please select the level of relevance you consider for each of the questions identified. Once you're done, click the 'MATCH' button to begin the matching process.<br><br></p>
+<p style="display:inline;">Below, please select the level of relevance you consider for each of the questions identified. Once you're done, click the </p> <inlinestyle style="color: #61bdc6; display:inline; font-weight:500;">MATCH</inlinestyle> <p style="display:inline;"> button to begin the matching process.<br><br></p>
 <input id="" type="checkbox"><p style="display:inline;"> &nbsp;Merge with most recent matches stored.</p><br>
 
 <!-- table -->
@@ -67,7 +67,7 @@
       <div class="modal-body">
           <form id="mentor-email-form"><div class="form-group">
             <p style="display:inline; font-weight:400;" id="num-mentors-email"></p>
-            <p style="display:inline;"> Mentors will be sent a list of the mentees that have been assigned to them. You can choose to include a personalized message in said e-mails, which can be redacted below.</p>
+            <p style="display:inline;"> Mentors will be sent a list of the mentees that have been assigned to them. You can choose to  a personalized message in said e-mails, which can be redacted below.</p>
             <p style="margin-top:10px;">You may also use the following tags to personalize your email subject and content:</p>
             <p>
                 <code>[FNAME]</code> = Mentor's <b>first</b> name.<br>
@@ -92,6 +92,13 @@
         <div class="modal-success-body" style="width:100%; text-align:center; display:none;">
             <img src="static/img/green-checkmark.png" style="height:40px; margin-bottom:10px;">
             <p>E-mail sent.</p>
+        </div>
+
+        <!-- loader -->
+        <div class="row loading-components" style="display:none;">
+          <div class="col">
+            <center><div class="loader"></div></center>
+          </div>
         </div>
 
       </div> <!-- end modal body -->

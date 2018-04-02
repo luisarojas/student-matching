@@ -238,44 +238,48 @@ $('document').ready(function() {
             $(".dropdown-content #dropdown-email-btn").click(function() {
 
                 //Hide all the components
-                $("#modal-email-checked .main-components").hide()
-                $("#modal-email-checked .loading-components").hide()
-                $("#modal-email-checked .success-components").hide()
-                $("#modal-email-checked .error-components").hide()
+                $("#modal-email-students .main-components").hide()
+                $("#modal-email-students .loading-components").hide()
+                $("#modal-email-students .success-components").hide()
+                $("#modal-email-students .error-components").hide()
 
                 //check if there are any selected students
                 if ($("#last-match-table").bootstrapTable('getSelections').length > 0){
                     //Ensure that only the needed info is displayed in the modal
-                    $("#modal-email-checked .main-components").show()
+                    $("#modal-email-students .main-components").show()
                 }else{
                     //Display Error
-                    $("#modal-email-checked .error-components").show()
+                    $("#modal-email-students .error-components").show()
                 }
 
                 //Display a pop-up for emailing
-                $('#modal-email-checked').modal('show');
+                $('#modal-email-students').modal('show');
 
             });
 
             //Send an email to all the users checked on the table
-            $("#btn-email-selected").click(function(){
+            $("#email-students-btn").click(function(){
                 //console.log("[TODO] Sending email...");
+                console.log("email-students-btn clciked")
 
-                $("#modal-email-checked .main-components").hide()
-                $("#modal-email-checked .loading-components").show()
-                $("#modal-email-checked .success-components").hide()
-                $("#modal-email-checked .error-components").hide()
+                $("#modal-email-students .main-components").hide()
+                $("#modal-email-students .loading-components").show()
+                $("#modal-email-students .success-components").hide()
+                $("#modal-email-students .error-components").hide()
+
                 //TODO send this to an actual email route in the server
                 $.get("/sleeper").done(function(){
                     //success
-                    $("#modal-email-checked .loading-components").hide()
-                    $("#modal-email-checked .success-components").show()
+                    $("#modal-email-students .loading-components").hide()
+                    $("#modal-email-students .success-components").show()
                 });
 
                 //display all the emails
                 $("#last-match-table").bootstrapTable('getSelections').forEach(function(ele){
-	            console.log(ele);
+	                   console.log(ele);
                 })
+
+                $("#last-match-table").bootstrapTable('uncheckAll').find("tr").removeClass('selected');
 
                 //todo: send request with emails to server
             });
@@ -315,17 +319,18 @@ $('document').ready(function() {
 
                 var displayCount = 0;
 
+                // for each selected (checked) student
                 for (var idx = 0; idx < selectedStudents.length; ++idx) {
 
                     if (!selectedStudents[idx].is_mentor) {
-                        displayCount++;
+                        displayCount++; // only count mentees
                     } else {
                         continue;
                     }
 
                     current_student = selectedStudents[idx].student_id;
 
-                    $.post('/students/'+current_student).done(function(res) {
+                    $.post('/students/' + current_student).done(function(res) {
                         resData = JSON.parse(res);
 
                         studentData = resData.student.data[0];
@@ -355,6 +360,9 @@ $('document').ready(function() {
                                         grpData = JSON.parse(res);
                                         grpData = grpData.group.data;
 
+                                        console.log(grpData);
+                                        console.log(mentorsData);
+
                                         // Get current mentor.
                                         var mentorId = 0;
                                         for (var i = 0; i < grpData.length; ++i) {
@@ -364,21 +372,28 @@ $('document').ready(function() {
                                             }
                                         }
 
+                                        // create select element
                                         $("#manual-table tbody").append("<tr>" +
                                                 "<td>"+sfaculty+"</td>" +
                                                 "<td>"+sfullname+"</td>" +
                                                 "<td><select onchange=\"manAssignationDropdownChanged()\" class=\"form-control\" id=\"select-" + selected_student + "\"></select></td>");
 
-                                        // Create options for mentors.
+                                        // Create options for mentors, adding them to the select element
                                         for (var i = 0; i < mentorsData.length; ++i) {
+
                                             var selected = '';
+                                            var currMentorSym = ''
+
                                             if (mentorsData[i].student_id == mentorId) {
                                                 selected = 'selected=\"selected\"';
+                                                currMentorSym = " &starf;"
                                             }
-                                            $('#select-'+selected_student).append('<option '
+
+                                            $('#select-' + selected_student).append('<option '
                                                     + selected + '>'
                                                     + mentorsData[i].name + ' '
                                                     + mentorsData[i].surname
+                                                    + currMentorSym
                                                     + '</option>');
                                         }
                                     }
@@ -636,6 +651,10 @@ $('document').ready(function() {
         // supress default form action
         e.preventDefault();
 
+        // replace the modal content with loading icon
+        $('#modal-email-mentors').find("form").hide()
+        $("#modal-email-mentors").find("div.loading-components").show()
+
         // grab the current value of the text area
         textareaText = $(this).find("textarea").val();
         inputText = $(this).find("input").val();
@@ -647,10 +666,6 @@ $('document').ready(function() {
             emails[i].content = customTextareaText;
             emails[i].subject = customInputText;
         });
-
-        // replace the modal content with a success message
-        $('#modal-email-mentors').find("form").hide()
-        $('#modal-email-mentors').find(".modal-success-body").show()
 
         console.log(emails.length)
 
@@ -667,6 +682,11 @@ $('document').ready(function() {
                     console.log(resData.message);
                 }
             }
+        });
+
+        $.get("/sleeper").done(function(){
+            $("#modal-email-mentors .loading-components").hide()
+            $("#modal-email-mentors .modal-success-body").show()
         });
     });
 
