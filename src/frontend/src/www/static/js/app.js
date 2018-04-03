@@ -375,41 +375,61 @@ $('document').ready(function() {
                                                 "<td>" + sfullname + "</td>" +
                                                 "<td><select onchange=\"manAssignationDropdownChanged()\" class=\"form-control\" id=\"select-" + selected_student + "\"></select></td>");
 
-                                        var menteesArray = []
                                         // Create options for mentors, adding them to the select element
+                                        // TODO: Change this to while loop or equivalent
                                         for (var i = 0; i < mentorsData.length; ++i) {
 
-                                            // TODO: get group for this mentor using API. Then, get number of group members -1 for number of mentees.
-                                            // var numMentees = 0;
-                                            // $.ajax({
-                                            //     type: "POST",
-                                            //     url: "/get_group",
-                                            //     data: JSON.stringify({"student_id": mentorsData[i].student_id}),
-                                            //     contentType: 'application/json; charset=utf-8',
-                                            //     success: function(res) {
+                                            // get group for this mentor using API. Then, get number of group members -1 for number of mentees.
+                                            var numMentees = 0;
+                                            var mentorStudentId = mentorsData[i].student_id;
+                                            var mentorFirstName = mentorsData[i].name;
+                                            var mentorLastName = mentorsData[i].surname;
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/get_group",
+                                                data: JSON.stringify({"student_id": mentorsData[i].student_id}),
+                                                contentType: 'application/json; charset=utf-8',
+                                                success: function(res) {
+
+                                                    currMentorGroup = JSON.parse(res)
+                                                    currMentorGroup = currMentorGroup.group.data
+                                                    numMentees = currMentorGroup.length - 1;
+                                                    console.log(numMentees); // correct
+
+                                                    var selected = '';
+                                                    var currMentorSym = ''
+
+                                                    // if (mentorsData[i].student_id == mentorId) {
+                                                    if (mentorStudentId == mentorId) {
+                                                        selected = 'selected=\"selected\"';
+                                                        currMentorSym = "&starf;"
+                                                    }
+
+                                                    $('#select-' + selected_student).append('<option '
+                                                            + selected + '>'
+                                                            + mentorFirstName + ' '
+                                                            + mentorLastName + ' '
+                                                            + '(' + numMentees + ')' + ' '
+                                                            + currMentorSym
+                                                            + '</option>');
+                                                }
+                                            });
+
+                                            // var selected = '';
+                                            // var currMentorSym = ''
                                             //
-                                            //         currMentorGroup = JSON.parse(res)
-                                            //         currMentorGroup = currMentorGroup.group.data
-                                            //         numMentees = currMentorGroup.length - 1;
-                                            //         console.log(numMentees);
-                                            //     }
-                                            // });
-
-                                            var selected = '';
-                                            var currMentorSym = ''
-
-                                            if (mentorsData[i].student_id == mentorId) {
-                                                selected = 'selected=\"selected\"';
-                                                currMentorSym = "&starf;"
-                                            }
-
-                                            $('#select-' + selected_student).append('<option '
-                                                    + selected + '>'
-                                                    + mentorsData[i].name + ' '
-                                                    + mentorsData[i].surname + ' '
-                                                    // + '(' + numMentees + ')' + ' '
-                                                    + currMentorSym
-                                                    + '</option>');
+                                            // if (mentorsData[i].student_id == mentorId) {
+                                            //     selected = 'selected=\"selected\"';
+                                            //     currMentorSym = "&starf;"
+                                            // }
+                                            //
+                                            // $('#select-' + selected_student).append('<option '
+                                            //         + selected + '>'
+                                            //         + mentorsData[i].name + ' '
+                                            //         + mentorsData[i].surname + ' '
+                                            //         // + '(' + numMentees + ')' + ' '
+                                            //         + currMentorSym
+                                            //         + '</option>');
                                         }
                                     }
                                 });
