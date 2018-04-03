@@ -379,57 +379,43 @@ $('document').ready(function() {
                                         // TODO: Change this to while loop or equivalent
                                         for (var i = 0; i < mentorsData.length; ++i) {
 
-                                            // get group for this mentor using API. Then, get number of group members -1 for number of mentees.
-                                            // var numMentees = 0;
-                                            // var mentorStudentId = mentorsData[i].student_id;
-                                            // var mentorFirstName = mentorsData[i].name;
-                                            // var mentorLastName = mentorsData[i].surname;
-                                            // $.ajax({
-                                            //     type: "POST",
-                                            //     url: "/get_group",
-                                            //     data: JSON.stringify({"student_id": mentorsData[i].student_id}),
-                                            //     contentType: 'application/json; charset=utf-8',
-                                            //     success: function(res) {
-                                            //
-                                            //         currMentorGroup = JSON.parse(res)
-                                            //         currMentorGroup = currMentorGroup.group.data
-                                            //         numMentees = currMentorGroup.length - 1;
-                                            //         console.log(numMentees); // correct
-                                            //
-                                            //         var selected = '';
-                                            //         var currMentorSym = ''
-                                            //
-                                            //         // if (mentorsData[i].student_id == mentorId) {
-                                            //         if (mentorStudentId == mentorId) {
-                                            //             selected = 'selected=\"selected\"';
-                                            //             currMentorSym = "&starf;"
-                                            //         }
-                                            //
-                                            //         $('#select-' + selected_student).append('<option '
-                                            //                 + selected + '>'
-                                            //                 + mentorFirstName + ' '
-                                            //                 + mentorLastName + ' '
-                                            //                 + '(' + numMentees + ')' + ' '
-                                            //                 + currMentorSym
-                                            //                 + '</option>');
-                                            //     }
-                                            // });
+                                            (function (i){
+                                                // get group for this mentor using API. Then, get number of group members -1 for number of mentees.
+                                                var numMentees = 0;
+                                                var mentorStudentId = mentorsData[i].student_id;
+                                                var mentorFirstName = mentorsData[i].name;
+                                                var mentorLastName = mentorsData[i].surname;
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "/get_group",
+                                                    data: JSON.stringify({"student_id": mentorsData[i].student_id}),
+                                                    contentType: 'application/json; charset=utf-8',
+                                                    success: function(res) {
 
-                                            var selected = '';
-                                            var currMentorSym = ''
+                                                        currMentorGroup = JSON.parse(res)
+                                                        currMentorGroup = currMentorGroup.group.data
+                                                        numMentees = currMentorGroup.length - 1;
+                                                        //console.log(i, numMentees); // correct
 
-                                            if (mentorsData[i].student_id == mentorId) {
-                                                selected = 'selected=\"selected\"';
-                                                currMentorSym = "&starf;"
-                                            }
+                                                        var selected = '';
+                                                        var currMentorSym = ''
 
-                                            $('#select-' + selected_student).append('<option '
-                                                    + selected + '>'
-                                                    + mentorsData[i].name + ' '
-                                                    + mentorsData[i].surname + ' '
-                                                    // + '(' + numMentees + ')' + ' '
-                                                    + currMentorSym
-                                                    + '</option>');
+                                                        // if (mentorsData[i].student_id == mentorId) {
+                                                        if (mentorStudentId == mentorId) {
+                                                            selected = 'selected=\"selected\"';
+                                                            currMentorSym = "&starf;"
+                                                        }
+
+                                                        $('#select-' + selected_student).append('<option '
+                                                                                                + selected + '>'
+                                                                                                + mentorFirstName + ' '
+                                                                                                + mentorLastName + ' '
+                                                                                                + '(' + numMentees + ')' + ' '
+                                                                                                + currMentorSym
+                                                                                                + '</option>');
+                                                    }
+                                                });
+                                            })(i);
                                         }
                                     }
                                 });
