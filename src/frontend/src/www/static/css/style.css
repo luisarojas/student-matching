@@ -386,12 +386,12 @@ select.filter-control-faculty {
 }
 
 .dropdown li hr {
-	margin-top: 5px;
-	margin-bottom:5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.dropdown li p:hover { background-color: rgb(255,237,246); }
-
+.dropdown li:hover { background-color: rgb(255,237,246); cursor: pointer; }
+.dropdown li hr:hover { background-color: transparent !important; cursor: default !important; }
 
 th[data-field='faculty'] > :first-child{
     position:absolute;
