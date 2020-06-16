@@ -1,5 +1,6 @@
-<center><img src="./res/logo.png" width="220px">
-</center>
+<p align="center">
+<img src="./res/logo.png" width="220">
+</p>
 <br>
 <p align="center">
 <a href="#background-and-motivation">Background && Motivation</a>
