@@ -1,7 +1,7 @@
+<center><img src="./res/logo.png" width="220px">
+</center>
+<br>
 <p align="center">
-
-<img src="./res/logo.png" width="220px"><br><br>
-
 <a href="#background-and-motivation">Background && Motivation</a>
 &nbsp; • &nbsp;
 <a href="#overview">Overview</a>
