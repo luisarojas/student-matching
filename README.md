@@ -27,6 +27,7 @@
 <img src="./res/motivation.png" width="550px">
 
 <br>
+
 <a name="overview"></a>
 # Overview
 
@@ -50,6 +51,7 @@
 <img src="./res/system-architecture.png" width="500px">
 
 <br>
+
 <a name="algorithm"></a>
 # Algorithm
 
@@ -66,6 +68,7 @@ We looked into different current algorithms that could be a good fit for our pro
 <img src="./res/matching algorithm visual.png" width="550px">
 
 <br>
+
 <a name="features"></a>
 # Features
 
@@ -83,6 +86,7 @@ We looked into different current algorithms that could be a good fit for our pro
 <img src="./res/features analytics.png" width="400px">
 
 <br>
+
 <a name="ui"></a>
 # User Interface
 
