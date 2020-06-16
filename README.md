@@ -31,17 +31,17 @@
 # Overview
 
 ✅ Automated group generation per faculty through the matching of mentors and mentees.<br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 👉🏼 Excel file upload and download.<br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 👉🏼 Ability to merge batches of students entered.<br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 👉🏼 Custom question weighting.<br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 👉🏼 Manual mentor and mentee assignation.<br>
+&emsp;&emsp; 👉🏼 Excel file upload and download.<br>
+&emsp;&emsp; 👉🏼 Ability to merge batches of students entered.<br>
+&emsp;&emsp; 👉🏼 Custom question weighting.<br>
+&emsp;&emsp; 👉🏼 Manual mentor and mentee assignation.<br>
 
 ✅ Mentor log management and mentee feedback for program assessment.<br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 👉🏼 Form builder and response manager.
+&emsp;&emsp; 👉🏼 Form builder and response manager.
 
 ✅ Track the continued engagement of mentees and mentors.<br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 👉🏼 Download of tracked engagement data summary.<br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 👉🏼 Visualization of engagement per group.<br><br>
+&emsp;&emsp; 👉🏼 Download of tracked engagement data summary.<br>
+&emsp;&emsp; 👉🏼 Visualization of engagement per group.<br><br>
 
 
 <img src="./res/overview.png" width="490px">
@@ -56,9 +56,9 @@
 
 We looked into different current algorithms that could be a good fit for our problem. However, we found significant drawbacks for those that we found, so we opted for designing our own:
 
-✅ Based on K-Means clustering algorithm
-✅ Customizable number of mentees per group
-✅ Guarantees one mentor per group
+✅ Based on K-Means clustering algorithm<br>
+✅ Customizable number of mentees per group<br>
+✅ Guarantees one mentor per group<br>
 
 
 <img src="./res/algorithm.png" width="450px"><br><br>
