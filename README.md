@@ -1,7 +1,19 @@
-<center>
-<img src="./res/logo.png" width="220px"><br><br>
-[**Background && Motivation**](#background-and-motivation) • [**Overview**](#overview) • [**Algorithm**](#algorithm) • [**Features**](#features) • [**User Interface**](#ui)
-</center>
+<p align="center">
+
+	<img src="./res/logo.png" width="220px"><br><br>
+
+	 <a href="#background-and-motivation">Background && Motivation</a>
+    &nbsp; • &nbsp;
+    <a href="#overview">Overview</a>
+    &nbsp; • &nbsp;
+    <a href="#algorithm">Algorithm</a>
+    &nbsp; • &nbsp;
+    <a href="#features">Features</a>
+    &nbsp; • &nbsp;
+    <a href="#ui">User Interface</a>
+</p>
+
+
 <br><br>
 
 <a name="background-and-motivation"></a>
