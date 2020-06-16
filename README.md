@@ -1,19 +1,17 @@
 <p align="center">
 
-	<img src="./res/logo.png" width="220px"><br><br>
+<img src="./res/logo.png" width="220px"><br><br>
 
-	 <a href="#background-and-motivation">Background && Motivation</a>
-    &nbsp; • &nbsp;
-    <a href="#overview">Overview</a>
-    &nbsp; • &nbsp;
-    <a href="#algorithm">Algorithm</a>
-    &nbsp; • &nbsp;
-    <a href="#features">Features</a>
-    &nbsp; • &nbsp;
-    <a href="#ui">User Interface</a>
+<a href="#background-and-motivation">Background && Motivation</a>
+&nbsp; • &nbsp;
+<a href="#overview">Overview</a>
+&nbsp; • &nbsp;
+<a href="#algorithm">Algorithm</a>
+&nbsp; • &nbsp;
+<a href="#features">Features</a>
+&nbsp; • &nbsp;
+<a href="#ui">User Interface</a>
 </p>
-
-
 <br><br>
 
 <a name="background-and-motivation"></a>
@@ -27,6 +25,7 @@
 ## Motivation
 <img src="./res/motivation.png" width="550px">
 
+<br>
 <a name="overview"></a>
 # Overview
 
@@ -49,6 +48,7 @@
 ## Tools && Architecture
 <img src="./res/system-architecture.png" width="500px">
 
+<br>
 <a name="algorithm"></a>
 # Algorithm
 
@@ -64,7 +64,7 @@ We looked into different current algorithms that could be a good fit for our pro
 <img src="./res/algorithm.png" width="450px"><br><br>
 <img src="./res/matching algorithm visual.png" width="550px">
 
-
+<br>
 <a name="features"></a>
 # Features
 
@@ -81,6 +81,7 @@ We looked into different current algorithms that could be a good fit for our pro
 ## Analytics
 <img src="./res/features analytics.png" width="400px">
 
+<br>
 <a name="ui"></a>
 # User Interface
 
